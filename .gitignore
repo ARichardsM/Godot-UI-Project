@@ -1,0 +1,21 @@
+# Ignore specific folders
+.godot/
+/android/
+.Rproj.user/
+.vs/
+
+# Ignore imports
+*.import
+
+# Ignore R functionality files
+.Rhistory
+.RData
+
+# Ignore C# functionality files
+CSharp.sln
+
+# Ignore project files
+csharp.Rproj
+CSharp.csproj
+project.godot
+Data.csv

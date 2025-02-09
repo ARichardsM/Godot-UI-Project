@@ -1,0 +1,75 @@
+[gd_scene load_steps=4 format=3 uid="uid://dcxbmqpnfjj6v"]
+
+[ext_resource type="Script" path="res://Node2d.cs" id="1_u30uj"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_crewf"]
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_u4uwj"]
+font_size = 20
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_u30uj")
+
+[node name="Title" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -158.5
+offset_top = -300.0
+offset_right = 158.5
+offset_bottom = -245.0
+grow_horizontal = 2
+text = "Godot UI Project"
+label_settings = SubResource("LabelSettings_crewf")
+
+[node name="Sub-Title" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -42.5
+offset_top = -225.0
+offset_right = 42.5
+offset_bottom = -197.0
+grow_horizontal = 2
+text = "Sub-Title
+"
+label_settings = SubResource("LabelSettings_u4uwj")
+
+[node name="Button Top" type="Button" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -476.0
+offset_right = 476.0
+offset_bottom = 95.0
+grow_horizontal = 2
+text = "Top Button"
+
+[node name="Button Mid" type="Button" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -476.0
+offset_top = 100.0
+offset_right = 476.0
+offset_bottom = 195.0
+grow_horizontal = 2
+text = "Middle Button"
+
+[node name="Button Bot" type="Button" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -476.0
+offset_top = 200.0
+offset_right = 476.0
+offset_bottom = 295.0
+grow_horizontal = 2
+text = "Bottom Button"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[connection signal="pressed" from="Button Top" to="." method="ButtonPressed" binds= [0]]
+[connection signal="pressed" from="Button Mid" to="." method="ButtonPressed" binds= [1]]
+[connection signal="pressed" from="Button Bot" to="." method="ButtonPressed" binds= [2]]

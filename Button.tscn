@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://betbov7d2j85m"]
+
+[ext_resource type="Theme" uid="uid://evy30uts6u4n" path="res://ButtonTheme.tres" id="1_uitxq"]
+
+[node name="Button" type="Button"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -576.0
+offset_right = -126.0
+offset_bottom = 95.0
+grow_horizontal = 2
+theme = ExtResource("1_uitxq")
+text = "Button"

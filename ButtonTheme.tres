@@ -1,0 +1,10 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://evy30uts6u4n"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ctheo"]
+bg_color = Color(0.479662, 0.174502, 0.0318595, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j4c3e"]
+
+[resource]
+Button/styles/focus = SubResource("StyleBoxFlat_ctheo")
+Button/styles/normal = SubResource("StyleBoxFlat_j4c3e")

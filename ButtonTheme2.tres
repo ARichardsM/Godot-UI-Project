@@ -1,8 +1,11 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://c5a301pwy42om"]
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://c5a301pwy42om"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ctheo"]
-bg_color = Color(0.479662, 0.174502, 0.0318595, 1)
+bg_color = Color(0.980392, 0.737255, 0.164706, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j6bod"]
+bg_color = Color(0.596078, 0.984314, 0.596078, 1)
 
 [resource]
 Button/styles/focus = SubResource("StyleBoxFlat_ctheo")
-Button/styles/normal = SubResource("StyleBoxFlat_ctheo")
+Button/styles/normal = SubResource("StyleBoxFlat_j6bod")

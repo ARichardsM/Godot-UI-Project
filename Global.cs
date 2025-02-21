@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class Global : Node
 {
@@ -11,9 +12,7 @@ public partial class Global : Node
         Data = this;
     }
 
-    public int Health { get; set; }
-
-    
+    public List<List<int>> dataMatrix = new List<List<int>>();
 
     public int num = 12;
 }

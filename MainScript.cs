@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class MainScript : Node2D
 {
@@ -19,10 +20,17 @@ public partial class MainScript : Node2D
     {
         GD.Print(Global.Data.num);
         Global.Data.num += 1;
+        GD.Print(Global.Data.dataMatrix.Count);
+        foreach (List<int> w in Global.Data.dataMatrix)
+        {
+            GD.Print(w[0]);
+        }
+
         switch (val)
         {
             case 0:
-                GD.Print("Top Button");
+                GD.Print("Character Menu");
+                GetTree().ChangeSceneToFile("CharacterMenu.tscn");
                 break;
 
             case 1:
@@ -35,6 +43,6 @@ public partial class MainScript : Node2D
 
         }
 
-        GetTree().ChangeSceneToFile("CharacterMenu.tscn");
+        
     }
 }

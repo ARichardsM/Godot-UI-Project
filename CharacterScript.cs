@@ -1,38 +1,47 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
+/// <summary>
+/// Creates characters and adds them to the data matrix.
+/// </summary>
 public partial class CharacterScript : Node2D
 {
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
-
     public void ButtonPressed(int val)
     {
-        GD.Print(Global.Data.num);
-        Global.Data.num += 1;
         switch (val)
         {
             case 0:
-                GD.Print("Left Button");
-                ScaleSelection w = this.GetNode<ScaleSelection>("Selection1");
-                GD.Print("Group 1: " + w.ButtonSelected);
-                w = this.GetNode<ScaleSelection>("Selection2");
-                GD.Print("Group 2: " + w.ButtonSelected);
-                w = this.GetNode<ScaleSelection>("Selection3");
-                GD.Print("Group 3: " + w.ButtonSelected);
-                w = this.GetNode<ScaleSelection>("Selection4");
-                GD.Print("Group 4: " + w.ButtonSelected);
+                // Get each on-screen selection scale
+                List<ScaleSelection> scales = new List<ScaleSelection>();
+                scales.Add(this.GetNode<ScaleSelection>("Selection1"));
+                scales.Add(this.GetNode<ScaleSelection>("Selection2"));
+                scales.Add(this.GetNode<ScaleSelection>("Selection3"));
+                scales.Add(this.GetNode<ScaleSelection>("Selection4"));
+
+                // Selected button list
+                List<int> selectedList = new List<int> ();
+
+                // Verify all scales
+                foreach (ScaleSelection currScale in scales)
+                {
+                    // Cancel if a button hasn't been selected
+                    if (currScale.ButtonSelected == 0)
+                    {
+                        GD.Print("Verify Failed: Button Unselected");
+                        return;
+                    }
+
+                    // Add the button value to the selected button list
+                    selectedList.Add(currScale.ButtonSelected);
+                }
+
+                // Add the selected buttons to Data
+                Global.Data.dataMatrix.Add(selectedList);
                 break;
 
             case 1:
-                GD.Print("Right Button");
+                // Return to the main menu
                 GetTree().ChangeSceneToFile("MainMenu.tscn");
                 break;
 

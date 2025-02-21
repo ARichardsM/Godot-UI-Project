@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://crddj5ogks7yj"]
+[gd_scene load_steps=5 format=3 uid="uid://crddj5ogks7yj"]
 
 [ext_resource type="Script" path="res://MainScript.cs" id="1_qw5tt"]
+[ext_resource type="PackedScene" uid="uid://betbov7d2j85m" path="res://Button.tscn" id="2_5h08c"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_crewf"]
 font_size = 40
@@ -35,15 +36,10 @@ grow_horizontal = 2
 text = "Main Menu"
 label_settings = SubResource("LabelSettings_u4uwj")
 
-[node name="Button Top" type="Button" parent="."]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
+[node name="Button Top" parent="." instance=ExtResource("2_5h08c")]
 offset_left = -476.0
 offset_right = 476.0
-offset_bottom = 95.0
-grow_horizontal = 2
-text = "Top Button"
+text = "Character Menu"
 
 [node name="Button Mid" type="Button" parent="."]
 anchors_preset = 5

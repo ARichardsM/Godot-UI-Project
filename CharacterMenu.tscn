@@ -36,6 +36,7 @@ offset_bottom = -222.0
 grow_horizontal = 2
 text = "Character Menu"
 label_settings = SubResource("LabelSettings_2pn1r")
+horizontal_alignment = 1
 
 [node name="Button" parent="." instance=ExtResource("1_3ey5s")]
 offset_left = -500.0

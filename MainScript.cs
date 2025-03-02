@@ -34,7 +34,8 @@ public partial class MainScript : Node2D
                 break;
 
             case 1:
-                GD.Print("Mid Button");
+                GD.Print("File Menu");
+                GetTree().ChangeSceneToFile("FileMenu.tscn");
                 break;
 
             case 2:

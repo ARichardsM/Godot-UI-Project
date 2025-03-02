@@ -42,16 +42,12 @@ offset_left = -476.0
 offset_right = 476.0
 text = "Character Menu"
 
-[node name="Button Mid" type="Button" parent="."]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
+[node name="Button Mid" parent="." instance=ExtResource("2_5h08c")]
 offset_left = -476.0
 offset_top = 100.0
 offset_right = 476.0
 offset_bottom = 195.0
-grow_horizontal = 2
-text = "Middle Button"
+text = "File Menu"
 
 [node name="Button Bot" type="Button" parent="."]
 anchors_preset = 5

@@ -4,16 +4,24 @@
 if (!require("pacman")) install.packages("pacman")
 
 # Load contributed packages with pacman
-pacman::p_load(pacman, party, rio, tidyverse)
+pacman::p_load(pacman, tidyverse, datasets)
 
 # Import CSV files with readr::read_csv() from tidyverse
 (data <- read_csv("Data.csv"))
 
 
 # Operations ####
+
 data[[ "Name"  ]][1]
 
 data[[ "ValA"  ]]
+
+qplot(ValA, data = data)
+
+qplot(Petal.Length, geom = "histogram", data = iris)
+
+g <- data %>% ggplot(aes(ValA))
+g + geom_bar()
 
 # Clean Up ####
 

@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dv0h4jy636pmx"]
+[gd_scene load_steps=5 format=3 uid="uid://bbcpso2j1mmpu"]
 
-[ext_resource type="Script" path="res://FileMenu.cs" id="1_oywi3"]
-[ext_resource type="PackedScene" uid="uid://betbov7d2j85m" path="res://Button.tscn" id="1_p4jg3"]
+[ext_resource type="Script" path="res://Scripts/FileScript.cs" id="1_t6emp"]
+[ext_resource type="PackedScene" uid="uid://betbov7d2j85m" path="res://Button.tscn" id="2_hjha5"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_83l20"]
 font_size = 40
@@ -10,7 +10,7 @@ font_size = 40
 font_size = 20
 
 [node name="Node2D" type="Node2D"]
-script = ExtResource("1_oywi3")
+script = ExtResource("1_t6emp")
 
 [node name="Title" type="Label" parent="."]
 anchors_preset = 5
@@ -39,21 +39,21 @@ horizontal_alignment = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="Button1A" parent="." instance=ExtResource("1_p4jg3")]
+[node name="Button1A" parent="." instance=ExtResource("2_hjha5")]
 offset_left = -476.0
 offset_top = 100.0
 offset_right = -26.0
 offset_bottom = 195.0
 text = "Input"
 
-[node name="Button1B" parent="." instance=ExtResource("1_p4jg3")]
+[node name="Button1B" parent="." instance=ExtResource("2_hjha5")]
 offset_left = 26.0
 offset_top = 100.0
 offset_right = 476.0
 offset_bottom = 195.0
 text = "Output"
 
-[node name="Button2" parent="." instance=ExtResource("1_p4jg3")]
+[node name="Button2" parent="." instance=ExtResource("2_hjha5")]
 offset_left = -476.0
 offset_top = 200.0
 offset_right = 476.0

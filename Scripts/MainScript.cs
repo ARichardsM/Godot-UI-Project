@@ -30,12 +30,12 @@ public partial class MainScript : Node2D
         {
             case 0:
                 GD.Print("Character Menu");
-                GetTree().ChangeSceneToFile("CharacterMenu.tscn");
+                GetTree().ChangeSceneToFile("Scenes/CharacterMenu.tscn");
                 break;
 
             case 1:
                 GD.Print("File Menu");
-                GetTree().ChangeSceneToFile("FileMenu.tscn");
+                GetTree().ChangeSceneToFile("Scenes/FileMenu.tscn");
                 break;
 
             case 2:

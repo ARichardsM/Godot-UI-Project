@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://6fncjs2rjmd4"]
 
-[ext_resource type="Script" path="res://ScaleSelection.cs" id="1_fsm6r"]
+[ext_resource type="Script" path="res://Scripts/ScaleSelection.cs" id="1_fsm6r"]
 [ext_resource type="PackedScene" uid="uid://betbov7d2j85m" path="res://Button.tscn" id="1_s1nja"]
 
 [node name="ScaledSelection" type="Node2D"]

@@ -2,8 +2,9 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Security;
 
-public partial class FileMenu : Node2D
+public partial class FileScript : Node2D
 {
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -31,8 +32,8 @@ public partial class FileMenu : Node2D
                     // Split the string
                     string[] fileCon = fileText.Split("\n");
                     string[] fileHead = fileCon[0].Split(",");
-
-                    List<List<int>> fileData = new List<List<int>>();
+                    
+                    // Add each observation to the global data
                     for (int i = 1; i < fileCon.Length; i++)
                     {
                         List<int> dataLine = new List<int>();
@@ -43,29 +44,28 @@ public partial class FileMenu : Node2D
                             dataLine.Add(int.Parse(num));
                         }
 
-                        fileData.Add(dataLine);
+                        Global.Data.dataMatrix.Add(dataLine);
                     }
 
-                    // Write the text to the console
-                    GD.Print(fileText);
-                    GD.Print(fileCon[0]);
+                    // Report to GD Console
+                    GD.Print("File read and added to data.");
                 }
+                // On Error, Report to GD Console
                 catch (IOException e)
                 {
-                    Console.WriteLine("The file could not be read:");
-                    Console.WriteLine(e.Message);
+                    GD.Print("The file could not be read:");
+                    GD.Print(e.Message);
                 }
-
-                GD.Print("Left Button");
                 break;
 
             case 1:
-                GD.Print("Right Button");
+                foreach (List<int> s in Global.Data.dataMatrix)
+                    GD.Print("Right Button");
                 break;
 
             case 2:
                 // Return to the main menu
-                GetTree().ChangeSceneToFile("MainMenu.tscn");
+                GetTree().ChangeSceneToFile("Scenes/MainMenu.tscn");
                 break;
 
         }

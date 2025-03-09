@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://crddj5ogks7yj"]
+[gd_scene load_steps=5 format=3 uid="uid://c2eyngokpxijh"]
 
-[ext_resource type="Script" path="res://MainScript.cs" id="1_qw5tt"]
-[ext_resource type="PackedScene" uid="uid://betbov7d2j85m" path="res://Button.tscn" id="2_5h08c"]
+[ext_resource type="Script" path="res://Scripts/MainScript.cs" id="1_14dv5"]
+[ext_resource type="PackedScene" uid="uid://betbov7d2j85m" path="res://Button.tscn" id="2_t3klc"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_crewf"]
 font_size = 40
@@ -10,7 +10,7 @@ font_size = 40
 font_size = 20
 
 [node name="Main" type="Node2D"]
-script = ExtResource("1_qw5tt")
+script = ExtResource("1_14dv5")
 
 [node name="Title" type="Label" parent="."]
 anchors_preset = 5
@@ -37,12 +37,12 @@ text = "Main Menu"
 label_settings = SubResource("LabelSettings_u4uwj")
 horizontal_alignment = 1
 
-[node name="Button Top" parent="." instance=ExtResource("2_5h08c")]
+[node name="Button Top" parent="." instance=ExtResource("2_t3klc")]
 offset_left = -476.0
 offset_right = 476.0
 text = "Character Menu"
 
-[node name="Button Mid" parent="." instance=ExtResource("2_5h08c")]
+[node name="Button Mid" parent="." instance=ExtResource("2_t3klc")]
 offset_left = -476.0
 offset_top = 100.0
 offset_right = 476.0
@@ -64,4 +64,3 @@ text = "Bottom Button"
 
 [connection signal="pressed" from="Button Top" to="." method="ButtonPressed" binds= [0]]
 [connection signal="pressed" from="Button Mid" to="." method="ButtonPressed" binds= [1]]
-[connection signal="pressed" from="Button Bot" to="." method="ButtonPressed" binds= [2]]

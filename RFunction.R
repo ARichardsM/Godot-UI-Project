@@ -7,21 +7,21 @@ if (!require("pacman")) install.packages("pacman")
 pacman::p_load(pacman, tidyverse, datasets)
 
 # Import CSV files with readr::read_csv() from tidyverse
-(data <- read_csv("Data.csv"))
+(data <- read_csv("Data/Data.csv"))
 
 
 # Operations ####
 
-data[[ "Name"  ]][1]
+data[[ "EI"  ]][1]
 
-data[[ "ValA"  ]]
+#data[[ "ValA"  ]]
 
-qplot(ValA, data = data)
+#qplot(ValA, data = data)
 
-qplot(Petal.Length, geom = "histogram", data = iris)
+#qplot(Petal.Length, geom = "histogram", data = iris)
 
-g <- data %>% ggplot(aes(ValA))
-g + geom_bar()
+#g <- data %>% ggplot(aes(ValA))
+#g + geom_bar()
 
 # Clean Up ####
 
@@ -36,3 +36,4 @@ graphics.off()
 
 # Clear console
 cat("\014")
+

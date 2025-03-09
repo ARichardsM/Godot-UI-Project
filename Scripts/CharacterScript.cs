@@ -42,7 +42,7 @@ public partial class CharacterScript : Node2D
 
             case 1:
                 // Return to the main menu
-                GetTree().ChangeSceneToFile("MainMenu.tscn");
+                GetTree().ChangeSceneToFile("Scenes/MainMenu.tscn");
                 break;
 
         }

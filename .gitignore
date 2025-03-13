@@ -18,4 +18,5 @@ CSharp.sln
 csharp.Rproj
 CSharp.csproj
 project.godot
-Data.csv
+/Data
+Godot-UI-Project.Rproj

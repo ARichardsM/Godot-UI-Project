@@ -3,25 +3,89 @@
 # Install pacman ("package manager") if needed
 if (!require("pacman")) install.packages("pacman")
 
-# Load contributed packages with pacman
-pacman::p_load(pacman, tidyverse, datasets)
+# Load contributed packages
+pacman::p_load(pacman, tidyverse)
 
-# Import CSV files with readr::read_csv() from tidyverse
-(data <- read_csv("Data/Data.csv"))
-
+# Import CSV files
+data <- read_csv("Data/Data.csv")
 
 # Operations ####
 
-data[[ "EI"  ]][1]
-
+#data[[ "EI"  ]][1]
 #data[[ "ValA"  ]]
-
 #qplot(ValA, data = data)
-
+# Can specify colors with hex codes (or other methods)
+#palette2 <- c("#D2B48C", "#FA8072", "#EE9A00", "#E0FFFF")
 #qplot(Petal.Length, geom = "histogram", data = iris)
 
-#g <- data %>% ggplot(aes(ValA))
-#g + geom_bar()
+
+## Extraverted vs Introverted ####
+
+# Set Graph Data
+g <- data %>% ggplot(aes(EI))
+
+# Customize Graph
+g + geom_bar() +
+  labs(
+    title    = "Extraverted vs Introverted", 
+    y        = "Number of Occurrences",
+    x        = NULL)
+
+
+# Save Plot
+ggsave("Data/EIChart.png",
+       width = 12, height = 6, dpi = 300)
+
+## Sense vs Intuition ####
+
+# Set Graph Data
+g <- data %>% ggplot(aes(EI))
+
+# Customize Graph
+g + geom_bar() +
+  labs(
+    title    = "Sense vs Intuition", 
+    y        = "Number of Occurrences",
+    x        = NULL)
+
+
+# Save Plot
+ggsave("Data/SNChart.png",
+       width = 12, height = 6, dpi = 300)
+
+## Thinking vs Feeling ####
+
+# Set Graph Data
+g <- data %>% ggplot(aes(EI))
+
+# Customize Graph
+g + geom_bar() +
+  labs(
+    title    = "Thinking vs Feeling", 
+    y        = "Number of Occurrences",
+    x        = NULL)
+
+
+# Save Plot
+ggsave("Data/TFChart.png",
+       width = 12, height = 6, dpi = 300)
+
+## Judging vs Perceiving ####
+
+# Set Graph Data
+g <- data %>% ggplot(aes(EI))
+
+# Customize Graph
+g + geom_bar() +
+  labs(
+    title    = "Judging vs Perceiving", 
+    y        = "Number of Occurrences",
+    x        = NULL)
+
+
+# Save Plot
+ggsave("Data/JPChart.png",
+       width = 12, height = 6, dpi = 300)
 
 # Clean Up ####
 

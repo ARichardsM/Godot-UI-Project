@@ -20,14 +20,12 @@ public partial class FileScript : Node2D
 	{
         switch (val)
         {
+            // Pull File Information
             case 0:
                 try
                 {
-                    // Open the text file using a stream reader
-                    using StreamReader reader = new("Data/Data.csv");
-
-                    // Read the stream as a string
-                    string fileText = reader.ReadToEnd();
+                    // Read the data file
+                    string fileText = File.ReadAllText("Data/Data.csv");
 
                     // Split the string
                     string[] fileCon = fileText.Split("\n");
@@ -57,12 +55,29 @@ public partial class FileScript : Node2D
                     GD.Print(e.Message);
                 }
                 break;
-
+            
+            // Push Data to File
             case 1:
-                foreach (List<int> s in Global.Data.dataMatrix)
-                    GD.Print("Right Button");
+                // Output Variable
+                string outText = "";
+
+                // Write header
+                outText += "EI, SN, TF, JP";
+
+                // Stringify each observation
+                foreach (List<int> savedObs in Global.Data.dataMatrix) {
+                    outText += "\n";
+                    outText += savedObs[0] + ", " + savedObs[1] + ", " + savedObs[2] + ", " + savedObs[3];
+                }
+
+                // Write to file
+                File.WriteAllText("Data/Data.csv", outText);
+
+                // Report to GD Console
+                GD.Print("File written.");
                 break;
 
+            // Exit
             case 2:
                 // Return to the main menu
                 GetTree().ChangeSceneToFile("Scenes/MainMenu.tscn");

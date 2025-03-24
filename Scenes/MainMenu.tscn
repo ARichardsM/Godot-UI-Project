@@ -49,18 +49,15 @@ offset_right = 476.0
 offset_bottom = 195.0
 text = "File Menu"
 
-[node name="Button Bot" type="Button" parent="."]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
+[node name="Button Bot" parent="." instance=ExtResource("2_t3klc")]
 offset_left = -476.0
 offset_top = 200.0
 offset_right = 476.0
 offset_bottom = 295.0
-grow_horizontal = 2
-text = "Bottom Button"
+text = "Exit"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [connection signal="pressed" from="Button Top" to="." method="ButtonPressed" binds= [0]]
 [connection signal="pressed" from="Button Mid" to="." method="ButtonPressed" binds= [1]]
+[connection signal="pressed" from="Button Bot" to="." method="ButtonPressed" binds= [2]]

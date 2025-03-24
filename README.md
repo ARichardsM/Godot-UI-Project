@@ -8,3 +8,4 @@
 - [ ] Custom Graph Designs
 	- [ ] Seperate Plotting and Data Grouping
 	- [ ] Incorporate Graph Palettes
+	- [ ] Label X-Axis

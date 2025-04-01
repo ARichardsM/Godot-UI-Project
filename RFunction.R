@@ -11,14 +11,6 @@ data <- read_csv("Data/Data.csv")
 
 # Operations ####
 
-#data[[ "EI"  ]][1]
-#data[[ "ValA"  ]]
-#qplot(ValA, data = data)
-# Can specify colors with hex codes (or other methods)
-#palette2 <- c("#D2B48C", "#FA8072", "#EE9A00", "#E0FFFF")
-#qplot(Petal.Length, geom = "histogram", data = iris)
-
-
 ## Extraverted vs Introverted ####
 
 # Set Graph Data

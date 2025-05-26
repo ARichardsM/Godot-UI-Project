@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public partial class Global : Node
 {
-    // Create an instance
+    // Create a global instance
     public static Global Data { get; private set; }
 
     public override void _Ready()
@@ -13,6 +13,4 @@ public partial class Global : Node
     }
 
     public List<List<int>> dataMatrix = new List<List<int>>();
-
-    public int num = 12;
 }

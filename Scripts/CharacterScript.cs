@@ -2,9 +2,6 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-/// <summary>
-/// Creates characters and adds them to the data matrix.
-/// </summary>
 public partial class CharacterScript : Node2D
 {
     public void ButtonPressed(int val)

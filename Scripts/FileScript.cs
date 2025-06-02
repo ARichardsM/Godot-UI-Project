@@ -15,7 +15,7 @@ public partial class FileScript : Node2D
                 try
                 {
                     // Read the data file
-                    string fileText = File.ReadAllText("Data/Data.csv");
+                    string fileText = File.ReadAllText("Input/Data.csv");
 
                     // Split the string
                     string[] fileCon = fileText.Split("\n");
@@ -61,7 +61,7 @@ public partial class FileScript : Node2D
                 }
 
                 // Write to file
-                File.WriteAllText("Data/Data.csv", outText);
+                File.WriteAllText("Output/Data.csv", outText);
 
                 // Report to GD Console
                 GD.Print("File written.");

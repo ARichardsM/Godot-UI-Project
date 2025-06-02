@@ -18,6 +18,10 @@ CSharp.sln
 csharp.Rproj
 CSharp.csproj
 project.godot
-/Data
+/Output
 Godot-UI-Project.Rproj
 icon.svg
+
+# Ignore input but not the csv
+/Input/*
+!Input/data.csv

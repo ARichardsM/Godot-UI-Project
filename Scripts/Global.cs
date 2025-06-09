@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 
 public partial class Global : Node
@@ -8,9 +9,9 @@ public partial class Global : Node
     // Create a global instance
     public static Global Data { get; private set; }
 
-    public struct file
+    public class userFile
     {
-        public file(string n)
+        public userFile(string n)
         {
             name = n;
             txt = false;
@@ -22,16 +23,16 @@ public partial class Global : Node
         public bool png;
     }
 
-    public struct directory
+    public class userDirectory
     {
-        public directory(string n) 
+        public userDirectory(string n) 
         { 
             name = n;
-            opts = new List<file>();
+            opts = new List<userFile>();
         }
 
         public string name;
-        public List<file> opts;
+        public List<userFile> opts;
     }
 
     public override void _Ready()
@@ -39,29 +40,54 @@ public partial class Global : Node
         Data = this;
 
         // Pull input directories and nested files
-        foreach (string f in Directory.GetDirectories("Input"))
+        foreach (string dirpath in Directory.GetDirectories("Input"))
         {
-            directory newDir = new directory(Path.GetFileName(f));
+            userDirectory newDir = new userDirectory(Path.GetFileName(dirpath));
 
-            foreach (string z in Directory.GetFiles(f))
+            foreach (string filepath in Directory.GetFiles(dirpath))
             {
-                newDir.opts.Add(new file(Path.GetFileName(z)));
+                // Invalid file type check
+                if (Path.GetExtension(filepath) != ".txt" && Path.GetExtension(filepath) != ".png")
+                    continue;
+
+                // Previous file check
+                bool isPrev = false;
+
+                for (int i = 0; i < newDir.opts.Count; i++)
+                    if (newDir.opts[i].name == Path.GetFileNameWithoutExtension(filepath))
+                    {
+                        isPrev = true;
+
+                        // Add new file type
+                        if (Path.GetExtension(filepath) == ".png")
+                            newDir.opts[i].png = true;
+                        else if (Path.GetExtension(filepath) == ".txt")
+                            newDir.opts[i].txt = true;
+                    }
+
+                if (isPrev)
+                    continue;
+
+                // Create a new file
+                userFile newFil = new userFile(Path.GetFileNameWithoutExtension(filepath));
+
+                // Set new file type
+                if (Path.GetExtension(filepath) == ".png")
+                    newFil.png = true;
+                else if (Path.GetExtension(filepath) == ".txt")
+                    newFil.txt = true;
+
+                // Add file to directory
+                newDir.opts.Add(newFil);
             }
 
-            CharacterDir.Add(newDir); 
+            // Add directory to database
+            database.Add(newDir); 
         }
 
-        // Print Data to Console
-        foreach (directory f in CharacterDir)
-        {
-            GD.Print("Directory " + f.name);
-            foreach (file z in f.opts)
-            {
-                GD.Print("- File " + z.name);
-            }
-        } 
+        // Read data csv
     }
 
     public List<List<int>> dataMatrix = new List<List<int>>();
-    public List<directory> CharacterDir = new List<directory>();
+    public List<userDirectory> database = new List<userDirectory>();
 }

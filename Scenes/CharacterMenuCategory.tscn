@@ -1,0 +1,56 @@
+[gd_scene load_steps=4 format=3 uid="uid://bmo1tgugf1qya"]
+
+[ext_resource type="PackedScene" uid="uid://betbov7d2j85m" path="res://Button.tscn" id="1_aykac"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tpoil"]
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_w4ssr"]
+font_size = 20
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Title" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -158.5
+offset_top = -300.0
+offset_right = 158.5
+offset_bottom = -245.0
+grow_horizontal = 2
+text = "Godot UI Project"
+label_settings = SubResource("LabelSettings_tpoil")
+metadata/_edit_use_anchors_ = true
+
+[node name="Sub-Title" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -78.0
+offset_top = -250.0
+offset_right = 78.0
+offset_bottom = -222.0
+grow_horizontal = 2
+text = "Character Menu"
+label_settings = SubResource("LabelSettings_w4ssr")
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Button" parent="." instance=ExtResource("1_aykac")]
+offset_left = -500.0
+offset_top = 200.0
+offset_right = -50.0
+offset_bottom = 295.0
+text = "Add To Data"
+metadata/_edit_use_anchors_ = true
+
+[node name="Button2" parent="." instance=ExtResource("1_aykac")]
+offset_left = 50.0
+offset_top = 200.0
+offset_right = 500.0
+offset_bottom = 295.0
+text = "Exit"
+metadata/_edit_use_anchors_ = true
+
+[node name="Camera2D" type="Camera2D" parent="."]

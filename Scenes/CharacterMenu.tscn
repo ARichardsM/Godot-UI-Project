@@ -24,6 +24,7 @@ offset_bottom = -245.0
 grow_horizontal = 2
 text = "Godot UI Project"
 label_settings = SubResource("LabelSettings_7gm7t")
+metadata/_edit_use_anchors_ = true
 
 [node name="Sub-Title" type="Label" parent="."]
 anchors_preset = 5
@@ -37,6 +38,7 @@ grow_horizontal = 2
 text = "Character Menu"
 label_settings = SubResource("LabelSettings_2pn1r")
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="Button" parent="." instance=ExtResource("1_3ey5s")]
 offset_left = -500.0
@@ -44,6 +46,7 @@ offset_top = 200.0
 offset_right = -50.0
 offset_bottom = 295.0
 text = "Add To Data"
+metadata/_edit_use_anchors_ = true
 
 [node name="Button2" parent="." instance=ExtResource("1_3ey5s")]
 offset_left = 50.0
@@ -51,6 +54,7 @@ offset_top = 200.0
 offset_right = 500.0
 offset_bottom = 295.0
 text = "Exit"
+metadata/_edit_use_anchors_ = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 

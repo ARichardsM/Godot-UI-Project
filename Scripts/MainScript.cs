@@ -9,8 +9,14 @@ public partial class MainScript : Node2D
     {
         switch (val)
         {
-            // Switch to character menu
+            // Handle adding an entity
             case 0:
+                // Go through each user directory in the database
+                for (int i = 0; i < Global.Data.database.Count; i++) {
+                    GD.Print(Global.Data.database[i].name);
+                }
+
+                // Determine general characteristics
                 GetTree().ChangeSceneToFile("Scenes/CharacterMenu.tscn");
                 break;
 

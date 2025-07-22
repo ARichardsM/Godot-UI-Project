@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bmo1tgugf1qya"]
+[gd_scene load_steps=5 format=3 uid="uid://bmo1tgugf1qya"]
 
-[ext_resource type="PackedScene" uid="uid://betbov7d2j85m" path="res://Button.tscn" id="1_aykac"]
+[ext_resource type="Script" path="res://Scripts/CategoryScript.cs" id="1_xvnw0"]
+[ext_resource type="PackedScene" uid="uid://betbov7d2j85m" path="res://Button.tscn" id="2_qemmf"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_tpoil"]
 font_size = 40
@@ -9,6 +10,7 @@ font_size = 40
 font_size = 20
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource("1_xvnw0")
 
 [node name="Title" type="Label" parent="."]
 anchors_preset = 5
@@ -32,12 +34,12 @@ offset_top = -250.0
 offset_right = 78.0
 offset_bottom = -222.0
 grow_horizontal = 2
-text = "Character Menu"
+text = "Category Menu"
 label_settings = SubResource("LabelSettings_w4ssr")
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Button" parent="." instance=ExtResource("1_aykac")]
+[node name="Button" parent="." instance=ExtResource("2_qemmf")]
 offset_left = -500.0
 offset_top = 200.0
 offset_right = -50.0
@@ -45,7 +47,7 @@ offset_bottom = 295.0
 text = "Add To Data"
 metadata/_edit_use_anchors_ = true
 
-[node name="Button2" parent="." instance=ExtResource("1_aykac")]
+[node name="Button2" parent="." instance=ExtResource("2_qemmf")]
 offset_left = 50.0
 offset_top = 200.0
 offset_right = 500.0
@@ -54,3 +56,7 @@ text = "Exit"
 metadata/_edit_use_anchors_ = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]

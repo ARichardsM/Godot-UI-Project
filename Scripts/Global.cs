@@ -90,4 +90,5 @@ public partial class Global : Node
 
     public List<List<int>> dataMatrix = new List<List<int>>();
     public List<userDirectory> database = new List<userDirectory>();
+    public int databaseNum = 0;
 }

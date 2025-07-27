@@ -43,13 +43,29 @@ metadata/_edit_use_anchors_ = true
 offset_left = -500.0
 offset_top = 200.0
 offset_right = -50.0
-offset_bottom = 295.0
-text = "Add To Data"
+offset_bottom = 245.0
+text = "Previous"
 metadata/_edit_use_anchors_ = true
 
 [node name="Button2" parent="." instance=ExtResource("2_qemmf")]
 offset_left = 50.0
 offset_top = 200.0
+offset_right = 500.0
+offset_bottom = 245.0
+text = "Next"
+metadata/_edit_use_anchors_ = true
+
+[node name="Button3" parent="." instance=ExtResource("2_qemmf")]
+offset_left = -500.0
+offset_top = 250.0
+offset_right = -50.0
+offset_bottom = 295.0
+text = "Add To Data"
+metadata/_edit_use_anchors_ = true
+
+[node name="Button4" parent="." instance=ExtResource("2_qemmf")]
+offset_left = 50.0
+offset_top = 250.0
 offset_right = 500.0
 offset_bottom = 295.0
 text = "Exit"
@@ -60,3 +76,8 @@ metadata/_edit_use_anchors_ = true
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+
+[connection signal="pressed" from="Button" to="." method="ButtonPressed" binds= [0]]
+[connection signal="pressed" from="Button2" to="." method="ButtonPressed" binds= [1]]
+[connection signal="pressed" from="Button3" to="." method="ButtonPressed" binds= [2]]
+[connection signal="pressed" from="Button4" to="." method="ButtonPressed" binds= [3]]

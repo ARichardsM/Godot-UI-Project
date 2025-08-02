@@ -4,35 +4,8 @@ using System.Drawing;
 
 public partial class CategoryScript : Node
 {
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-        // Determine initial values
-        string currDir = Global.Data.database[Global.Data.databaseNum].name;
-        string currFile = Global.Data.database[Global.Data.databaseNum].opts[0].name;
-
-        // Edit Sub-Title
-        var subtitle = GetNode<Label>("Sub-Title");
-		subtitle.Text = currDir + " Category Menu";
-
-        var sprite = GetNode<Sprite2D>("Area2D/Sprite2D");
-		//z.Texture.Set()
-		var w = GD.Load("res://Input/Element/Earth.png");
-		
-        GD.Print(currDir);
-        sprite.SetTexture((Texture2D) w);
-		//float newscale = sprite.Texture.GetWidth();
-        //float newscalew = sprite.Texture.GetHeight();
-		float newScale = 250.0f / Math.Max(sprite.Texture.GetWidth(), sprite.Texture.GetHeight());
-		//GD.Print(newscale +" " + newscalew);
-		Vector2 newScaleVec = new Vector2(newScale, newScale);
-		sprite.Scale = newScaleVec;
-    }
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+    // Declare variables
+    public int fileSel = 0;
 
     // Function for button presses
     public void ButtonPressed(int val)
@@ -40,11 +13,19 @@ public partial class CategoryScript : Node
         GD.Print(val);
         switch (val)
         {
-            // Handle adding an entity
+            // Load the previous file
             case 0:
+                if (fileSel > 0)
+                    updateSprite(--fileSel);
+
                 break;
-            // Switch to file menu
+            // Load the next file
             case 1:
+                int max = Global.Data.database[Global.Data.databaseNum].opts.Count - 1;
+
+                if (fileSel < max)
+                    updateSprite(++fileSel);
+
                 break;
             // Exit
             case 2:
@@ -54,4 +35,67 @@ public partial class CategoryScript : Node
 
 
     }
+
+    // Update the file sprite
+    public void updateSprite(int val)
+    {
+        // Bound check val
+        if ((val < 0) || (val >= Global.Data.database[Global.Data.databaseNum].opts.Count))
+            return;
+
+        // Check for .PNG
+        if (!Global.Data.database[Global.Data.databaseNum].opts[val].png)
+            return;
+
+        // Determine values
+        string currDir = Global.Data.database[Global.Data.databaseNum].name;
+        string currFile = Global.Data.database[Global.Data.databaseNum].opts[fileSel].name;
+
+        // Set sprite
+        var sprite = GetNode<Sprite2D>("Sprite2D");
+        var spriteTexture = GD.Load("res://Input/" + currDir +"/" + currFile + ".png");
+        sprite.SetTexture((Texture2D) spriteTexture);
+
+        // Resize sprite
+        float newScale = 250.0f / Math.Max(sprite.Texture.GetWidth(), sprite.Texture.GetHeight());
+        sprite.Scale = new Vector2(newScale, newScale);
+    }
+
+    // Update the file text
+    public void updateText(int val)
+    {
+        // Bound check val
+        if ((val < 0) || (val >= Global.Data.database[Global.Data.databaseNum].opts.Count))
+            return;
+
+        // Check for .TXT
+        if (!Global.Data.database[Global.Data.databaseNum].opts[val].txt)
+            return;
+
+        // Determine values
+        string currDir = Global.Data.database[Global.Data.databaseNum].name;
+        string currFile = Global.Data.database[Global.Data.databaseNum].opts[fileSel].name;
+
+        // Set text
+    }
+
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
+	{
+        // Determine initial values
+        string currDir = Global.Data.database[Global.Data.databaseNum].name;
+
+        // Edit Sub-Title
+        var subtitle = GetNode<Label>("Sub-Title");
+		subtitle.Text = currDir + " Category Menu";
+
+        // Set initial sprite
+        updateSprite(fileSel);
+        updateText(fileSel);
+    }
+
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta)
+	{
+	} 
 }

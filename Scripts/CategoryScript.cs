@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Drawing;
+using System.IO;
 
 public partial class CategoryScript : Node
 {
@@ -15,16 +16,20 @@ public partial class CategoryScript : Node
         {
             // Load the previous file
             case 0:
-                if (fileSel > 0)
+                if (fileSel > 0) {
                     updateSprite(--fileSel);
+                    updateText(fileSel);
+                }
 
                 break;
             // Load the next file
             case 1:
                 int max = Global.Data.database[Global.Data.databaseNum].opts.Count - 1;
 
-                if (fileSel < max)
+                if (fileSel < max) {
                     updateSprite(++fileSel);
+                    updateText(fileSel);
+                }
 
                 break;
             // Exit
@@ -52,13 +57,9 @@ public partial class CategoryScript : Node
         string currFile = Global.Data.database[Global.Data.databaseNum].opts[fileSel].name;
 
         // Set sprite
-        var sprite = GetNode<Sprite2D>("Sprite2D");
+        var sprite = GetNode<TextureRect>("HBoxContainer/TextureRect");
         var spriteTexture = GD.Load("res://Input/" + currDir +"/" + currFile + ".png");
         sprite.SetTexture((Texture2D) spriteTexture);
-
-        // Resize sprite
-        float newScale = 250.0f / Math.Max(sprite.Texture.GetWidth(), sprite.Texture.GetHeight());
-        sprite.Scale = new Vector2(newScale, newScale);
     }
 
     // Update the file text
@@ -77,6 +78,9 @@ public partial class CategoryScript : Node
         string currFile = Global.Data.database[Global.Data.databaseNum].opts[fileSel].name;
 
         // Set text
+        var text = GetNode<Label>("HBoxContainer/Label");
+        string fileText = File.ReadAllText("Input/" + currDir + "/" + currFile + ".txt");
+        text.SetText(fileText);
     }
 
     // Called when the node enters the scene tree for the first time.

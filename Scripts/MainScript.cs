@@ -16,6 +16,11 @@ public partial class MainScript : Node2D
                     GD.Print(Global.Data.database[i].name);
                 }
 
+                for (int i = 0; i < Global.Data.newData.Count; i++)
+                {
+                    GD.Print(Global.Data.newData[i]);
+                }
+
                 // Determine general characteristics
                 GetTree().ChangeSceneToFile("Scenes/CharacterMenu.tscn");
                 break;

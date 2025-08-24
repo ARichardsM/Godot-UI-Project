@@ -38,3 +38,8 @@ The Godot UI Project is a project focused on integrating previous work, includin
 	- [ ] Label X-Axis
 	
 ## Future Goals
+- [ ] Display Selected Options On UI
+- [ ] Allow Restrictions/Requirements
+- [ ] Back Option on Creator
+- [ ] Auto-Read Data CSV
+- [ ] Convert Data CSV Based on Directories

@@ -1,6 +1,8 @@
 using Godot;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public partial class CharacterScript : Node2D
 {
@@ -33,8 +35,15 @@ public partial class CharacterScript : Node2D
                     selectedList.Add(currScale.ButtonSelected);
                 }
 
+                // Full data list
+                List<string> fullNewData = Global.Data.newData;
+                fullNewData.AddRange(selectedList.ConvertAll<string>(x => x.ToString()));
+
                 // Add the selected buttons to Data
                 Global.Data.dataMatrix.Add(selectedList);
+
+                // Return to the main menu
+                GetTree().ChangeSceneToFile("Scenes/MainMenu.tscn");
                 break;
 
             case 1:

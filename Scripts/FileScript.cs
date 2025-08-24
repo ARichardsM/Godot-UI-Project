@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Security;
+using static Global;
 
 public partial class FileScript : Node2D
 {
@@ -50,6 +51,12 @@ public partial class FileScript : Node2D
             case 1:
                 // Output Variable
                 string outText = "";
+
+                // Add directory names to header
+                /*
+                foreach (userDirectory i in Global.Data.database)
+                    outText += i.name;
+                */
 
                 // Write header
                 outText += "EI, SN, TF, JP";

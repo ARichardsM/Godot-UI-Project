@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 
 public partial class CategoryScript : Node
 {
@@ -11,7 +12,6 @@ public partial class CategoryScript : Node
     // Function for button presses
     public void ButtonPressed(int val)
     {
-        GD.Print(val);
         switch (val)
         {
             // Load the previous file
@@ -32,8 +32,31 @@ public partial class CategoryScript : Node
                 }
 
                 break;
-            // Exit
+            // Add Data
             case 2:
+                // Add to the new data point
+                Global.Data.newData.Add(Global.Data.database[Global.Data.databaseNum].opts[fileSel].name);
+
+                // Change to next category
+                Global.Data.databaseNum = Global.Data.newData.Count;
+
+                // If the new category exists, reload the tree to load the new directory
+                if (Global.Data.databaseNum < Global.Data.database.Count)
+                {
+                    GetTree().ReloadCurrentScene();
+                }
+                // Else, go to the character menu
+                else
+                {
+                    GetTree().ChangeSceneToFile("Scenes/CharacterMenu.tscn");
+                    break;
+                }
+
+                break;
+            // Exit
+            case 3:
+                // Return to the main menu
+                GetTree().ChangeSceneToFile("Scenes/MainMenu.tscn");
                 break;
 
         }
@@ -79,7 +102,8 @@ public partial class CategoryScript : Node
 
         // Set text
         var text = GetNode<Label>("HBoxContainer/Label");
-        string fileText = File.ReadAllText("Input/" + currDir + "/" + currFile + ".txt");
+        string fileText = currFile + "\n\n";
+        fileText += File.ReadAllText("Input/" + currDir + "/" + currFile + ".txt");
         text.SetText(fileText);
     }
 

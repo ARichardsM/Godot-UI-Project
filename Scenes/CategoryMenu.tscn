@@ -74,19 +74,46 @@ layout_mode = 2
 text = "Exit"
 metadata/_edit_use_anchors_ = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="FullContainer" type="HBoxContainer" parent="."]
+visible = false
 offset_left = -400.0
 offset_top = -200.0
 offset_right = 400.0
 offset_bottom = 109.0
 
-[node name="Label" type="Label" parent="HBoxContainer"]
+[node name="Label" type="Label" parent="FullContainer"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. "
 autowrap_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="FullContainer"]
+custom_minimum_size = Vector2(400, 250)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TxtContainer" type="HBoxContainer" parent="."]
+visible = false
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 109.0
+
+[node name="Label" type="Label" parent="TxtContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. "
+autowrap_mode = 2
+
+[node name="PngContainer" type="HBoxContainer" parent="."]
+visible = false
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 109.0
+
+[node name="TextureRect" type="TextureRect" parent="PngContainer"]
 custom_minimum_size = Vector2(400, 250)
 layout_mode = 2
 expand_mode = 1

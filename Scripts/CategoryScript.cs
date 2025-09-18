@@ -8,6 +8,7 @@ public partial class CategoryScript : Node
 {
     // Declare variables
     public int fileSel = 0;
+    public string currHBox;
 
     // Function for button presses
     public void ButtonPressed(int val)
@@ -16,20 +17,16 @@ public partial class CategoryScript : Node
         {
             // Load the previous file
             case 0:
-                if (fileSel > 0) {
-                    updateSprite(--fileSel);
-                    updateText(fileSel);
-                }
+                if (fileSel > 0)
+                    updateScreen(--fileSel);
 
                 break;
             // Load the next file
             case 1:
                 int max = Global.Data.database[Global.Data.databaseNum].opts.Count - 1;
 
-                if (fileSel < max) {
-                    updateSprite(++fileSel);
-                    updateText(fileSel);
-                }
+                if (fileSel < max)
+                    updateScreen(++fileSel);
 
                 break;
             // Add Data
@@ -64,6 +61,48 @@ public partial class CategoryScript : Node
 
     }
 
+    // Update the screen
+    public void updateScreen(int val)
+    {
+        // Bound check val
+        if ((val < 0) || (val >= Global.Data.database[Global.Data.databaseNum].opts.Count))
+            return;
+
+        // Determine Screen Style
+        int screenStyle = 0;
+
+        screenStyle += Global.Data.database[Global.Data.databaseNum].opts[val].png ? 2 : 0;
+        screenStyle += Global.Data.database[Global.Data.databaseNum].opts[val].txt ? 1 : 0;
+
+        switch (screenStyle) {
+            // PNG + TXT
+            case 3:
+                currHBox = "FullContainer";
+                GetNode<HBoxContainer>("FullContainer").Visible = true;
+                GetNode<HBoxContainer>("PngContainer").Visible = false;
+                GetNode<HBoxContainer>("TxtContainer").Visible = false;
+                updateSprite(val);
+                updateText(val);
+                break;
+            // PNG
+            case 2:
+                currHBox = "PngContainer";
+                GetNode<HBoxContainer>("FullContainer").Visible = false;
+                GetNode<HBoxContainer>("PngContainer").Visible = true;
+                GetNode<HBoxContainer>("TxtContainer").Visible = false;
+                updateSprite(val);
+                break;
+            // TXT
+            case 1:
+                currHBox = "TxtContainer";
+                GetNode<HBoxContainer>("FullContainer").Visible = false;
+                GetNode<HBoxContainer>("PngContainer").Visible = false;
+                GetNode<HBoxContainer>("TxtContainer").Visible = true;
+                updateText(val);
+                break;
+        }
+    }
+
     // Update the file sprite
     public void updateSprite(int val)
     {
@@ -80,7 +119,7 @@ public partial class CategoryScript : Node
         string currFile = Global.Data.database[Global.Data.databaseNum].opts[fileSel].name;
 
         // Set sprite
-        var sprite = GetNode<TextureRect>("HBoxContainer/TextureRect");
+        var sprite = GetNode<TextureRect>(currHBox + "/TextureRect");
         var spriteTexture = GD.Load("res://Input/" + currDir +"/" + currFile + ".png");
         sprite.SetTexture((Texture2D) spriteTexture);
     }
@@ -101,7 +140,7 @@ public partial class CategoryScript : Node
         string currFile = Global.Data.database[Global.Data.databaseNum].opts[fileSel].name;
 
         // Set text
-        var text = GetNode<Label>("HBoxContainer/Label");
+        var text = GetNode<Label>(currHBox + "/Label");
         string fileText = currFile + "\n\n";
         fileText += File.ReadAllText("Input/" + currDir + "/" + currFile + ".txt");
         text.SetText(fileText);
@@ -117,9 +156,8 @@ public partial class CategoryScript : Node
         var subtitle = GetNode<Label>("Sub-Title");
 		subtitle.Text = currDir + " Category Menu";
 
-        // Set initial sprite
-        updateSprite(fileSel);
-        updateText(fileSel);
+        // Set initial screen
+        updateScreen(fileSel);
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

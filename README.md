@@ -30,7 +30,7 @@ The Godot UI Project is a project focused on integrating previous work, includin
 
 ## Current Objectives
 
-- [ ] More Character Details
+- [X] More Character Details
 - [ ] Additional Graphs
 - [ ] Custom Graph Designs
 	- [ ] Seperate Plotting and Data Grouping

@@ -37,27 +37,40 @@ text = "Main Menu"
 label_settings = SubResource("LabelSettings_u4uwj")
 horizontal_alignment = 1
 
-[node name="Button Top" parent="." instance=ExtResource("2_t3klc")]
+[node name="ButtonContainer" type="VBoxContainer" parent="."]
 offset_left = -476.0
 offset_right = 476.0
-text = "Character Menu"
+offset_bottom = 300.0
+theme_override_constants/separation = 5
 
-[node name="Button Mid" parent="." instance=ExtResource("2_t3klc")]
-offset_left = -476.0
-offset_top = 100.0
-offset_right = 476.0
-offset_bottom = 195.0
-text = "File Menu"
+[node name="Button Top" parent="ButtonContainer" instance=ExtResource("2_t3klc")]
+custom_minimum_size = Vector2(0, 95)
+layout_mode = 2
+text = "Add Entity"
 
-[node name="Button Bot" parent="." instance=ExtResource("2_t3klc")]
-offset_left = -476.0
-offset_top = 200.0
-offset_right = 476.0
-offset_bottom = 295.0
+[node name="HSplitContainer" type="HSplitContainer" parent="ButtonContainer"]
+layout_mode = 2
+split_offset = 470
+dragger_visibility = 1
+
+[node name="Button Mid2" parent="ButtonContainer/HSplitContainer" instance=ExtResource("2_t3klc")]
+custom_minimum_size = Vector2(0, 95)
+layout_mode = 2
+text = "Show Entities"
+
+[node name="Button Mid" parent="ButtonContainer/HSplitContainer" instance=ExtResource("2_t3klc")]
+custom_minimum_size = Vector2(0, 95)
+layout_mode = 2
+text = "Output Entities"
+
+[node name="Button Bot" parent="ButtonContainer" instance=ExtResource("2_t3klc")]
+custom_minimum_size = Vector2(0, 95)
+layout_mode = 2
 text = "Exit"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[connection signal="pressed" from="Button Top" to="." method="ButtonPressed" binds= [0]]
-[connection signal="pressed" from="Button Mid" to="." method="ButtonPressed" binds= [1]]
-[connection signal="pressed" from="Button Bot" to="." method="ButtonPressed" binds= [2]]
+[connection signal="pressed" from="ButtonContainer/Button Top" to="." method="ButtonPressed" binds= [0]]
+[connection signal="pressed" from="ButtonContainer/HSplitContainer/Button Mid2" to="." method="ButtonPressed" binds= [1]]
+[connection signal="pressed" from="ButtonContainer/HSplitContainer/Button Mid" to="." method="ButtonPressed" binds= [1]]
+[connection signal="pressed" from="ButtonContainer/Button Bot" to="." method="ButtonPressed" binds= [2]]

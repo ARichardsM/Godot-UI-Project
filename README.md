@@ -31,15 +31,16 @@ The Godot UI Project is a project focused on integrating previous work, includin
 ## Current Objectives
 
 - [X] More Character Details
+- [ ] Convert Data CSV Based on Directories
+- [ ] Auto-Read Data CSV
+	
+## Future Goals
+
+- [ ] Display Selected Options On UI
+- [ ] Allow Restrictions/Requirements
+- [ ] Back Option on Creator
 - [ ] Additional Graphs
 - [ ] Custom Graph Designs
 	- [ ] Seperate Plotting and Data Grouping
 	- [ ] Incorporate Graph Palettes
 	- [ ] Label X-Axis
-	
-## Future Goals
-- [ ] Display Selected Options On UI
-- [ ] Allow Restrictions/Requirements
-- [ ] Back Option on Creator
-- [ ] Auto-Read Data CSV
-- [ ] Convert Data CSV Based on Directories

@@ -43,34 +43,34 @@ offset_right = 476.0
 offset_bottom = 300.0
 theme_override_constants/separation = 5
 
-[node name="Button Top" parent="ButtonContainer" instance=ExtResource("2_t3klc")]
+[node name="Button-T" parent="ButtonContainer" instance=ExtResource("2_t3klc")]
 custom_minimum_size = Vector2(0, 95)
 layout_mode = 2
 text = "Add Entity"
 
-[node name="HSplitContainer" type="HSplitContainer" parent="ButtonContainer"]
+[node name="Split-M" type="HSplitContainer" parent="ButtonContainer"]
 layout_mode = 2
 split_offset = 470
 dragger_visibility = 1
 
-[node name="Button Mid2" parent="ButtonContainer/HSplitContainer" instance=ExtResource("2_t3klc")]
+[node name="Button-ML" parent="ButtonContainer/Split-M" instance=ExtResource("2_t3klc")]
 custom_minimum_size = Vector2(0, 95)
 layout_mode = 2
 text = "Show Entities"
 
-[node name="Button Mid" parent="ButtonContainer/HSplitContainer" instance=ExtResource("2_t3klc")]
+[node name="Button-MR" parent="ButtonContainer/Split-M" instance=ExtResource("2_t3klc")]
 custom_minimum_size = Vector2(0, 95)
 layout_mode = 2
 text = "Output Entities"
 
-[node name="Button Bot" parent="ButtonContainer" instance=ExtResource("2_t3klc")]
+[node name="Button-B" parent="ButtonContainer" instance=ExtResource("2_t3klc")]
 custom_minimum_size = Vector2(0, 95)
 layout_mode = 2
 text = "Exit"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[connection signal="pressed" from="ButtonContainer/Button Top" to="." method="ButtonPressed" binds= [0]]
-[connection signal="pressed" from="ButtonContainer/HSplitContainer/Button Mid2" to="." method="ButtonPressed" binds= [1]]
-[connection signal="pressed" from="ButtonContainer/HSplitContainer/Button Mid" to="." method="ButtonPressed" binds= [2]]
-[connection signal="pressed" from="ButtonContainer/Button Bot" to="." method="ButtonPressed" binds= [3]]
+[connection signal="pressed" from="ButtonContainer/Button-T" to="." method="ButtonPressed" binds= [0]]
+[connection signal="pressed" from="ButtonContainer/Split-M/Button-ML" to="." method="ButtonPressed" binds= [1]]
+[connection signal="pressed" from="ButtonContainer/Split-M/Button-MR" to="." method="ButtonPressed" binds= [2]]
+[connection signal="pressed" from="ButtonContainer/Button-B" to="." method="ButtonPressed" binds= [3]]

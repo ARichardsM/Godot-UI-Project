@@ -4,27 +4,28 @@ using System.Collections.Generic;
 
 public partial class MainScript : Node2D
 {
-    private void printToScreen()
+    // Return saved data as a single string
+    private string outputData()
     {
         // Output Variable
         string outText = "";
 
         // Write header
         foreach (Global.userDirectory dir in Global.Data.database)
-            outText += dir.name + " ";
-        outText += "EI SN TF JP ";
+            outText += dir.name + ",";
+        outText += "EI,SN,TF,JP";
 
         // Stringify each observation
         foreach (List<string> savedObs in Global.Data.dataEntries)
         {
-            outText += "\n";
+            outText += "\n" + savedObs[0];
 
-            foreach (string obs in savedObs)
-                outText += obs + " ";
+            for (int i = 1; i < savedObs.Count; i++)
+                outText += "," + savedObs[i];
         }
 
-        // Report to GD Console
-        GD.Print(outText);
+        // Return
+        return outText;
     }
     
     // Function for button presses
@@ -50,21 +51,21 @@ public partial class MainScript : Node2D
 
             // Print to Screen
             case 1:
-                printToScreen();
+                GD.Print(outputData());
                 break;
 
-            // TBD: Print to File
+            // Print to File
             case 2:
-                GetTree().ChangeSceneToFile("Scenes/FileMenu.tscn");
+                System.IO.File.WriteAllText("Output/Data.csv", outputData());
+
+                // Report to GD Console
+                GD.Print("File written.");
                 break;
 
             // Exit
             case 3:
                 GetTree().Quit();
                 break;
-
-        }
-
-        
+        } 
     }
 }

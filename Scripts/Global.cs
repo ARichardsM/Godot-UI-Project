@@ -85,7 +85,39 @@ public partial class Global : Node
             database.Add(newDir); 
         }
 
-        // Read data csv
+        // Input the data csv
+        try
+        {
+            // Read the data file
+            string fileText = File.ReadAllText("Input/Data.csv");
+
+            // Split the string
+            string[] fileCon = fileText.Split("\n");
+            string[] fileHead = fileCon[0].Split(",");
+
+            // Add each observation to the global data
+            for (int i = 1; i < fileCon.Length; i++)
+            {
+                List<int> dataLine = new List<int>();
+                string[] line = fileCon[i].Split(",");
+
+                foreach (string num in line)
+                {
+                    dataLine.Add(int.Parse(num));
+                }
+
+                Global.Data.dataMatrix.Add(dataLine);
+            }
+
+            // Report to GD Console
+            GD.Print("File read and added to data.");
+        }
+        // On Error, Report to GD Console
+        catch (IOException e)
+        {
+            GD.Print("The file could not be read:");
+            GD.Print(e.Message);
+        }
     }
 
     public List<List<int>> dataMatrix = new List<List<int>>();

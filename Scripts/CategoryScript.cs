@@ -38,7 +38,7 @@ public partial class CategoryScript : Node
                 Global.Data.databaseNum = Global.Data.newData.Count;
 
                 // If the new category exists, reload the tree to load the new directory
-                if (Global.Data.databaseNum < Global.Data.database.Count)
+                if (Global.Data.newData.Count < Global.Data.database.Count)
                 {
                     GetTree().ReloadCurrentScene();
                 }

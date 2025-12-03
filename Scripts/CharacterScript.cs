@@ -36,11 +36,16 @@ public partial class CharacterScript : Node2D
                 }
 
                 // Full data list
-                List<string> fullNewData = Global.Data.newData;
+                List<string> fullNewData = new List<string>(Global.Data.newData);
                 fullNewData.AddRange(selectedList.ConvertAll<string>(x => x.ToString()));
+
+                // Clear new data
+                Global.Data.newData.Clear();
+                Global.Data.databaseNum = 0;
 
                 // Add the selected buttons to Data
                 Global.Data.dataMatrix.Add(selectedList);
+                Global.Data.dataEntries.Add(fullNewData);
 
                 // Return to the main menu
                 GetTree().ChangeSceneToFile("Scenes/MainMenu.tscn");

@@ -72,5 +72,5 @@ text = "Exit"
 
 [connection signal="pressed" from="ButtonContainer/Button Top" to="." method="ButtonPressed" binds= [0]]
 [connection signal="pressed" from="ButtonContainer/HSplitContainer/Button Mid2" to="." method="ButtonPressed" binds= [1]]
-[connection signal="pressed" from="ButtonContainer/HSplitContainer/Button Mid" to="." method="ButtonPressed" binds= [1]]
-[connection signal="pressed" from="ButtonContainer/Button Bot" to="." method="ButtonPressed" binds= [2]]
+[connection signal="pressed" from="ButtonContainer/HSplitContainer/Button Mid" to="." method="ButtonPressed" binds= [2]]
+[connection signal="pressed" from="ButtonContainer/Button Bot" to="." method="ButtonPressed" binds= [3]]

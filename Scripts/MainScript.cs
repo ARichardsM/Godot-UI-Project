@@ -7,13 +7,32 @@ public partial class MainScript : Node2D
     // Return saved data as a single string
     private string outputData()
     {
-        // Output Variable
+        // Declare Variables
         string outText = "";
+        List<List<string>> data = new List<List<string>>();
+        List<string> headerData = new List<string>();
+        List<string> templateData = new List<string>();
+
 
         // Write header
         foreach (Global.userDirectory dir in Global.Data.database)
+        {
             outText += dir.name + ",";
+            headerData.Add(dir.name);
+        }
+            
         outText += "EI,SN,TF,JP";
+
+        List<string> personalityMatrix = new() { "EI", "SN", "TF", "JP" };
+        foreach (string pers in personalityMatrix)
+        {
+            headerData.Add(pers);
+        }
+
+        headerData.Add("EI");
+        headerData.Add("SN");
+        headerData.Add("TF");
+        headerData.Add("JP");
 
         // Stringify each observation
         foreach (List<string> savedObs in Global.Data.dataEntries)

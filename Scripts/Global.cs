@@ -35,6 +35,17 @@ public partial class Global : Node
         public List<userFile> opts;
     }
 
+    public class trait
+    {
+        public string key;
+        public string val;
+
+        public trait(string key, string val)
+        {
+            this.key = key;
+            this.val = val;
+        }
+    }
     public override void _Ready()
     {
         Data = this;
@@ -85,7 +96,7 @@ public partial class Global : Node
             database.Add(newDir); 
         }
 
-        // Input the data csv
+        // Read the data csv
         try
         {
             // Read the data file
@@ -99,6 +110,7 @@ public partial class Global : Node
             for (int i = 1; i < fileCon.Length; i++)
             {
                 List<int> dataLine = new List<int>();
+                List<trait> currData = new List<trait>();
                 string[] line = fileCon[i].Split(",");
 
                 foreach (string num in line)
@@ -106,8 +118,17 @@ public partial class Global : Node
                     dataLine.Add(int.Parse(num));
                 }
 
+                for (int j = 0; j < line.Length; j++)
+                {
+                    currData.Add(new trait(fileHead[j], line[j]));
+                }
+
                 Global.Data.dataMatrix.Add(dataLine);
+                entityData.Add(currData);
             }
+
+            foreach (List<trait> tra in entityData)
+                GD.Print(tra[0].key);
 
             // Report to GD Console
             GD.Print("File read and added to data.");
@@ -123,6 +144,8 @@ public partial class Global : Node
     public List<List<int>> dataMatrix = new List<List<int>>();
 
     public List<userDirectory> database = new List<userDirectory>();
+
+    public List<List<trait>> entityData = new List<List<trait>>();
 
     public List<List<string>> dataEntries = new List<List<string>>();
     public List<string> newData = new List<string>();

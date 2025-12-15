@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 
 public partial class Global : Node
 {
@@ -113,22 +114,24 @@ public partial class Global : Node
                 List<trait> currData = new List<trait>();
                 string[] line = fileCon[i].Split(",");
 
+                // Verify the number of values match the number keys
+                if (line.Length != fileHead.Length)
+                    continue;
+
                 foreach (string num in line)
                 {
                     dataLine.Add(int.Parse(num));
                 }
 
+                // Convert obs to trait format and save
                 for (int j = 0; j < line.Length; j++)
                 {
-                    currData.Add(new trait(fileHead[j], line[j]));
+                    currData.Add(new trait(fileHead[j].Trim('\r'), line[j]));
                 }
 
                 Global.Data.dataMatrix.Add(dataLine);
                 entityData.Add(currData);
             }
-
-            foreach (List<trait> tra in entityData)
-                GD.Print(tra[0].key);
 
             // Report to GD Console
             GD.Print("File read and added to data.");

@@ -19,6 +19,7 @@ public partial class MainScript : Node2D
         {
             outText += dir.name + ",";
             headerData.Add(dir.name);
+            templateData.Add("N/A");
         }
             
         outText += "EI,SN,TF,JP";
@@ -27,15 +28,26 @@ public partial class MainScript : Node2D
         foreach (string pers in personalityMatrix)
         {
             headerData.Add(pers);
+            templateData.Add("N/A");
         }
 
-        headerData.Add("EI");
-        headerData.Add("SN");
-        headerData.Add("TF");
-        headerData.Add("JP");
+        // Convert each observation into lists of string
+        foreach (List<Global.trait> savedObs in Global.Data.entityData)
+        {
+            List<string> tempData = new List<string>(templateData);
+
+            foreach (Global.trait aspect in savedObs)
+            {
+                int index = headerData.IndexOf(aspect.key);
+
+                tempData[index] = aspect.val;
+            }
+
+            data.Add(tempData);
+        }
 
         // Stringify each observation
-        foreach (List<string> savedObs in Global.Data.dataEntries)
+        foreach (List<string> savedObs in data)
         {
             outText += "\n" + savedObs[0];
 
@@ -52,37 +64,30 @@ public partial class MainScript : Node2D
     {
         switch (val)
         {
-            // Handle adding an entity
+            // Button-T
             case 0:
-                // Go through each user directory in the database
-                for (int i = 0; i < Global.Data.database.Count; i++) {
-                    GD.Print(Global.Data.database[i].name);
-                }
-
-                for (int i = 0; i < Global.Data.newData.Count; i++)
-                {
-                    GD.Print(Global.Data.newData[i]);
-                }
-
-                // Determine general characteristics
+                // Switch to category menu
                 GetTree().ChangeSceneToFile("Scenes/CategoryMenu.tscn");
                 break;
 
-            // Print to Screen
+            // Button-ML
             case 1:
+                // Print to Screen
                 GD.Print(outputData());
                 break;
 
-            // Print to File
+            // Button-MR
             case 2:
+                // Print to File
                 System.IO.File.WriteAllText("Output/Data.csv", outputData());
 
                 // Report to GD Console
                 GD.Print("File written.");
                 break;
 
-            // Exit
+            // Button-B
             case 3:
+                // Exit
                 GetTree().Quit();
                 break;
         } 

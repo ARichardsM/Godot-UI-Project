@@ -146,11 +146,12 @@ public partial class Global : Node
 
     public List<List<int>> dataMatrix = new List<List<int>>();
 
-    public List<userDirectory> database = new List<userDirectory>();
-
-    public List<List<trait>> entityData = new List<List<trait>>();
 
     public List<List<string>> dataEntries = new List<List<string>>();
     public List<string> newData = new List<string>();
     public int databaseNum = 0;
+
+    public List<userDirectory> database = new List<userDirectory>();
+    public List<List<trait>> entityData = new List<List<trait>>();
+    public List<trait> newEntity = new List<trait>();
 }

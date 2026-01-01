@@ -47,6 +47,17 @@ public partial class CharacterScript : Node2D
                 Global.Data.dataMatrix.Add(selectedList);
                 Global.Data.dataEntries.Add(fullNewData);
 
+                // Add Personality Traits
+                List<string> personalityMatrix = new() { "EI", "SN", "TF", "JP" };
+                for (int i = 0; i < personalityMatrix.Count; i++)
+                {
+                    Global.Data.newEntity.Add(new Global.trait(personalityMatrix[i], selectedList[i].ToString()));
+                }
+
+                // Add to Entity Data
+                Global.Data.entityData.Add(new List<Global.trait> (Global.Data.newEntity));
+                Global.Data.newEntity.Clear();
+
                 // Return to the main menu
                 GetTree().ChangeSceneToFile("Scenes/MainMenu.tscn");
                 break;

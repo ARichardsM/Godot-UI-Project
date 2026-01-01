@@ -33,6 +33,9 @@ public partial class CategoryScript : Node
             case 2:
                 // Add to the new data point
                 Global.Data.newData.Add(Global.Data.database[Global.Data.databaseNum].opts[fileSel].name);
+                string newKey = Global.Data.database[Global.Data.databaseNum].name;
+                string newVal = Global.Data.database[Global.Data.databaseNum].opts[fileSel].name;
+                Global.Data.newEntity.Add(new Global.trait(newKey, newVal));
 
                 // Change to next category
                 Global.Data.databaseNum = Global.Data.newData.Count;

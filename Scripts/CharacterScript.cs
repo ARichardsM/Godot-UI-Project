@@ -6,56 +6,33 @@ using System.Linq;
 
 public partial class CharacterScript : Node2D
 {
+    // All on-screen selection scale
+    List<ScaleSelection> scales = new List<ScaleSelection>();
+
     public void ButtonPressed(int val)
     {
         switch (val)
         {
             case 0:
-                // Get each on-screen selection scale
-                List<ScaleSelection> scales = new List<ScaleSelection>();
-                scales.Add(this.GetNode<ScaleSelection>("Selection1"));
-                scales.Add(this.GetNode<ScaleSelection>("Selection2"));
-                scales.Add(this.GetNode<ScaleSelection>("Selection3"));
-                scales.Add(this.GetNode<ScaleSelection>("Selection4"));
-
-                // Selected button list
-                List<int> selectedList = new List<int> ();
-
-                // Verify all scales
-                foreach (ScaleSelection currScale in scales)
+                // Add Personality Traits
+                List<string> personalityMatrix = new() { "EI", "SN", "TF", "JP" };
+                for (int i = 0; i < personalityMatrix.Count; i++)
                 {
                     // Cancel if a button hasn't been selected
-                    if (currScale.ButtonSelected == 0)
+                    if (scales[i].ButtonSelected == 0)
                     {
                         GD.Print("Verify Failed: Button Unselected");
                         return;
                     }
 
-                    // Add the button value to the selected button list
-                    selectedList.Add(currScale.ButtonSelected);
+                    // Log trait
+                    Global.Data.newEntity.Add(new Global.trait(personalityMatrix[i], scales[i].ButtonSelected.ToString()));
                 }
 
-                // Full data list
-                List<string> fullNewData = new List<string>(Global.Data.newData);
-                fullNewData.AddRange(selectedList.ConvertAll<string>(x => x.ToString()));
-
-                // Clear new data
-                Global.Data.newData.Clear();
-                Global.Data.databaseNum = 0;
-
-                // Add the selected buttons to Data
-                Global.Data.dataMatrix.Add(selectedList);
-                Global.Data.dataEntries.Add(fullNewData);
-
-                // Add Personality Traits
-                List<string> personalityMatrix = new() { "EI", "SN", "TF", "JP" };
-                for (int i = 0; i < personalityMatrix.Count; i++)
-                {
-                    Global.Data.newEntity.Add(new Global.trait(personalityMatrix[i], selectedList[i].ToString()));
-                }
-
-                // Add to Entity Data
+                // Add to Entity Data List
                 Global.Data.entityData.Add(new List<Global.trait> (Global.Data.newEntity));
+
+                // Clear new entity
                 Global.Data.newEntity.Clear();
 
                 // Return to the main menu
@@ -63,10 +40,23 @@ public partial class CharacterScript : Node2D
                 break;
 
             case 1:
+                // Clear new entity
+                Global.Data.newEntity.Clear();
+
                 // Return to the main menu
                 GetTree().ChangeSceneToFile("Scenes/MainMenu.tscn");
                 break;
 
         }
+    }
+
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
+    {
+        // Log each on-screen selection scale
+        scales.Add(this.GetNode<ScaleSelection>("Selection1"));
+        scales.Add(this.GetNode<ScaleSelection>("Selection2"));
+        scales.Add(this.GetNode<ScaleSelection>("Selection3"));
+        scales.Add(this.GetNode<ScaleSelection>("Selection4"));
     }
 }

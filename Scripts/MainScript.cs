@@ -66,9 +66,18 @@ public partial class MainScript : Node2D
         {
             // Button-T
             case 0:
-                // Switch to category menu
-                GetTree().ChangeSceneToFile("Scenes/CategoryMenu.tscn");
-                break;
+                // If there are categories, go to category menu
+                if (Global.Data.newEntity.Count < Global.Data.database.Count)
+                {
+                    GetTree().ChangeSceneToFile("Scenes/CategoryMenu.tscn");
+                    break;
+                }
+                // Else, go to the character menu
+                else
+                {
+                    GetTree().ChangeSceneToFile("Scenes/CharacterMenu.tscn");
+                    break;
+                }
 
             // Button-ML
             case 1:

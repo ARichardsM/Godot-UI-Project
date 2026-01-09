@@ -7,7 +7,8 @@ using System.Linq;
 public partial class CategoryScript : Node
 {
     // Declare variables
-    public int fileSel = 0;
+    private int currentCategoryNum = Global.Data.newEntity.Count;
+    private int currentTraitNum = 0;
     public string currHBox;
 
     // Function for button presses
@@ -17,31 +18,27 @@ public partial class CategoryScript : Node
         {
             // Load the previous file
             case 0:
-                if (fileSel > 0)
-                    updateScreen(--fileSel);
+                if (currentTraitNum > 0)
+                    updateScreen(--currentTraitNum);
 
                 break;
             // Load the next file
             case 1:
-                int max = Global.Data.database[Global.Data.databaseNum].opts.Count - 1;
+                int max = Global.Data.database[currentCategoryNum].opts.Count - 1;
 
-                if (fileSel < max)
-                    updateScreen(++fileSel);
+                if (currentTraitNum < max)
+                    updateScreen(++currentTraitNum);
 
                 break;
             // Add Data
             case 2:
                 // Add to the new data point
-                Global.Data.newData.Add(Global.Data.database[Global.Data.databaseNum].opts[fileSel].name);
-                string newKey = Global.Data.database[Global.Data.databaseNum].name;
-                string newVal = Global.Data.database[Global.Data.databaseNum].opts[fileSel].name;
+                string newKey = Global.Data.database[currentCategoryNum].name;
+                string newVal = Global.Data.database[currentCategoryNum].opts[currentTraitNum].name;
                 Global.Data.newEntity.Add(new Global.trait(newKey, newVal));
 
-                // Change to next category
-                Global.Data.databaseNum = Global.Data.newData.Count;
-
                 // If the new category exists, reload the tree to load the new directory
-                if (Global.Data.newData.Count < Global.Data.database.Count)
+                if (Global.Data.newEntity.Count < Global.Data.database.Count)
                 {
                     GetTree().ReloadCurrentScene();
                 }
@@ -55,27 +52,28 @@ public partial class CategoryScript : Node
                 break;
             // Exit
             case 3:
+                // Clear new entity
+                Global.Data.newEntity.Clear();
+
                 // Return to the main menu
                 GetTree().ChangeSceneToFile("Scenes/MainMenu.tscn");
                 break;
 
         }
-
-
     }
 
     // Update the screen
     public void updateScreen(int val)
     {
         // Bound check val
-        if ((val < 0) || (val >= Global.Data.database[Global.Data.databaseNum].opts.Count))
+        if ((val < 0) || (val >= Global.Data.database[currentCategoryNum].opts.Count))
             return;
 
         // Determine Screen Style
         int screenStyle = 0;
 
-        screenStyle += Global.Data.database[Global.Data.databaseNum].opts[val].png ? 2 : 0;
-        screenStyle += Global.Data.database[Global.Data.databaseNum].opts[val].txt ? 1 : 0;
+        screenStyle += Global.Data.database[currentCategoryNum].opts[val].png ? 2 : 0;
+        screenStyle += Global.Data.database[currentCategoryNum].opts[val].txt ? 1 : 0;
 
         switch (screenStyle) {
             // PNG + TXT
@@ -110,16 +108,16 @@ public partial class CategoryScript : Node
     public void updateSprite(int val)
     {
         // Bound check val
-        if ((val < 0) || (val >= Global.Data.database[Global.Data.databaseNum].opts.Count))
+        if ((val < 0) || (val >= Global.Data.database[currentCategoryNum].opts.Count))
             return;
 
         // Check for .PNG
-        if (!Global.Data.database[Global.Data.databaseNum].opts[val].png)
+        if (!Global.Data.database[currentCategoryNum].opts[val].png)
             return;
 
         // Determine values
-        string currDir = Global.Data.database[Global.Data.databaseNum].name;
-        string currFile = Global.Data.database[Global.Data.databaseNum].opts[fileSel].name;
+        string currDir = Global.Data.database[currentCategoryNum].name;
+        string currFile = Global.Data.database[currentCategoryNum].opts[currentTraitNum].name;
 
         // Set sprite
         var sprite = GetNode<TextureRect>(currHBox + "/TextureRect");
@@ -131,16 +129,16 @@ public partial class CategoryScript : Node
     public void updateText(int val)
     {
         // Bound check val
-        if ((val < 0) || (val >= Global.Data.database[Global.Data.databaseNum].opts.Count))
+        if ((val < 0) || (val >= Global.Data.database[currentCategoryNum].opts.Count))
             return;
 
         // Check for .TXT
-        if (!Global.Data.database[Global.Data.databaseNum].opts[val].txt)
+        if (!Global.Data.database[currentCategoryNum].opts[val].txt)
             return;
 
         // Determine values
-        string currDir = Global.Data.database[Global.Data.databaseNum].name;
-        string currFile = Global.Data.database[Global.Data.databaseNum].opts[fileSel].name;
+        string currDir = Global.Data.database[currentCategoryNum].name;
+        string currFile = Global.Data.database[currentCategoryNum].opts[currentTraitNum].name;
 
         // Set text
         var text = GetNode<Label>(currHBox + "/Label");
@@ -153,18 +151,13 @@ public partial class CategoryScript : Node
     public override void _Ready()
 	{
         // Determine initial values
-        string currDir = Global.Data.database[Global.Data.databaseNum].name;
+        string currDir = Global.Data.database[currentCategoryNum].name;
 
         // Edit Sub-Title
         var subtitle = GetNode<Label>("Sub-Title");
 		subtitle.Text = currDir + " Category Menu";
 
         // Set initial screen
-        updateScreen(fileSel);
+        updateScreen(currentTraitNum);
     }
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	} 
 }

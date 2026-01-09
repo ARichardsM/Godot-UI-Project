@@ -47,6 +47,37 @@ public partial class Global : Node
             this.val = val;
         }
     }
+    
+    private void readInputFile(string fileAddress)
+    {
+        // Read the data file
+        string fileText = File.ReadAllText(fileAddress);
+
+        // Split the string
+        string[] fileCon = fileText.Split("\n");
+        string[] fileHead = fileCon[0].Split(",");
+
+        // Add each observation to the global data
+        for (int i = 1; i < fileCon.Length; i++)
+        {
+            List<trait> currData = new List<trait>();
+            string[] line = fileCon[i].Split(",");
+
+            // Verify the number of values match the number of keys
+            if (line.Length != fileHead.Length)
+                continue;
+
+            // Convert obs to trait format and save
+            for (int j = 0; j < line.Length; j++)
+            {
+                currData.Add(new trait(fileHead[j].Trim('\r'), line[j]));
+            }
+
+            // Save the data
+            entityData.Add(currData);
+        }
+    }
+
     public override void _Ready()
     {
         Data = this;
@@ -101,37 +132,7 @@ public partial class Global : Node
         try
         {
             // Read the data file
-            string fileText = File.ReadAllText("Input/Data.csv");
-
-            // Split the string
-            string[] fileCon = fileText.Split("\n");
-            string[] fileHead = fileCon[0].Split(",");
-
-            // Add each observation to the global data
-            for (int i = 1; i < fileCon.Length; i++)
-            {
-                List<int> dataLine = new List<int>();
-                List<trait> currData = new List<trait>();
-                string[] line = fileCon[i].Split(",");
-
-                // Verify the number of values match the number keys
-                if (line.Length != fileHead.Length)
-                    continue;
-
-                foreach (string num in line)
-                {
-                    dataLine.Add(int.Parse(num));
-                }
-
-                // Convert obs to trait format and save
-                for (int j = 0; j < line.Length; j++)
-                {
-                    currData.Add(new trait(fileHead[j].Trim('\r'), line[j]));
-                }
-
-                Global.Data.dataMatrix.Add(dataLine);
-                entityData.Add(currData);
-            }
+            readInputFile("Input/Data.csv");
 
             // Report to GD Console
             GD.Print("File read and added to data.");
@@ -143,13 +144,6 @@ public partial class Global : Node
             GD.Print(e.Message);
         }
     }
-
-    public List<List<int>> dataMatrix = new List<List<int>>();
-
-
-    public List<List<string>> dataEntries = new List<List<string>>();
-    public List<string> newData = new List<string>();
-    public int databaseNum = 0;
 
     public List<userDirectory> database = new List<userDirectory>();
     public List<List<trait>> entityData = new List<List<trait>>();

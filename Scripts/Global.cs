@@ -47,43 +47,12 @@ public partial class Global : Node
             this.val = val;
         }
     }
-    
-    private void readInputFile(string fileAddress)
+
+    // Read and prepare the Directory Database
+    private void readDirectory(string fileAddress)
     {
-        // Read the data file
-        string fileText = File.ReadAllText(fileAddress);
-
-        // Split the string
-        string[] fileCon = fileText.Split("\n");
-        string[] fileHead = fileCon[0].Split(",");
-
-        // Add each observation to the global data
-        for (int i = 1; i < fileCon.Length; i++)
-        {
-            List<trait> currData = new List<trait>();
-            string[] line = fileCon[i].Split(",");
-
-            // Verify the number of values match the number of keys
-            if (line.Length != fileHead.Length)
-                continue;
-
-            // Convert obs to trait format and save
-            for (int j = 0; j < line.Length; j++)
-            {
-                currData.Add(new trait(fileHead[j].Trim('\r'), line[j]));
-            }
-
-            // Save the data
-            entityData.Add(currData);
-        }
-    }
-
-    public override void _Ready()
-    {
-        Data = this;
-
         // Pull input directories and nested files
-        foreach (string dirpath in Directory.GetDirectories("Input"))
+        foreach (string dirpath in Directory.GetDirectories(fileAddress))
         {
             userDirectory newDir = new userDirectory(Path.GetFileName(dirpath));
 
@@ -125,7 +94,59 @@ public partial class Global : Node
             }
 
             // Add directory to database
-            database.Add(newDir); 
+            database.Add(newDir);
+        }
+    }
+
+    // Read and prepare the Entity Database
+    private void readInputFile(string fileAddress)
+    {
+        // Read the data file
+        string fileText = File.ReadAllText(fileAddress);
+
+        // Split the string
+        string[] fileCon = fileText.Split("\n");
+        string[] fileHead = fileCon[0].Split(",");
+
+        // Add each observation to the global data
+        for (int i = 1; i < fileCon.Length; i++)
+        {
+            List<trait> currData = new List<trait>();
+            string[] line = fileCon[i].Split(",");
+
+            // Verify the number of values match the number of keys
+            if (line.Length != fileHead.Length)
+                continue;
+
+            // Convert obs to trait format and save
+            for (int j = 0; j < line.Length; j++)
+            {
+                currData.Add(new trait(fileHead[j].Trim('\r'), line[j]));
+            }
+
+            // Save the data
+            entityData.Add(currData);
+        }
+    }
+
+    public override void _Ready()
+    {
+        Data = this;
+
+        // Read the Input Directory
+        try
+        {
+            // Read the data file
+            readDirectory("Input");
+
+            // Report to GD Console
+            GD.Print("Directory read and added to data.");
+        }
+        // On Error, Report to GD Console
+        catch (IOException e)
+        {
+            GD.Print("The directory could not be read:");
+            GD.Print(e.Message);
         }
 
         // Read the data csv

@@ -1,8 +1,14 @@
 # Godot UI Project
- 
+
 ## Summary
 
 The Godot UI Project is a project focused on integrating previous work, including the Character Tracker and SFML Tabletop projects, to create a user interface system. By leveraging the Godot UI system, C#, and R, the project seeks to help determine group compatability via data visualization with intuitive, efficient UI designs. With a primary focus on Godot’s control nodes, this effort aims to deepen expertise in interactive system design while advancing previous projects.
+
+# Backstage Booker 0.1
+
+## Summary
+
+
 
 ## Overview
 
@@ -26,18 +32,15 @@ The Godot UI Project is a project focused on integrating previous work, includin
 | Button.tscn                | Godot scene file handling a singular button.                                  |
 | ScaleSelection.tscn        | Godot scene file handling the selection buttons used by `CharacterMenu.tscn`. |
 |----------------------------|-------------------------------------------------------------------------------|
-| RFunction.R                | R script for data visualization and analysis.                                 |
 
 ## Current Objectives
 
-- [ ] Display Selected Options On UI
-- [ ] Back Option on Creator
-	
+- [ ] Integrate Relation Tracker
+
 ## Future Goals
 
 - [ ] Allow Restrictions/Requirements
-- [ ] Additional Graphs
-- [ ] Custom Graph Designs
-	- [ ] Seperate Plotting and Data Grouping
-	- [ ] Incorporate Graph Palettes
-	- [ ] Label X-Axis
+- [ ] Create Event Manager
+- [ ] Update Character Tracker
+	- [ ] Display Selected Options On UI
+	- [ ] Back Option on Creator

@@ -1,9 +1,11 @@
 using Godot;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 public partial class Global : Node
 {
@@ -46,6 +48,18 @@ public partial class Global : Node
             this.key = key;
             this.val = val;
         }
+    }
+
+    public class persona
+    {
+        public string name = "";
+        public List<trait> traits = new List<trait>();
+    }
+
+    public class stable
+    {
+        public string name;
+        public List<int> member;
     }
 
     // Read and prepare the Directory Database
@@ -129,6 +143,96 @@ public partial class Global : Node
         }
     }
 
+    // Read and prepare the Entity Database
+    private void LoadGroup(string fileAddress)
+    {
+        
+    // Read the data file
+    string fileText = File.ReadAllText(fileAddress);
+
+        // Split the string
+        string[] fileCon = fileText.Split("\n");
+        string[] fileHead = fileCon[0].Split(",");
+
+        // Add each observation to the global data
+        for (int i = 1; i < fileCon.Length; i++)
+        {
+            List<trait> currData = new List<trait>();
+            string[] line = fileCon[i].Split(",");
+
+            // Verify the number of values match the number of keys
+            if (line.Length != fileHead.Length)
+                continue;
+
+            // Convert obs to trait format and save
+            for (int j = 0; j < line.Length; j++)
+            {
+                currData.Add(new trait(fileHead[j].Trim('\r'), line[j]));
+            }
+
+            // Save the data
+            entityData.Add(currData);
+        }
+    }
+
+    // Read and prepare the Entity Database
+    private void LoadPersona(string fileAddress)
+    {
+        void loadFromFile()
+        {
+            // Read the data file
+            string fileText = File.ReadAllText(fileAddress);
+
+            // Split the string
+            string[] fileCon = fileText.Split("\n");
+            string[] fileHead = fileCon[0].Split(",");
+
+            // Add each observation to the global data
+            for (int i = 1; i < fileCon.Length; i++)
+            {
+                persona currData = new persona();
+                string[] line = fileCon[i].Split(",");
+
+                // Verify the number of values match the number of keys
+                if (line.Length != fileHead.Length)
+                    continue;
+
+                // Convert obs to trait format and save
+                for (int j = 0; j < line.Length; j++)
+                {
+                    // Get current header
+                    string currHeader = fileHead[j].Trim('\r');
+
+                    // Add Name
+                    if (currHeader == "Name")
+                        currData.name = line[j];
+                    
+                    // Add Trait
+                    else 
+                        currData.traits.Add(new trait(currHeader, line[j]));
+                }
+
+                // Save the data
+                roster.Add(currData);
+            }
+        }
+
+        try
+        {
+            // Read the data file
+            loadFromFile();
+
+            // Report to GD Console
+            GD.Print("File " + fileAddress + " read and added to data.");
+        }
+        // On Error, Report to GD Console
+        catch (IOException e)
+        {
+            GD.Print("The file " + fileAddress + " could not be read:");
+            GD.Print(e.Message);
+        }
+    }
+
     public override void _Ready()
     {
         Data = this;
@@ -164,9 +268,17 @@ public partial class Global : Node
             GD.Print("The file could not be read:");
             GD.Print(e.Message);
         }
+
+        // Load Persona CSV
+        LoadPersona("Input/Data.csv");
+
+        // Load Group CSV
     }
 
     public List<userDirectory> database = new List<userDirectory>();
     public List<List<trait>> entityData = new List<List<trait>>();
     public List<trait> newEntity = new List<trait>();
+
+    public List<persona> roster = new List<persona>();
+    public List<stable> groups = new List<stable>();
 }

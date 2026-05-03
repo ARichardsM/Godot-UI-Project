@@ -54,6 +54,25 @@ public partial class Global : Node
     {
         public string name = "";
         public List<trait> traits = new List<trait>();
+
+        public override string ToString()
+        {
+            string output = "";
+
+            // Stringify name
+            if (name != "")
+                output += name + " - ";
+
+            // Stringify traits
+            for (int i = 0; i < traits.Count; i++)
+                if (i == 0)
+                    output += traits[i].key + ": " + traits[i].val;
+                else
+                    output += " " + traits[i].key + ": " + traits[i].val;
+
+            // Output string
+            return output;
+        }
     }
 
     public class stable
@@ -178,57 +197,58 @@ public partial class Global : Node
     // Read and prepare the Entity Database
     private void LoadPersona(string fileAddress)
     {
-        void loadFromFile()
+        // Read the data file
+        string fileText = File.ReadAllText(fileAddress);
+
+        // Split the string
+        string[] fileCon = fileText.Split("\n");
+        string[] fileHead = fileCon[0].Split(",");
+
+        // Add each observation to the global data
+        for (int i = 1; i < fileCon.Length; i++)
         {
-            // Read the data file
-            string fileText = File.ReadAllText(fileAddress);
+            persona currData = new persona();
+            string[] line = fileCon[i].Split(",");
 
-            // Split the string
-            string[] fileCon = fileText.Split("\n");
-            string[] fileHead = fileCon[0].Split(",");
+            // Verify the number of values match the number of keys
+            if (line.Length != fileHead.Length)
+                continue;
 
-            // Add each observation to the global data
-            for (int i = 1; i < fileCon.Length; i++)
+            // Convert obs to trait format and save
+            for (int j = 0; j < line.Length; j++)
             {
-                persona currData = new persona();
-                string[] line = fileCon[i].Split(",");
+                // Get current header
+                string currHeader = fileHead[j].Trim('\r');
 
-                // Verify the number of values match the number of keys
-                if (line.Length != fileHead.Length)
-                    continue;
-
-                // Convert obs to trait format and save
-                for (int j = 0; j < line.Length; j++)
-                {
-                    // Get current header
-                    string currHeader = fileHead[j].Trim('\r');
-
-                    // Add Name
-                    if (currHeader == "Name")
-                        currData.name = line[j];
+                // Add Name
+                if (currHeader == "Name" && line[j] != "")
+                    currData.name = line[j];
                     
-                    // Add Trait
-                    else 
-                        currData.traits.Add(new trait(currHeader, line[j]));
-                }
-
-                // Save the data
-                roster.Add(currData);
+                // Add Trait
+                else 
+                    currData.traits.Add(new trait(currHeader, line[j]));
             }
-        }
 
+            // Save the data
+            roster.Add(currData);
+        }
+    }
+
+    // Load within a try-catch
+    private void SafeLoad(string arg, Action<string> loadFunction)
+    {
         try
         {
             // Read the data file
-            loadFromFile();
+            loadFunction(arg);
 
             // Report to GD Console
-            GD.Print("File " + fileAddress + " read and added to data.");
+            GD.Print(arg + " read and added to data.");
         }
         // On Error, Report to GD Console
         catch (IOException e)
         {
-            GD.Print("The file " + fileAddress + " could not be read:");
+            GD.Print(arg + " could not be read:");
             GD.Print(e.Message);
         }
     }
@@ -238,41 +258,16 @@ public partial class Global : Node
         Data = this;
 
         // Read the Input Directory
-        try
-        {
-            // Read the data file
-            readDirectory("Input");
-
-            // Report to GD Console
-            GD.Print("Directory read and added to data.");
-        }
-        // On Error, Report to GD Console
-        catch (IOException e)
-        {
-            GD.Print("The directory could not be read:");
-            GD.Print(e.Message);
-        }
+        SafeLoad("Input", readDirectory);
 
         // Read the data csv
-        try
-        {
-            // Read the data file
-            readInputFile("Input/Data.csv");
-
-            // Report to GD Console
-            GD.Print("File read and added to data.");
-        }
-        // On Error, Report to GD Console
-        catch (IOException e)
-        {
-            GD.Print("The file could not be read:");
-            GD.Print(e.Message);
-        }
+        SafeLoad("Input/Data.csv", readInputFile);
 
         // Load Persona CSV
-        LoadPersona("Input/Data.csv");
+        SafeLoad("Input/Data.csv", LoadPersona);
 
         // Load Group CSV
+        //SafeLoad("Input/Data.csv", LoadGroup);
     }
 
     public List<userDirectory> database = new List<userDirectory>();

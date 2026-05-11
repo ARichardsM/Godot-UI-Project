@@ -1,11 +1,12 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 public partial class MainScript : Node2D
 {
-    // Return saved data as a single string
-    private string outputData()
+    // Write the roster
+    private void writeRoster()
     {
         // Declare Variables
         string outText = "";
@@ -13,17 +14,21 @@ public partial class MainScript : Node2D
         List<string> headerData = new List<string>();
         List<string> templateData = new List<string>();
 
+        // Append Name Header
+        outText += "Name,";
+        headerData.Add("Name");
+        templateData.Add("N/A");
 
-        // Write header
-        foreach (Global.userDirectory dir in Global.Data.database)
+        // Append Directory Headers
+        foreach (DirectoryManager.userDirectory dir in Global.Data.database)
         {
             outText += dir.name + ",";
             headerData.Add(dir.name);
             templateData.Add("N/A");
         }
-            
-        outText += "EI,SN,TF,JP";
 
+        // Append Personality Headers
+        outText += "EI,SN,TF,JP";
         List<string> personalityMatrix = new() { "EI", "SN", "TF", "JP" };
         foreach (string pers in personalityMatrix)
         {
@@ -32,13 +37,19 @@ public partial class MainScript : Node2D
         }
 
         // Convert each observation into lists of string
-        foreach (List<Global.trait> savedObs in Global.Data.entityData)
+        foreach (Global.persona savedObs in Global.Data.roster)
         {
             List<string> tempData = new List<string>(templateData);
 
-            foreach (Global.trait aspect in savedObs)
+            tempData[0] = savedObs.name;
+
+            foreach(Global.trait aspect in savedObs.traits) 
             {
                 int index = headerData.IndexOf(aspect.key);
+
+                // Remove Unaccounted Traits
+                if (index == -1)
+                    continue;
 
                 tempData[index] = aspect.val;
             }
@@ -55,10 +66,19 @@ public partial class MainScript : Node2D
                 outText += "," + savedObs[i];
         }
 
-        // Return
-        return outText;
+        // Write to File
+        System.IO.File.WriteAllText("Output/Data.csv", outText);
     }
-    
+
+    // Print the roster
+    private void printRoster()
+    {
+        foreach (var item in Global.Data.roster)
+        {
+            GD.Print(item.ToString());
+        }
+    }
+
     // Function for button presses
     public void ButtonPressed(int val)
     {
@@ -82,13 +102,13 @@ public partial class MainScript : Node2D
             // Button-ML
             case 1:
                 // Print to Screen
-                GD.Print(outputData());
+                printRoster();
                 break;
 
             // Button-MR
             case 2:
                 // Print to File
-                System.IO.File.WriteAllText("Output/Data.csv", outputData());
+                writeRoster();
 
                 // Report to GD Console
                 GD.Print("File written.");

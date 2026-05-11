@@ -12,32 +12,6 @@ public partial class Global : Node
     // Create a global instance
     public static Global Data { get; private set; }
 
-    public class userFile
-    {
-        public userFile(string n)
-        {
-            name = n;
-            txt = false;
-            png = false;
-        }
-
-        public string name;
-        public bool txt;
-        public bool png;
-    }
-
-    public class userDirectory
-    {
-        public userDirectory(string n) 
-        { 
-            name = n;
-            opts = new List<userFile>();
-        }
-
-        public string name;
-        public List<userFile> opts;
-    }
-
     public class trait
     {
         public string key;
@@ -87,7 +61,7 @@ public partial class Global : Node
         // Pull input directories and nested files
         foreach (string dirpath in Directory.GetDirectories(fileAddress))
         {
-            userDirectory newDir = new userDirectory(Path.GetFileName(dirpath));
+            DirectoryManager.userDirectory newDir = new DirectoryManager.userDirectory(Path.GetFileName(dirpath));
 
             foreach (string filepath in Directory.GetFiles(dirpath))
             {
@@ -114,7 +88,7 @@ public partial class Global : Node
                     continue;
 
                 // Create a new file
-                userFile newFil = new userFile(Path.GetFileNameWithoutExtension(filepath));
+                DirectoryManager.userFile newFil = new DirectoryManager.userFile(Path.GetFileNameWithoutExtension(filepath));
 
                 // Set new file type
                 if (Path.GetExtension(filepath) == ".png")
@@ -221,9 +195,10 @@ public partial class Global : Node
                 string currHeader = fileHead[j].Trim('\r');
 
                 // Add Name
-                if (currHeader == "Name" && line[j] != "")
-                    currData.name = line[j];
-                    
+                if (currHeader == "Name") {
+                    if (line[j].Trim('\r') != "")
+                        currData.name = line[j].Trim('\r');
+                }
                 // Add Trait
                 else 
                     currData.traits.Add(new trait(currHeader, line[j]));
@@ -264,13 +239,13 @@ public partial class Global : Node
         SafeLoad("Input/Data.csv", readInputFile);
 
         // Load Persona CSV
-        SafeLoad("Input/Data.csv", LoadPersona);
+        SafeLoad("Input/Data - Copy.csv", LoadPersona);
 
         // Load Group CSV
         //SafeLoad("Input/Data.csv", LoadGroup);
     }
 
-    public List<userDirectory> database = new List<userDirectory>();
+    public List<DirectoryManager.userDirectory> database = new List<DirectoryManager.userDirectory>();
     public List<List<trait>> entityData = new List<List<trait>>();
     public List<trait> newEntity = new List<trait>();
 

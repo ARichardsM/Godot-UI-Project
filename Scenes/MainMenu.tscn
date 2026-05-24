@@ -51,7 +51,7 @@ text = "Add Persona"
 [node name="RButton" parent="Buttons/TContainer" instance=ExtResource("2_t3klc")]
 custom_minimum_size = Vector2(445, 0)
 layout_mode = 2
-text = "Add Group"
+text = "Add Stable"
 
 [node name="MContainer" type="HBoxContainer" parent="Buttons"]
 custom_minimum_size = Vector2(0, 95)

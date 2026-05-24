@@ -41,9 +41,11 @@ public partial class MainScript : Node2D
         {
             List<string> tempData = new List<string>(templateData);
 
+            // Record the observation's name
             tempData[0] = savedObs.name;
 
-            foreach(Global.trait aspect in savedObs.traits) 
+            // Record the observation's traits
+            foreach (Global.trait aspect in savedObs.traits) 
             {
                 int index = headerData.IndexOf(aspect.key);
 
@@ -54,6 +56,7 @@ public partial class MainScript : Node2D
                 tempData[index] = aspect.val;
             }
 
+            // Add the observations data to the data list
             data.Add(tempData);
         }
 

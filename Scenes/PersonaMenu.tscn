@@ -136,21 +136,23 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Button" parent="PersonalityMenu" instance=ExtResource("2_wuyk0")]
-layout_mode = 1
-offset_left = -500.0
+[node name="ButtonContainer" type="HBoxContainer" parent="PersonalityMenu"]
+layout_mode = 0
+offset_left = -475.0
 offset_top = 200.0
-offset_right = -50.0
+offset_right = 475.0
 offset_bottom = 295.0
+theme_override_constants/separation = 50
+
+[node name="Button" parent="PersonalityMenu/ButtonContainer" instance=ExtResource("2_wuyk0")]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
 text = "Add To Data"
 metadata/_edit_use_anchors_ = true
 
-[node name="Button2" parent="PersonalityMenu" instance=ExtResource("2_wuyk0")]
-layout_mode = 1
-offset_left = 50.0
-offset_top = 200.0
-offset_right = 500.0
-offset_bottom = 295.0
+[node name="Button2" parent="PersonalityMenu/ButtonContainer" instance=ExtResource("2_wuyk0")]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
 text = "Exit"
 metadata/_edit_use_anchors_ = true
 
@@ -176,3 +178,7 @@ RightLabelText = "Perceiving"
 
 [connection signal="pressed" from="SelectMenu/GridContainer/Button" to="." method="SelectShift" binds= [false]]
 [connection signal="pressed" from="SelectMenu/GridContainer/Button2" to="." method="SelectShift" binds= [true]]
+[connection signal="pressed" from="SelectMenu/GridContainer/Button3" to="." method="PersonaShift" binds= [0]]
+[connection signal="pressed" from="SelectMenu/GridContainer/Button4" to="." method="PersonaShift" binds= [1]]
+[connection signal="pressed" from="PersonalityMenu/ButtonContainer/Button" to="." method="BehaviourSelect" binds= [0]]
+[connection signal="pressed" from="PersonalityMenu/ButtonContainer/Button2" to="." method="BehaviourSelect" binds= [1]]

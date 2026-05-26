@@ -13,6 +13,9 @@ public partial class PersonaScript : Node
    // public string currHBox;
     public Global.persona newPersona;
 
+    // Declare Selection Scales
+    List<ScaleSelection> scales = new List<ScaleSelection>();
+
     // Declare Select Containers
     private HBoxContainer fullCont;
     private HBoxContainer pngCont;
@@ -25,50 +28,46 @@ public partial class PersonaScript : Node
     private TextureRect sprite;
     private Label text;
 
+
     // Function for button presses
-    public void ButtonPressed(int val)
+    public void BehaviourSelect(int val)
+    {
+        GD.Print(val);
+    }
+
+    // Function for button presses
+    public void PersonaShift(int val)
     {
         switch (val)
         {
-            // Load the previous file
-            case 0:
-                if (selectNum > 0)
-                    --selectNum;
-                    updateSubScreen();
-
-                break;
-            // Load the next file
-            case 1:
-                //int max = Global.Data.database[currentCategoryNum].opts.Count - 1;
-
-                if (selectNum < 10) { 
-                    ++selectNum;
-                    updateSubScreen();
-                }
-
-                break;
             // Add Data
-            case 2:
+            case 0:
                 // Add to the new data point
-                //string newKey = Global.Data.database[currentCategoryNum].name;
-                //string newVal = Global.Data.database[currentCategoryNum].opts[currentTraitNum].name;
-                //Global.Data.newEntity.Add(new Global.trait(newKey, newVal));
+                string newKey = Global.Data.database[newPersona.traits.Count].name;
+                string newVal = Global.Data.database[newPersona.traits.Count].opts[selectNum].name;
+                newPersona.traits.Add(new Global.trait(newKey, newVal));
 
-                // If the new category exists, reload the tree to load the new directory
-                if (Global.Data.newEntity.Count < Global.Data.database.Count)
+                // If the new category exists, update the screen to load the new directory
+                if (newPersona.traits.Count < Global.Data.database.Count)
                 {
-                    GetTree().ReloadCurrentScene();
+                    updateFullScreen();
                 }
                 // Else, go to the character menu
                 else
                 {
-                    GetTree().ChangeSceneToFile("Scenes/CharacterMenu.tscn");
+                    // Alter visiblity
+                    GetNode<Control>("SelectMenu").Visible = false;
+                    GetNode<Control>("PersonalityMenu").Visible = true;
+
+                    // Edit Sub-Title
+                    subtitle = GetNode<Label>("Sub-Title");
+                    subtitle.Text = "Personality Menu";
                     break;
                 }
 
                 break;
             // Exit
-            case 3:
+            case 1:
                 // Clear new entity
                 Global.Data.newEntity.Clear();
 
@@ -181,6 +180,12 @@ public partial class PersonaScript : Node
         fullCont = GetNode<HBoxContainer>("SelectMenu/FullContainer");
         pngCont = GetNode<HBoxContainer>("SelectMenu/PngContainer");
         txtCont = GetNode<HBoxContainer>("SelectMenu/TxtContainer");
+
+        // Log each selection scale
+        scales.Add(this.GetNode<ScaleSelection>("PersonalityMenu/Selection1"));
+        scales.Add(this.GetNode<ScaleSelection>("PersonalityMenu/Selection2"));
+        scales.Add(this.GetNode<ScaleSelection>("PersonalityMenu/Selection3"));
+        scales.Add(this.GetNode<ScaleSelection>("PersonalityMenu/Selection4"));
 
         // Set initial screen
         updateFullScreen();

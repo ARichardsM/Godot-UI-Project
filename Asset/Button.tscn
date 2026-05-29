@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://betbov7d2j85m"]
 
-[ext_resource type="Theme" uid="uid://evy30uts6u4n" path="res://ButtonTheme.tres" id="1_uitxq"]
+[ext_resource type="Theme" uid="uid://evy30uts6u4n" path="res://Asset/UnselectedButton.tres" id="1_uitxq"]
 
 [node name="Button" type="Button"]
 anchors_preset = 5

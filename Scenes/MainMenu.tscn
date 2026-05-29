@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://c2eyngokpxijh"]
 
 [ext_resource type="Script" path="res://Scripts/MainScript.cs" id="1_14dv5"]
-[ext_resource type="PackedScene" uid="uid://betbov7d2j85m" path="res://Button.tscn" id="2_t3klc"]
+[ext_resource type="PackedScene" uid="uid://betbov7d2j85m" path="res://Asset/Button.tscn" id="2_t3klc"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_crewf"]
 font_size = 40
@@ -74,7 +74,7 @@ layout_mode = 2
 text = "Exit"
 
 [connection signal="pressed" from="Buttons/TContainer/LButton" to="." method="ButtonPressed" binds= [0]]
-[connection signal="pressed" from="Buttons/TContainer/RButton" to="." method="ButtonPressed" binds= [0]]
+[connection signal="pressed" from="Buttons/TContainer/RButton" to="." method="ButtonPressed" binds= [4]]
 [connection signal="pressed" from="Buttons/MContainer/LButton" to="." method="ButtonPressed" binds= [1]]
 [connection signal="pressed" from="Buttons/MContainer/RButton" to="." method="ButtonPressed" binds= [2]]
 [connection signal="pressed" from="Buttons/BButton" to="." method="ButtonPressed" binds= [3]]

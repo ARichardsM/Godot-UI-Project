@@ -12,8 +12,8 @@ public partial class ScaleSelection : Node2D
     public string RightLabelText = "";
 
     public int ButtonSelected = 0;
-	private Theme selected = GD.Load<Theme>("res://ButtonTheme2.tres");
-    private Theme unselected = GD.Load<Theme>("res://ButtonTheme.tres");
+	private Theme selected = GD.Load<Theme>("res://Asset/SelectedButton.tres");
+    private Theme unselected = GD.Load<Theme>("res://Asset/UnselectedButton.tres");
 
     public override void _Ready()
     {
@@ -55,12 +55,12 @@ public partial class ScaleSelection : Node2D
         {
             Button = TranslateButton(ButtonSelected);
 
-            GetNode<Button>(Button).Theme = GD.Load<Theme>("res://ButtonTheme.tres");
+            GetNode<Button>(Button).Theme = unselected;
         }
         
         Button = TranslateButton(val);
 
-        GetNode<Button>(Button).Theme = GD.Load<Theme>("res://ButtonTheme2.tres");
+        GetNode<Button>(Button).Theme = selected;
 
         if (val < 0)
         {

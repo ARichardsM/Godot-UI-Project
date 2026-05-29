@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhsvmhkonqxxs"]
+
+[ext_resource type="Script" path="res://Scripts/StableMenu.cs" id="1_dvsf1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_37gj0"]
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_kh8nh"]
+font_size = 20
+
+[node name="StableMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dvsf1")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Header" type="VBoxContainer" parent="."]
+offset_left = -500.0
+offset_top = -300.0
+offset_right = 500.0
+offset_bottom = -200.0
+
+[node name="Title" type="Label" parent="Header"]
+layout_mode = 2
+text = "Godot UI Project"
+label_settings = SubResource("LabelSettings_37gj0")
+horizontal_alignment = 1
+
+[node name="Sub-Title" type="Label" parent="Header"]
+layout_mode = 2
+text = "Stable Menu"
+label_settings = SubResource("LabelSettings_kh8nh")
+horizontal_alignment = 1

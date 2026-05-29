@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://dyq343n5vba5c"]
 
 [ext_resource type="Script" path="res://Scripts/PersonaScript.cs" id="1_2f3b6"]
-[ext_resource type="PackedScene" uid="uid://betbov7d2j85m" path="res://Button.tscn" id="2_wuyk0"]
-[ext_resource type="PackedScene" uid="uid://6fncjs2rjmd4" path="res://ScaleSelection.tscn" id="3_3w4o0"]
+[ext_resource type="PackedScene" uid="uid://betbov7d2j85m" path="res://Asset/Button.tscn" id="2_wuyk0"]
+[ext_resource type="PackedScene" uid="uid://6fncjs2rjmd4" path="res://Asset/ScaleSelection.tscn" id="3_3w4o0"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_tpoil"]
 font_size = 40
@@ -53,30 +53,30 @@ offset_left = -400.0
 offset_top = 130.0
 offset_right = 400.0
 offset_bottom = 340.0
-theme_override_constants/h_separation = 50
+theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 20
 columns = 2
 
 [node name="Button" parent="SelectMenu/GridContainer" instance=ExtResource("2_wuyk0")]
-custom_minimum_size = Vector2(375, 65)
+custom_minimum_size = Vector2(390, 70)
 layout_mode = 2
 text = "Previous"
 metadata/_edit_use_anchors_ = true
 
 [node name="Button2" parent="SelectMenu/GridContainer" instance=ExtResource("2_wuyk0")]
-custom_minimum_size = Vector2(375, 65)
+custom_minimum_size = Vector2(390, 70)
 layout_mode = 2
 text = "Next"
 metadata/_edit_use_anchors_ = true
 
 [node name="Button3" parent="SelectMenu/GridContainer" instance=ExtResource("2_wuyk0")]
-custom_minimum_size = Vector2(375, 65)
+custom_minimum_size = Vector2(375, 70)
 layout_mode = 2
 text = "Add To Data"
 metadata/_edit_use_anchors_ = true
 
 [node name="Button4" parent="SelectMenu/GridContainer" instance=ExtResource("2_wuyk0")]
-custom_minimum_size = Vector2(375, 65)
+custom_minimum_size = Vector2(375, 70)
 layout_mode = 2
 text = "Exit"
 metadata/_edit_use_anchors_ = true

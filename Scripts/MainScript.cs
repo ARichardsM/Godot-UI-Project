@@ -87,20 +87,17 @@ public partial class MainScript : Node2D
     {
         switch (val)
         {
-            // Button-T
+            // Button-TL
             case 0:
-                // If there are categories, go to category menu
-                if (Global.Data.newEntity.Count < Global.Data.database.Count)
-                {
-                    GetTree().ChangeSceneToFile("Scenes/CategoryMenu.tscn");
-                    break;
-                }
-                // Else, go to the character menu
-                else
-                {
-                    GetTree().ChangeSceneToFile("Scenes/CharacterMenu.tscn");
-                    break;
-                }
+                // Add a persona to the roster
+                GetTree().ChangeSceneToFile("Scenes/PersonaMenu.tscn");
+                break;
+
+            // Button-TR
+            case 4:
+                // Add a stable to the groups
+                GetTree().ChangeSceneToFile("Scenes/StableMenu.tscn");
+                break;
 
             // Button-ML
             case 1:

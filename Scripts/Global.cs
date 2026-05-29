@@ -29,6 +29,11 @@ public partial class Global : Node
         public string name = "";
         public List<trait> traits = new List<trait>();
 
+        public persona()
+        {
+
+        }
+
         public override string ToString()
         {
             string output = "";
@@ -46,6 +51,11 @@ public partial class Global : Node
 
             // Output string
             return output;
+        }
+
+        public void Add(string key, string val)
+        {
+            traits.Add(new Global.trait(key, val));
         }
     }
 
@@ -106,40 +116,9 @@ public partial class Global : Node
     }
 
     // Read and prepare the Entity Database
-    private void readInputFile(string fileAddress)
-    {
-        // Read the data file
-        string fileText = File.ReadAllText(fileAddress);
-
-        // Split the string
-        string[] fileCon = fileText.Split("\n");
-        string[] fileHead = fileCon[0].Split(",");
-
-        // Add each observation to the global data
-        for (int i = 1; i < fileCon.Length; i++)
-        {
-            List<trait> currData = new List<trait>();
-            string[] line = fileCon[i].Split(",");
-
-            // Verify the number of values match the number of keys
-            if (line.Length != fileHead.Length)
-                continue;
-
-            // Convert obs to trait format and save
-            for (int j = 0; j < line.Length; j++)
-            {
-                currData.Add(new trait(fileHead[j].Trim('\r'), line[j]));
-            }
-
-            // Save the data
-            entityData.Add(currData);
-        }
-    }
-
-    // Read and prepare the Entity Database
     private void LoadGroup(string fileAddress)
     {
-        
+    /*    
     // Read the data file
     string fileText = File.ReadAllText(fileAddress);
 
@@ -166,6 +145,7 @@ public partial class Global : Node
             // Save the data
             entityData.Add(currData);
         }
+    */
     }
 
     // Read and prepare the Entity Database
@@ -235,19 +215,15 @@ public partial class Global : Node
         // Read the Input Directory
         SafeLoad("Input", readDirectory);
 
-        // Read the data csv
-        SafeLoad("Input/Data.csv", readInputFile);
-
         // Load Persona CSV
-        SafeLoad("Input/Data - Copy.csv", LoadPersona);
+        SafeLoad("Input/RosterData.csv", LoadPersona);
 
         // Load Group CSV
         //SafeLoad("Input/Data.csv", LoadGroup);
+
     }
 
     public List<DirectoryManager.userDirectory> database = new List<DirectoryManager.userDirectory>();
-    public List<List<trait>> entityData = new List<List<trait>>();
-    public List<trait> newEntity = new List<trait>();
 
     public List<persona> roster = new List<persona>();
     public List<stable> groups = new List<stable>();

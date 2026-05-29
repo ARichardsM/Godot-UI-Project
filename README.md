@@ -44,3 +44,4 @@ The Godot UI Project is a project focused on integrating previous work, includin
 - [ ] Update Character Tracker
 	- [ ] Display Selected Options On UI
 	- [ ] Back Option on Creator
+- [ ] MainScript ButtonPressed Reorder

@@ -8,9 +8,7 @@ using System.Linq;
 public partial class PersonaScript : Node
 {
     // Declare variables
-    //private int currentCategoryNum = Global.Data.newEntity.Count;
     private int selectNum = 0;
-   // public string currHBox;
     public Global.persona newPersona;
 
     // Declare Selection Scales
@@ -32,7 +30,37 @@ public partial class PersonaScript : Node
     // Function for button presses
     public void BehaviourSelect(int val)
     {
-        GD.Print(val);
+        switch (val)
+        {
+            case 0:
+                // Add Personality Traits
+                List<string> personalityMatrix = new() { "EI", "SN", "TF", "JP" };
+                for (int i = 0; i < personalityMatrix.Count; i++)
+                {
+                    // Cancel if a button hasn't been selected
+                    if (scales[i].ButtonSelected == 0)
+                    {
+                        GD.Print("Verify Failed: Button Unselected");
+                        return;
+                    }
+
+                    // Log trait
+                    newPersona.Add(personalityMatrix[i], scales[i].ButtonSelected.ToString());
+                }
+
+                // Add to Entity Data List
+                Global.Data.roster.Add(newPersona);
+
+                // Return to the main menu
+                GetTree().ChangeSceneToFile("Scenes/MainMenu.tscn");
+                break;
+
+            case 1:
+                // Return to the main menu
+                GetTree().ChangeSceneToFile("Scenes/MainMenu.tscn");
+                break;
+
+        }
     }
 
     // Function for button presses
@@ -68,9 +96,6 @@ public partial class PersonaScript : Node
                 break;
             // Exit
             case 1:
-                // Clear new entity
-                Global.Data.newEntity.Clear();
-
                 // Return to the main menu
                 GetTree().ChangeSceneToFile("Scenes/MainMenu.tscn");
                 break;
@@ -84,6 +109,7 @@ public partial class PersonaScript : Node
         // Determine current values
         int currTrait = newPersona.traits.Count;
 
+        // Shift
         if (shiftUp)
         {
             --selectNum;
@@ -93,12 +119,15 @@ public partial class PersonaScript : Node
             ++selectNum;
         }
 
+        // Lower Bound Shift
         if (selectNum < 0)
             selectNum = Global.Data.database[currTrait].opts.Count - 1;
 
-        if (selectNum > Global.Data.database[currTrait].opts.Count)
+        // Upper Bound Shift
+        if (selectNum >= Global.Data.database[currTrait].opts.Count)
             selectNum = 0;
 
+        // Update the Sub Screen
         updateSubScreen();
     }
 
@@ -115,6 +144,9 @@ public partial class PersonaScript : Node
         // Edit Sub-Title
         subtitle = GetNode<Label>("Sub-Title");
         subtitle.Text = Global.Data.database[currTrait].name + " Category Menu";
+
+        // Reset the select
+        selectNum = 0;
 
         // Update the Sub Screen
         updateSubScreen();

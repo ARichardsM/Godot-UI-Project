@@ -16,7 +16,7 @@ public partial class StableMenu : Control
 
         int totalCount = 0;
 
-        foreach (var member in Global.Data.roster)
+        foreach (var member in Global.Data.groups)
         {
             var temp = new Button();
             int currInd = totalCount++;
@@ -30,13 +30,12 @@ public partial class StableMenu : Control
 
     private void ButtonPress(int i)
     {
-        GD.Print("Wow");
-        dataName.Text = Global.Data.roster[i].name;
+        dataName.Text = Global.Data.groups[i].name;
 
         string outText = "";
-        foreach(var traits in Global.Data.roster[i].traits)
+        foreach(var name in Global.Data.groups[i].member)
         {
-            outText += traits.key + " " + traits.val + "\n";
+            outText += name + "\n";
         }
         dataMembers.Text = outText;
     }

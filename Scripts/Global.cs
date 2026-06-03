@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Runtime.CompilerServices;
 
 public partial class Global : Node
@@ -62,7 +63,7 @@ public partial class Global : Node
     public class stable
     {
         public string name;
-        public List<int> member;
+        public List<string> member = new List<string>();
     }
 
     // Read and prepare the Directory Database
@@ -118,9 +119,8 @@ public partial class Global : Node
     // Read and prepare the Entity Database
     private void LoadGroup(string fileAddress)
     {
-    /*    
-    // Read the data file
-    string fileText = File.ReadAllText(fileAddress);
+        // Read the data file
+        string fileText = File.ReadAllText(fileAddress);
 
         // Split the string
         string[] fileCon = fileText.Split("\n");
@@ -129,23 +129,30 @@ public partial class Global : Node
         // Add each observation to the global data
         for (int i = 1; i < fileCon.Length; i++)
         {
-            List<trait> currData = new List<trait>();
+            //List<trait> currData = new List<trait>();
+            stable currData = new stable();
             string[] line = fileCon[i].Split(",");
-
-            // Verify the number of values match the number of keys
-            if (line.Length != fileHead.Length)
-                continue;
 
             // Convert obs to trait format and save
             for (int j = 0; j < line.Length; j++)
             {
-                currData.Add(new trait(fileHead[j].Trim('\r'), line[j]));
+                // Get current header
+                string currHeader = fileHead[j].Trim('\r');
+
+                // Add Name
+                if (currHeader == "Name")
+                {
+                    if (line[j].Trim('\r') != "")
+                        currData.name = line[j].Trim('\r');
+                }
+                // Add Members
+                else
+                    currData.member.Add(line[j]);
             }
 
             // Save the data
-            entityData.Add(currData);
+            groups.Add(currData);
         }
-    */
     }
 
     // Read and prepare the Entity Database
@@ -219,7 +226,7 @@ public partial class Global : Node
         SafeLoad("Input/RosterData.csv", LoadPersona);
 
         // Load Group CSV
-        //SafeLoad("Input/Data.csv", LoadGroup);
+        SafeLoad("Input/StableData.csv", LoadGroup);
 
     }
 

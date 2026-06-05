@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection.PortableExecutable;
 using System.Runtime.CompilerServices;
+using static Global;
 
 public partial class Global : Node
 {
@@ -22,6 +23,18 @@ public partial class Global : Node
         {
             this.key = key;
             this.val = val;
+        }
+    }
+
+    public class aspect
+    {
+        public string key;
+        public string desc;
+
+        public aspect(string key, string desc)
+        {
+            this.key = key;
+            this.desc = desc;
         }
     }
 
@@ -64,6 +77,17 @@ public partial class Global : Node
     {
         public string name;
         public List<string> member = new List<string>();
+        public List<aspect> aspects = new List<aspect>();
+
+        public void Add(string key, string desc)
+        {
+            aspects.Add(new Global.aspect(key, desc));
+        }
+
+        public void Add(string key)
+        {
+            aspects.Add(new Global.aspect(key, ""));
+        }
     }
 
     // Read and prepare the Directory Database
@@ -126,6 +150,7 @@ public partial class Global : Node
         string[] fileCon = fileText.Split("\n");
         string[] fileHead = fileCon[0].Split(",");
 
+
         // Add each observation to the global data
         for (int i = 1; i < fileCon.Length; i++)
         {
@@ -142,13 +167,27 @@ public partial class Global : Node
                 // Add Name
                 if (currHeader == "Name")
                 {
-                    if (line[j].Trim('\r') != "")
+                    if (line[j].Trim('\r').Trim('\n') != "")
                         currData.name = line[j].Trim('\r');
+                }
+                // Aspect
+                else if (currHeader == "Aspect")
+                {
+                    if (line[j].Trim('\r') != "")
+                        currData.Add(line[j].Trim('\r'));
                 }
                 // Add Members
                 else
-                    currData.member.Add(line[j]);
+                    if (line[j].Trim('\r') != "")
+                        currData.member.Add(line[j]);
             }
+
+            // Verify Group
+            bool verify = string.IsNullOrEmpty(currData.name);
+            verify = verify && currData.member.Count == 0;
+            verify = verify && currData.aspects.Count == 0;
+            if (verify)
+                continue;
 
             // Save the data
             groups.Add(currData);

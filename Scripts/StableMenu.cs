@@ -7,22 +7,33 @@ public partial class StableMenu : Control
 {
     Label dataName, dataMembers;
 
-
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        // Set container and labels
         var container = GetNode<VBoxContainer>("ViewMenu/ScrollContainer/VBoxContainer");
         dataName = GetNode<Label>("ViewMenu/DataBox/Container/Name");
         dataMembers = GetNode<Label>("ViewMenu/DataBox/Container/Members");
 
+        // Begin group count (for ButtonPress int)
         int totalCount = 0;
 
+        // Create a button for each group
         foreach (var member in Global.Data.groups)
         {
             var temp = new Button();
-            int currInd = totalCount++;
-            temp.Text = "Person: " + member.name;
-            temp.Pressed += () => ButtonPress(currInd);
+            int ID = totalCount++;
+
+            // If group is unnamed, set the button text to "unnamed"
+            if (string.IsNullOrEmpty(member.name))
+                temp.Text = "Unnamed";
+            else
+                temp.Text = member.name;
+
+            // Add signal to button 
+            temp.Pressed += () => ButtonPress(ID);
+
+            // Add button to the container
             container.AddChild(temp);
         }
     }

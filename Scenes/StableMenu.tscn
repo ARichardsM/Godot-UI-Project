@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bhsvmhkonqxxs"]
+[gd_scene load_steps=6 format=3 uid="uid://bhsvmhkonqxxs"]
 
 [ext_resource type="Script" path="res://Scripts/StableMenu.cs" id="1_dvsf1"]
 [ext_resource type="PackedScene" uid="uid://betbov7d2j85m" path="res://Asset/Button.tscn" id="2_xw3eu"]
@@ -6,8 +6,12 @@
 [sub_resource type="LabelSettings" id="LabelSettings_37gj0"]
 font_size = 40
 
+[sub_resource type="LabelSettings" id="LabelSettings_isnub"]
+font_size = 20
+
 [sub_resource type="LabelSettings" id="LabelSettings_kh8nh"]
 font_size = 20
+font_color = Color(0.625597, 0.625597, 0.625597, 1)
 
 [node name="StableMenu" type="Control"]
 layout_mode = 3
@@ -36,13 +40,12 @@ horizontal_alignment = 1
 [node name="Sub-Title" type="Label" parent="Header"]
 layout_mode = 2
 text = "Stable Menu"
-label_settings = SubResource("LabelSettings_kh8nh")
+label_settings = SubResource("LabelSettings_isnub")
 horizontal_alignment = 1
 
 [node name="ViewMenu" type="Control" parent="."]
+visible = false
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
 
 [node name="DataBox" type="ScrollContainer" parent="ViewMenu"]
 layout_mode = 0
@@ -81,24 +84,274 @@ offset_left = -475.0
 offset_top = 200.0
 offset_right = 475.0
 offset_bottom = 295.0
-theme_override_constants/separation = 50
+theme_override_constants/separation = 25
 
-[node name="Button" parent="ViewMenu/ButtonContainer" instance=ExtResource("2_xw3eu")]
-custom_minimum_size = Vector2(450, 0)
+[node name="EditMember" parent="ViewMenu/ButtonContainer" instance=ExtResource("2_xw3eu")]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-text = "Edit"
+text = "Edit Member"
 metadata/_edit_use_anchors_ = true
 
-[node name="Button2" parent="ViewMenu/ButtonContainer" instance=ExtResource("2_xw3eu")]
+[node name="EditAspect" parent="ViewMenu/ButtonContainer" instance=ExtResource("2_xw3eu")]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+text = "Edit Aspect"
+metadata/_edit_use_anchors_ = true
+
+[node name="Exit" parent="ViewMenu/ButtonContainer" instance=ExtResource("2_xw3eu")]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+text = "Exit"
+metadata/_edit_use_anchors_ = true
+
+[node name="AspectMenu" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+
+[node name="Menu" type="VBoxContainer" parent="AspectMenu"]
+offset_left = -500.0
+offset_top = -200.0
+offset_right = 500.0
+offset_bottom = 200.0
+
+[node name="Header4" type="Label" parent="AspectMenu/Menu"]
+layout_mode = 2
+text = "Aspect"
+label_settings = SubResource("LabelSettings_kh8nh")
+
+[node name="Members" type="ScrollContainer" parent="AspectMenu/Menu"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="AspectMenu/Menu/Members"]
+layout_mode = 2
+text = "Ipsum"
+
+[node name="Header1" type="Label" parent="AspectMenu/Menu"]
+layout_mode = 2
+text = "Enter Aspect"
+label_settings = SubResource("LabelSettings_kh8nh")
+
+[node name="EnterMenu" type="HBoxContainer" parent="AspectMenu/Menu"]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="AspectMenu/Menu/EnterMenu"]
+layout_mode = 2
+
+[node name="LineEdit2" type="LineEdit" parent="AspectMenu/Menu/EnterMenu"]
+layout_mode = 2
+
+[node name="Button" parent="AspectMenu/Menu/EnterMenu" instance=ExtResource("2_xw3eu")]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+text = "Add"
+metadata/_edit_use_anchors_ = true
+
+[node name="Header2" type="Label" parent="AspectMenu/Menu"]
+layout_mode = 2
+text = "Add Aspect"
+label_settings = SubResource("LabelSettings_kh8nh")
+
+[node name="AddMenu" type="HBoxContainer" parent="AspectMenu/Menu"]
+layout_mode = 2
+
+[node name="Random" parent="AspectMenu/Menu/AddMenu" instance=ExtResource("2_xw3eu")]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+text = "Random"
+metadata/_edit_use_anchors_ = true
+
+[node name="Options" type="OptionButton" parent="AspectMenu/Menu/AddMenu"]
+layout_mode = 2
+
+[node name="Description" type="ScrollContainer" parent="AspectMenu/Menu/AddMenu"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="AspectMenu/Menu/AddMenu/Description"]
+layout_mode = 2
+text = "Ipsum"
+
+[node name="Button" parent="AspectMenu/Menu/AddMenu" instance=ExtResource("2_xw3eu")]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+text = "Add"
+metadata/_edit_use_anchors_ = true
+
+[node name="Header3" type="Label" parent="AspectMenu/Menu"]
+layout_mode = 2
+text = "Remove Aspect"
+label_settings = SubResource("LabelSettings_kh8nh")
+
+[node name="RemoveMenu" type="HBoxContainer" parent="AspectMenu/Menu"]
+layout_mode = 2
+
+[node name="Options" type="OptionButton" parent="AspectMenu/Menu/RemoveMenu"]
+layout_mode = 2
+
+[node name="Description" type="ScrollContainer" parent="AspectMenu/Menu/RemoveMenu"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="AspectMenu/Menu/RemoveMenu/Description"]
+layout_mode = 2
+text = "Ipsum"
+
+[node name="Button" parent="AspectMenu/Menu/RemoveMenu" instance=ExtResource("2_xw3eu")]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+text = "Remove"
+metadata/_edit_use_anchors_ = true
+
+[node name="ButtonContainer" type="HBoxContainer" parent="AspectMenu"]
+offset_left = -475.0
+offset_top = 200.0
+offset_right = 475.0
+offset_bottom = 295.0
+theme_override_constants/separation = 50
+
+[node name="Wipe" parent="AspectMenu/ButtonContainer" instance=ExtResource("2_xw3eu")]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+text = "Wipe"
+metadata/_edit_use_anchors_ = true
+
+[node name="Exit" parent="AspectMenu/ButtonContainer" instance=ExtResource("2_xw3eu")]
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 text = "Exit"
 metadata/_edit_use_anchors_ = true
 
-[node name="EditMenu" type="Control" parent="."]
+[node name="MemberMenu" type="Control" parent="."]
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
 
-[connection signal="pressed" from="ViewMenu/ButtonContainer/Button" to="." method="MenuPress" binds= [0]]
-[connection signal="pressed" from="ViewMenu/ButtonContainer/Button2" to="." method="MenuPress" binds= [1]]
+[node name="Menu" type="VBoxContainer" parent="MemberMenu"]
+offset_left = -500.0
+offset_top = -200.0
+offset_right = 500.0
+offset_bottom = 200.0
+
+[node name="List" type="Label" parent="MemberMenu/Menu"]
+layout_mode = 2
+text = "Members"
+label_settings = SubResource("LabelSettings_kh8nh")
+
+[node name="Members" type="ScrollContainer" parent="MemberMenu/Menu"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MemberMenu/Menu/Members"]
+layout_mode = 2
+text = "Ipsum"
+
+[node name="Header1" type="Label" parent="MemberMenu/Menu"]
+layout_mode = 2
+text = "Add Member"
+label_settings = SubResource("LabelSettings_kh8nh")
+
+[node name="AddMenu" type="HBoxContainer" parent="MemberMenu/Menu"]
+layout_mode = 2
+
+[node name="Random" parent="MemberMenu/Menu/AddMenu" instance=ExtResource("2_xw3eu")]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+text = "Random"
+metadata/_edit_use_anchors_ = true
+
+[node name="Options" type="OptionButton" parent="MemberMenu/Menu/AddMenu"]
+layout_mode = 2
+
+[node name="Description" type="ScrollContainer" parent="MemberMenu/Menu/AddMenu"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MemberMenu/Menu/AddMenu/Description"]
+layout_mode = 2
+text = "Ipsum"
+
+[node name="Button" parent="MemberMenu/Menu/AddMenu" instance=ExtResource("2_xw3eu")]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+text = "Add"
+metadata/_edit_use_anchors_ = true
+
+[node name="Header2" type="Label" parent="MemberMenu/Menu"]
+layout_mode = 2
+text = "Add Group"
+label_settings = SubResource("LabelSettings_kh8nh")
+
+[node name="GroupMenu" type="HBoxContainer" parent="MemberMenu/Menu"]
+layout_mode = 2
+
+[node name="Random" parent="MemberMenu/Menu/GroupMenu" instance=ExtResource("2_xw3eu")]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+text = "Random"
+metadata/_edit_use_anchors_ = true
+
+[node name="Options" type="OptionButton" parent="MemberMenu/Menu/GroupMenu"]
+layout_mode = 2
+
+[node name="Description" type="ScrollContainer" parent="MemberMenu/Menu/GroupMenu"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MemberMenu/Menu/GroupMenu/Description"]
+layout_mode = 2
+text = "Ipsum"
+
+[node name="Button" parent="MemberMenu/Menu/GroupMenu" instance=ExtResource("2_xw3eu")]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+text = "Add"
+metadata/_edit_use_anchors_ = true
+
+[node name="Header3" type="Label" parent="MemberMenu/Menu"]
+layout_mode = 2
+text = "Remove Member"
+label_settings = SubResource("LabelSettings_kh8nh")
+
+[node name="RemoveMenu" type="HBoxContainer" parent="MemberMenu/Menu"]
+layout_mode = 2
+
+[node name="Options" type="OptionButton" parent="MemberMenu/Menu/RemoveMenu"]
+layout_mode = 2
+
+[node name="Description" type="ScrollContainer" parent="MemberMenu/Menu/RemoveMenu"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MemberMenu/Menu/RemoveMenu/Description"]
+layout_mode = 2
+text = "Ipsum"
+
+[node name="Button" parent="MemberMenu/Menu/RemoveMenu" instance=ExtResource("2_xw3eu")]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+text = "Remove"
+metadata/_edit_use_anchors_ = true
+
+[node name="ButtonContainer" type="HBoxContainer" parent="MemberMenu"]
+offset_left = -475.0
+offset_top = 200.0
+offset_right = 475.0
+offset_bottom = 295.0
+theme_override_constants/separation = 50
+
+[node name="Wipe" parent="MemberMenu/ButtonContainer" instance=ExtResource("2_xw3eu")]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+text = "Wipe"
+metadata/_edit_use_anchors_ = true
+
+[node name="Exit" parent="MemberMenu/ButtonContainer" instance=ExtResource("2_xw3eu")]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+text = "Exit"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="ViewMenu/ButtonContainer/EditMember" to="." method="MenuPress" binds= [0]]
+[connection signal="pressed" from="ViewMenu/ButtonContainer/EditAspect" to="." method="MenuPress" binds= [1]]
+[connection signal="pressed" from="ViewMenu/ButtonContainer/Exit" to="." method="MenuPress" binds= [1]]
+[connection signal="pressed" from="AspectMenu/ButtonContainer/Exit" to="." method="MenuPress" binds= [1]]
+[connection signal="pressed" from="MemberMenu/ButtonContainer/Exit" to="." method="MenuPress" binds= [1]]

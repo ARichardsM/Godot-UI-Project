@@ -7,9 +7,12 @@ using static Global;
 
 public partial class StableMenu : Control
 {
+    int selected = -1;
     Label dataName, dataMembers;
+    Control ViewMenu, AspectMenu, MemberMenu;
     List<aspect> aspectInfo = new List<aspect>();
 
+    // Internal aspect class for the stable aspect data file
     public class aspect
     {
         public string type;
@@ -36,7 +39,10 @@ public partial class StableMenu : Control
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        // Set container and labels
+        // Set control, container, and labels
+        ViewMenu = GetNode<Control>("ViewMenu");
+        AspectMenu = GetNode<Control>("AspectMenu");
+        MemberMenu = GetNode<Control>("MemberMenu");
         var container = GetNode<VBoxContainer>("ViewMenu/ScrollContainer/VBoxContainer");
         dataName = GetNode<Label>("ViewMenu/DataBox/Container/Name");
         dataMembers = GetNode<Label>("ViewMenu/DataBox/Container/Members");
@@ -113,23 +119,43 @@ public partial class StableMenu : Control
         }
     }
 
+    private void SwitchToAspects()
+    {
+        ViewMenu.Visible = false;
+        AspectMenu.Visible = true;
+    }
+
+    private void SwitchToMembers()
+    {
+        ViewMenu.Visible = false;
+        MemberMenu.Visible = true;
+    }
+
     private void ButtonPress(int i)
     {
+        // Set header name
         dataName.Text = Global.Data.groups[i].name;
+
+        // Set selected for edit functions
+        selected = i;
 
         string outText = "";
 
+        // Record aspects
         outText += "Aspects\n";
         foreach (var name in Global.Data.groups[i].aspects)
         {
             outText += name.key + "\n";
         }
 
+        // Record members
         outText += "\nMembers\n";
         foreach (var name in Global.Data.groups[i].member)
         {
             outText += name + "\n";
         }
+
+        // Write to window
         dataMembers.Text = outText;
     }
 
@@ -138,11 +164,43 @@ public partial class StableMenu : Control
         switch (val)
         {
             case 0:
+                // Prepare and go to the edit member menu
+                if (selected == -1)
+                    GD.Print("No stable selected.");
+                else
+                    SwitchToMembers();
                 break;
 
             case 1:
+                // Prepare and go to the edit aspect menu
+                if (selected == -1)
+                    GD.Print("No stable selected.");
+                else
+                    SwitchToAspects();
+                break;
+
+            case 2:
+                // Return to the main menu
+                ReturnPress(0);
+                break;
+        }
+    }
+
+    private void ReturnPress(int val)
+    {
+        switch (val)
+        {
+            case 0:
                 // Return to the main menu
                 GetTree().ChangeSceneToFile("Scenes/MainMenu.tscn");
+                break;
+            case 1:
+                ViewMenu.Visible = true;
+                AspectMenu.Visible = false;
+                break;
+            case 2:
+                ViewMenu.Visible = true;
+                MemberMenu.Visible = false;
                 break;
         }
     }

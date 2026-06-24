@@ -44,7 +44,6 @@ label_settings = SubResource("LabelSettings_isnub")
 horizontal_alignment = 1
 
 [node name="ViewMenu" type="Control" parent="."]
-visible = false
 anchors_preset = 0
 
 [node name="DataBox" type="ScrollContainer" parent="ViewMenu"]
@@ -105,6 +104,7 @@ text = "Exit"
 metadata/_edit_use_anchors_ = true
 
 [node name="AspectMenu" type="Control" parent="."]
+visible = false
 anchors_preset = 0
 
 [node name="Menu" type="VBoxContainer" parent="AspectMenu"]
@@ -137,12 +137,15 @@ layout_mode = 2
 
 [node name="LineEdit" type="LineEdit" parent="AspectMenu/Menu/EnterMenu"]
 layout_mode = 2
+placeholder_text = "Type"
 
 [node name="LineEdit2" type="LineEdit" parent="AspectMenu/Menu/EnterMenu"]
 layout_mode = 2
+placeholder_text = "Name"
 
 [node name="LineEdit3" type="LineEdit" parent="AspectMenu/Menu/EnterMenu"]
 layout_mode = 2
+placeholder_text = "Description"
 
 [node name="Button" parent="AspectMenu/Menu/EnterMenu" instance=ExtResource("2_xw3eu")]
 layout_mode = 2
@@ -353,6 +356,6 @@ metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="ViewMenu/ButtonContainer/EditMember" to="." method="MenuPress" binds= [0]]
 [connection signal="pressed" from="ViewMenu/ButtonContainer/EditAspect" to="." method="MenuPress" binds= [1]]
-[connection signal="pressed" from="ViewMenu/ButtonContainer/Exit" to="." method="MenuPress" binds= [1]]
-[connection signal="pressed" from="AspectMenu/ButtonContainer/Exit" to="." method="MenuPress" binds= [1]]
-[connection signal="pressed" from="MemberMenu/ButtonContainer/Exit" to="." method="MenuPress" binds= [1]]
+[connection signal="pressed" from="ViewMenu/ButtonContainer/Exit" to="." method="MenuPress" binds= [2]]
+[connection signal="pressed" from="AspectMenu/ButtonContainer/Exit" to="." method="ReturnPress" binds= [1]]
+[connection signal="pressed" from="MemberMenu/ButtonContainer/Exit" to="." method="ReturnPress" binds= [2]]

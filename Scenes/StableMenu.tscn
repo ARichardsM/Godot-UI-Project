@@ -105,10 +105,10 @@ text = "Exit"
 metadata/_edit_use_anchors_ = true
 
 [node name="AspectMenu" type="Control" parent="."]
-visible = false
 anchors_preset = 0
 
 [node name="Menu" type="VBoxContainer" parent="AspectMenu"]
+layout_mode = 0
 offset_left = -500.0
 offset_top = -200.0
 offset_right = 500.0
@@ -120,7 +120,7 @@ text = "Aspect"
 label_settings = SubResource("LabelSettings_kh8nh")
 
 [node name="Members" type="ScrollContainer" parent="AspectMenu/Menu"]
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(200, 25)
 layout_mode = 2
 
 [node name="Label" type="Label" parent="AspectMenu/Menu/Members"]
@@ -141,8 +141,10 @@ layout_mode = 2
 [node name="LineEdit2" type="LineEdit" parent="AspectMenu/Menu/EnterMenu"]
 layout_mode = 2
 
+[node name="LineEdit3" type="LineEdit" parent="AspectMenu/Menu/EnterMenu"]
+layout_mode = 2
+
 [node name="Button" parent="AspectMenu/Menu/EnterMenu" instance=ExtResource("2_xw3eu")]
-custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 text = "Add"
 metadata/_edit_use_anchors_ = true
@@ -156,10 +158,12 @@ label_settings = SubResource("LabelSettings_kh8nh")
 layout_mode = 2
 
 [node name="Random" parent="AspectMenu/Menu/AddMenu" instance=ExtResource("2_xw3eu")]
-custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 text = "Random"
 metadata/_edit_use_anchors_ = true
+
+[node name="LineEdit" type="LineEdit" parent="AspectMenu/Menu/AddMenu"]
+layout_mode = 2
 
 [node name="Options" type="OptionButton" parent="AspectMenu/Menu/AddMenu"]
 layout_mode = 2
@@ -173,7 +177,6 @@ layout_mode = 2
 text = "Ipsum"
 
 [node name="Button" parent="AspectMenu/Menu/AddMenu" instance=ExtResource("2_xw3eu")]
-custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 text = "Add"
 metadata/_edit_use_anchors_ = true
@@ -198,12 +201,12 @@ layout_mode = 2
 text = "Ipsum"
 
 [node name="Button" parent="AspectMenu/Menu/RemoveMenu" instance=ExtResource("2_xw3eu")]
-custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 text = "Remove"
 metadata/_edit_use_anchors_ = true
 
 [node name="ButtonContainer" type="HBoxContainer" parent="AspectMenu"]
+layout_mode = 0
 offset_left = -475.0
 offset_top = 200.0
 offset_right = 475.0
@@ -223,9 +226,11 @@ text = "Exit"
 metadata/_edit_use_anchors_ = true
 
 [node name="MemberMenu" type="Control" parent="."]
+visible = false
 anchors_preset = 0
 
 [node name="Menu" type="VBoxContainer" parent="MemberMenu"]
+layout_mode = 0
 offset_left = -500.0
 offset_top = -200.0
 offset_right = 500.0
@@ -253,7 +258,6 @@ label_settings = SubResource("LabelSettings_kh8nh")
 layout_mode = 2
 
 [node name="Random" parent="MemberMenu/Menu/AddMenu" instance=ExtResource("2_xw3eu")]
-custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 text = "Random"
 metadata/_edit_use_anchors_ = true
@@ -270,7 +274,6 @@ layout_mode = 2
 text = "Ipsum"
 
 [node name="Button" parent="MemberMenu/Menu/AddMenu" instance=ExtResource("2_xw3eu")]
-custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 text = "Add"
 metadata/_edit_use_anchors_ = true
@@ -284,7 +287,6 @@ label_settings = SubResource("LabelSettings_kh8nh")
 layout_mode = 2
 
 [node name="Random" parent="MemberMenu/Menu/GroupMenu" instance=ExtResource("2_xw3eu")]
-custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 text = "Random"
 metadata/_edit_use_anchors_ = true
@@ -301,7 +303,6 @@ layout_mode = 2
 text = "Ipsum"
 
 [node name="Button" parent="MemberMenu/Menu/GroupMenu" instance=ExtResource("2_xw3eu")]
-custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 text = "Add"
 metadata/_edit_use_anchors_ = true
@@ -326,12 +327,12 @@ layout_mode = 2
 text = "Ipsum"
 
 [node name="Button" parent="MemberMenu/Menu/RemoveMenu" instance=ExtResource("2_xw3eu")]
-custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 text = "Remove"
 metadata/_edit_use_anchors_ = true
 
 [node name="ButtonContainer" type="HBoxContainer" parent="MemberMenu"]
+layout_mode = 0
 offset_left = -475.0
 offset_top = 200.0
 offset_right = 475.0

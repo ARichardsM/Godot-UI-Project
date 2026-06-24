@@ -236,7 +236,7 @@ public partial class Global : Node
     }
 
     // Load within a try-catch
-    private void SafeLoad(string arg, Action<string> loadFunction)
+    public void SafeLoad(string arg, Action<string> loadFunction)
     {
         try
         {

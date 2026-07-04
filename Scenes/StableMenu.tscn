@@ -44,6 +44,7 @@ label_settings = SubResource("LabelSettings_isnub")
 horizontal_alignment = 1
 
 [node name="ViewMenu" type="Control" parent="."]
+visible = false
 anchors_preset = 0
 
 [node name="DataBox" type="ScrollContainer" parent="ViewMenu"]
@@ -104,7 +105,6 @@ text = "Exit"
 metadata/_edit_use_anchors_ = true
 
 [node name="AspectMenu" type="Control" parent="."]
-visible = false
 anchors_preset = 0
 
 [node name="Menu" type="VBoxContainer" parent="AspectMenu"]
@@ -357,5 +357,8 @@ metadata/_edit_use_anchors_ = true
 [connection signal="pressed" from="ViewMenu/ButtonContainer/EditMember" to="." method="MenuPress" binds= [0]]
 [connection signal="pressed" from="ViewMenu/ButtonContainer/EditAspect" to="." method="MenuPress" binds= [1]]
 [connection signal="pressed" from="ViewMenu/ButtonContainer/Exit" to="." method="MenuPress" binds= [2]]
+[connection signal="pressed" from="AspectMenu/Menu/EnterMenu/Button" to="." method="AspectButtons" binds= [0]]
+[connection signal="pressed" from="AspectMenu/Menu/AddMenu/Button" to="." method="AspectButtons" binds= [1]]
+[connection signal="pressed" from="AspectMenu/Menu/RemoveMenu/Button" to="." method="AspectButtons" binds= [2]]
 [connection signal="pressed" from="AspectMenu/ButtonContainer/Exit" to="." method="ReturnPress" binds= [1]]
 [connection signal="pressed" from="MemberMenu/ButtonContainer/Exit" to="." method="ReturnPress" binds= [2]]

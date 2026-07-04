@@ -204,4 +204,21 @@ public partial class StableMenu : Control
                 break;
         }
     }
+
+    private void AspectButtons(int val)
+    {
+        switch (val)
+        {
+            case 0:
+                // Return to the main menu
+                GD.Print("Enter");
+                break;
+            case 1:
+                GD.Print("Add");
+                break;
+            case 2:
+                GD.Print("Remove");
+                break;
+        }
+    }
 }

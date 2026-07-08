@@ -105,6 +105,7 @@ text = "Exit"
 metadata/_edit_use_anchors_ = true
 
 [node name="AspectMenu" type="Control" parent="."]
+visible = false
 anchors_preset = 0
 
 [node name="Menu" type="VBoxContainer" parent="AspectMenu"]
@@ -229,7 +230,6 @@ text = "Exit"
 metadata/_edit_use_anchors_ = true
 
 [node name="MemberMenu" type="Control" parent="."]
-visible = false
 anchors_preset = 0
 
 [node name="Menu" type="VBoxContainer" parent="MemberMenu"]

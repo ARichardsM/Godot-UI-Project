@@ -69,7 +69,12 @@ public partial class StableMenu : Control
             container.AddChild(temp);
         }
 
-        Global.Data.SafeLoad("Input/StableAspectData.csv", LoadAspects);
+        // Set Visibile Menu to View
+        ViewMenu.Visible = true;
+        MemberMenu.Visible = false;
+        AspectMenu.Visible = false;
+
+        //Global.Data.SafeLoad("Input/StableAspectData.csv", LoadAspects);
     }
 
     // Read and prepare the Aspect Database
@@ -123,12 +128,46 @@ public partial class StableMenu : Control
     {
         ViewMenu.Visible = false;
         AspectMenu.Visible = true;
+
+        string aspectPath = "AspectMenu/Menu";
+
+        // Wipe Previous Entry
+        GetNode<OptionButton>(aspectPath + "/RemoveMenu/Options").Clear();
+        GetNode<Label>(aspectPath + "/Members/Label").Text = "";
+
+        // Propagate Menus
+        foreach (var aspect in Global.Data.groups[selected].aspects) {
+            GetNode<OptionButton>(aspectPath + "/RemoveMenu/Options").AddItem(aspect.key);
+            GetNode<Label>(aspectPath + "/Members/Label").Text = GetNode<Label>(aspectPath + "/Members/Label").Text + aspect.key + "\n";
+        }
+
+        // Deselect
+        GetNode<OptionButton>(aspectPath + "/RemoveMenu/Options").Select(-1);
     }
 
     private void SwitchToMembers()
     {
+        // Set Visibility
         ViewMenu.Visible = false;
         MemberMenu.Visible = true;
+
+        // Wipe Previous Entry
+        Label memberList = (Label)MemberMenu.GetChild(0).GetChild(1).GetChild(0);
+        OptionButton memberRemoveOpts = (OptionButton)MemberMenu.GetChild(0).GetChild(7).GetChild(0);
+        memberRemoveOpts.Clear();
+        memberList.Text = "";
+
+        // Propagate Menus
+        foreach (var member in Global.Data.groups[selected].member)
+        {
+            memberRemoveOpts.AddItem(member);
+            memberList.Text = memberList.Text + member + "\n";
+        }
+
+        // Deselect
+        memberRemoveOpts.Select(-1);
+
+        GD.Print(memberList.Text);
     }
 
     private void ButtonPress(int i)
@@ -211,14 +250,29 @@ public partial class StableMenu : Control
         {
             case 0:
                 // Return to the main menu
-                GD.Print("Enter");
+                AspectEnterPressed();
                 break;
             case 1:
-                GD.Print("Add");
+                AspectAddPressed();
                 break;
             case 2:
-                GD.Print("Remove");
+                AspectRemovePressed();
                 break;
         }
+    }
+
+    private void AspectEnterPressed()
+    {
+        GD.Print("Enter");
+    }
+
+    private void AspectAddPressed()
+    {
+        GD.Print("Add");
+    }
+
+    private void AspectRemovePressed()
+    {
+        GD.Print("Remove");
     }
 }

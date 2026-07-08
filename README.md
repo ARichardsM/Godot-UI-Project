@@ -39,9 +39,12 @@ The Godot UI Project is a project focused on integrating previous work, includin
 
 ## Future Goals
 
+- [ ] Stable Aspects
+- [ ] Stable Rankings
 - [ ] Allow Restrictions/Requirements
 - [ ] Create Event Manager
 - [ ] Update Character Tracker
 	- [ ] Display Selected Options On UI
 	- [ ] Back Option on Creator
 - [ ] MainScript ButtonPressed Reorder
+- [ ] Standardize

@@ -77,6 +77,7 @@ public partial class Global : Node
     {
         public string name;
         public List<string> member = new List<string>();
+        public List<bool> isValid = new List<bool>();
         public List<aspect> aspects = new List<aspect>();
 
         public void Add(string key, string desc)
@@ -254,6 +255,23 @@ public partial class Global : Node
         }
     }
 
+    public void verifyStableMembers()
+    {
+        List<string> validNames = new List<string>();
+
+        // Populate valid names
+        foreach (persona ent in roster)
+            validNames.Add(ent.name);
+
+        // Verify if group members are within valid names
+        foreach (stable group in groups)
+        {
+            GD.Print(group.name);
+            for (int i = 0; i < group.member.Count; i++)
+                group.isValid.Add(validNames.Contains(group.name));
+        }
+    }
+
     public override void _Ready()
     {
         Data = this;
@@ -266,6 +284,8 @@ public partial class Global : Node
 
         // Load Group CSV
         SafeLoad("Input/StableData.csv", LoadGroup);
+
+        verifyStableMembers();
 
     }
 

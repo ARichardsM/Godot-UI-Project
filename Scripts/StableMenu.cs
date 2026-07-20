@@ -244,6 +244,30 @@ public partial class StableMenu : Control
         }
     }
 
+    private void MemberButtons(int val)
+    {
+        switch (val)
+        {
+            case 0:
+                // Return to the main menu
+                MemberPersonaPressed();
+                break;
+            case 1:
+                MemberRemovePressed();
+                break;
+        }
+    }
+
+    private void MemberPersonaPressed()
+    {
+        GD.Print("Enter");
+    }
+
+    private void MemberRemovePressed()
+    {
+        GD.Print("Remove");
+    }
+
     private void AspectButtons(int val)
     {
         switch (val)

@@ -245,7 +245,7 @@ text = "Members"
 label_settings = SubResource("LabelSettings_kh8nh")
 
 [node name="Members" type="ScrollContainer" parent="MemberMenu/Menu"]
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 
 [node name="Label" type="Label" parent="MemberMenu/Menu/Members"]
@@ -282,11 +282,13 @@ text = "Add"
 metadata/_edit_use_anchors_ = true
 
 [node name="Header2" type="Label" parent="MemberMenu/Menu"]
+visible = false
 layout_mode = 2
 text = "Add Group"
 label_settings = SubResource("LabelSettings_kh8nh")
 
 [node name="GroupMenu" type="HBoxContainer" parent="MemberMenu/Menu"]
+visible = false
 layout_mode = 2
 
 [node name="Random" parent="MemberMenu/Menu/GroupMenu" instance=ExtResource("2_xw3eu")]
@@ -361,4 +363,6 @@ metadata/_edit_use_anchors_ = true
 [connection signal="pressed" from="AspectMenu/Menu/AddMenu/Button" to="." method="AspectButtons" binds= [1]]
 [connection signal="pressed" from="AspectMenu/Menu/RemoveMenu/Button" to="." method="AspectButtons" binds= [2]]
 [connection signal="pressed" from="AspectMenu/ButtonContainer/Exit" to="." method="ReturnPress" binds= [1]]
+[connection signal="pressed" from="MemberMenu/Menu/AddMenu/Button" to="." method="MemberButtons" binds= [0]]
+[connection signal="pressed" from="MemberMenu/Menu/RemoveMenu/Button" to="." method="MemberButtons" binds= [1]]
 [connection signal="pressed" from="MemberMenu/ButtonContainer/Exit" to="." method="ReturnPress" binds= [2]]

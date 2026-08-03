@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -202,6 +203,11 @@ public partial class PersonaScript : Node
         }
     }
 
+    public void PersonaSelect(int w)
+    {
+        GD.Print(w);
+    }
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
@@ -219,7 +225,37 @@ public partial class PersonaScript : Node
         scales.Add(this.GetNode<ScaleSelection>("PersonalityMenu/Selection3"));
         scales.Add(this.GetNode<ScaleSelection>("PersonalityMenu/Selection4"));
 
+        //
+        var container = GetNode<VBoxContainer>("ViewMenu/ScrollContainer/VBoxContainer");
+
         // Set initial screen
         updateFullScreen();
+
+        // Begin group count (for ButtonPress int)
+        int totalCount = 0;
+
+        // Create a button for each group
+        foreach (var member in Global.Data.roster)
+        {
+            var temp = new Button();
+            int ID = totalCount++;
+
+            // If group is unnamed, set the button text to "unnamed"
+            if (string.IsNullOrEmpty(member.name))
+                temp.Text = "Unnamed";
+            else
+                temp.Text = member.name;
+
+            // Add signal to button 
+            temp.Pressed += () => PersonaSelect(ID);
+
+            // Add button to the container
+            container.AddChild(temp);
+        }
+
+        // Set Visibile Menu to View
+        //ViewMenu.Visible = true;
+        //MemberMenu.Visible = false;
+        //AspectMenu.Visible = false;
     }
 }

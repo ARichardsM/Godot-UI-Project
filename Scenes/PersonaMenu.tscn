@@ -10,10 +10,13 @@ font_size = 40
 [sub_resource type="LabelSettings" id="LabelSettings_w4ssr"]
 font_size = 20
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_2f3b6")
 
 [node name="Title" type="Label" parent="."]
+layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -27,6 +30,7 @@ label_settings = SubResource("LabelSettings_tpoil")
 horizontal_alignment = 1
 
 [node name="Sub-Title" type="Label" parent="."]
+layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -42,6 +46,7 @@ horizontal_alignment = 1
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="ViewMenu" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 
@@ -84,13 +89,13 @@ offset_right = 475.0
 offset_bottom = 295.0
 theme_override_constants/separation = 25
 
-[node name="EditMember" parent="ViewMenu/ButtonContainer" instance=ExtResource("2_wuyk0")]
+[node name="Add" parent="ViewMenu/ButtonContainer" instance=ExtResource("2_wuyk0")]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 text = "Add"
 metadata/_edit_use_anchors_ = true
 
-[node name="EditAspect" parent="ViewMenu/ButtonContainer" instance=ExtResource("2_wuyk0")]
+[node name="Edit" parent="ViewMenu/ButtonContainer" instance=ExtResource("2_wuyk0")]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 text = "Edit"
@@ -110,6 +115,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="GridContainer" type="GridContainer" parent="SelectMenu"]
+visible = false
 layout_mode = 0
 offset_left = -400.0
 offset_top = 130.0
@@ -192,7 +198,6 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="PersonalityMenu" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -204,16 +209,21 @@ offset_left = -475.0
 offset_top = 200.0
 offset_right = 475.0
 offset_bottom = 295.0
-theme_override_constants/separation = 50
+theme_override_constants/separation = 25
+
+[node name="Name" type="LineEdit" parent="PersonalityMenu/ButtonContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+placeholder_text = "Name..."
 
 [node name="Button" parent="PersonalityMenu/ButtonContainer" instance=ExtResource("2_wuyk0")]
-custom_minimum_size = Vector2(450, 0)
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 text = "Add To Data"
 metadata/_edit_use_anchors_ = true
 
 [node name="Button2" parent="PersonalityMenu/ButtonContainer" instance=ExtResource("2_wuyk0")]
-custom_minimum_size = Vector2(450, 0)
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 text = "Exit"
 metadata/_edit_use_anchors_ = true
@@ -238,9 +248,12 @@ position = Vector2(0, 150)
 LeftLabelText = "Judging"
 RightLabelText = "Perceiving"
 
-[connection signal="pressed" from="SelectMenu/GridContainer/Button" to="." method="SelectShift" binds= [false]]
-[connection signal="pressed" from="SelectMenu/GridContainer/Button2" to="." method="SelectShift" binds= [true]]
-[connection signal="pressed" from="SelectMenu/GridContainer/Button3" to="." method="PersonaShift" binds= [0]]
-[connection signal="pressed" from="SelectMenu/GridContainer/Button4" to="." method="PersonaShift" binds= [1]]
-[connection signal="pressed" from="PersonalityMenu/ButtonContainer/Button" to="." method="BehaviourSelect" binds= [0]]
-[connection signal="pressed" from="PersonalityMenu/ButtonContainer/Button2" to="." method="BehaviourSelect" binds= [1]]
+[connection signal="pressed" from="ViewMenu/ButtonContainer/Add" to="." method="ViewPageButtonPressed" binds= [0]]
+[connection signal="pressed" from="ViewMenu/ButtonContainer/Edit" to="." method="ViewPageButtonPressed" binds= [1]]
+[connection signal="pressed" from="ViewMenu/ButtonContainer/Exit" to="." method="ViewPageButtonPressed" binds= [2]]
+[connection signal="pressed" from="SelectMenu/GridContainer/Button" to="." method="SelectShift"]
+[connection signal="pressed" from="SelectMenu/GridContainer/Button2" to="." method="SelectShift"]
+[connection signal="pressed" from="SelectMenu/GridContainer/Button3" to="." method="PersonaShift"]
+[connection signal="pressed" from="SelectMenu/GridContainer/Button4" to="." method="PersonaShift"]
+[connection signal="pressed" from="PersonalityMenu/ButtonContainer/Button" to="." method="PersonalityPageButtonPressed" binds= [0]]
+[connection signal="pressed" from="PersonalityMenu/ButtonContainer/Button2" to="." method="PersonalityPageButtonPressed" binds= [1]]

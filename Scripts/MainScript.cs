@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-public partial class MainScript : Node2D
+public partial class MainScript : Node
 {
     // Write the roster
     private void writeRoster()

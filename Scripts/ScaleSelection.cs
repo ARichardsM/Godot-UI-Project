@@ -47,7 +47,7 @@ public partial class ScaleSelection : Node2D
 	}
 
     public void ButtonPressed(int val)
-	{
+    {
         string[] valString = { "Slightly ", "Somewhat ", "", "Very " };
         string Button;
 
@@ -57,18 +57,26 @@ public partial class ScaleSelection : Node2D
 
             GetNode<Button>(Button).Theme = unselected;
         }
-        
+
+
+        if (val != 0) 
+        { 
         Button = TranslateButton(val);
 
         GetNode<Button>(Button).Theme = selected;
+        }
 
         if (val < 0)
         {
             GetNode<Label>("LabelBottom").Text = valString[Math.Abs(val) - 1] + LeftLabelText;
         }
-        else
+        else if (val > 0)
         {
             GetNode<Label>("LabelBottom").Text = valString[Math.Abs(val) - 1] + RightLabelText;
+        }
+        else
+        {
+            GetNode<Label>("LabelBottom").Text = "";
         }
 
         ButtonSelected = val;

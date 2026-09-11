@@ -8,6 +8,8 @@ using System.Linq;
 
 public partial class PersonaScript : Node
 {
+    
+    
     // Declare variables
     private int selectNum = 0;
     public Global.persona newPersona;
@@ -203,14 +205,123 @@ public partial class PersonaScript : Node
         }
     }
 
-    public void PersonaSelect(int w)
+    // Control Child Nodes
+    class page
     {
-        GD.Print(w);
+        public Control self;
+        public virtual void Visible(bool isVisible)
+        {
+            self.Visible = isVisible;
+        }
     }
+
+    // ViewMenu Node
+    class viewPage : page
+    {
+        public Label name;
+        public Label aspects;
+
+        public VBoxContainer container;
+
+        public int selectedButtonId;
+
+        // Update the labels when a container button is pressed
+        public void ContainerButtonPressed(int buttonID)
+        {
+            // Log the selected button
+            selectedButtonId = buttonID;
+
+            // Set Name Label
+            name.Text = Global.Data.roster[buttonID].name;
+
+            // Set Aspect Label
+            string aspectText = "";
+            foreach (var asp in Global.Data.roster[buttonID].traits)
+            {
+                aspectText = aspectText + asp.key + " (" + asp.val + ")\n";
+            }
+            aspects.Text = aspectText;
+        }
+    }
+
+    // View Menu Node Buttons
+    public void ViewPageButtonPressed(int buttonID)
+    {
+        switch (buttonID)
+        {
+            case 0: // Add
+                vp.Visible(false);
+                pp.Visible(true);
+                GD.Print("Add");
+                break;
+            case 1: // Edit
+                GD.Print("Edit");
+                break;
+            case 2: // Exit
+                // Return to the main menu
+                GetTree().ChangeSceneToFile("Scenes/MainMenu.tscn");
+                break;
+        }
+    }
+
+    // Node
+    class personalityPage : page
+    {
+        public LineEdit name;
+        // Declare Selection Scales
+        public List<ScaleSelection> scales = new List<ScaleSelection>();
+
+        public override void Visible(bool isVisible) 
+        {
+            self.Visible = isVisible;
+
+            if (!isVisible)
+            {
+                foreach (ScaleSelection sca in scales)
+                    sca.ButtonPressed(0);
+            }
+        }
+    }
+
+    // Personality Menu Node Buttons
+    public void PersonalityPageButtonPressed(int buttonID)
+    {
+        switch (buttonID)
+        {
+            case 0: // Add
+                vp.Visible(false);
+                pp.Visible(true);
+                break;
+            case 1: // Exit
+                // Return to View Menu
+                vp.Visible(true);
+                pp.Visible(false);
+                break;
+        }
+    }
+
+    // Declare Pages
+    viewPage vp = new viewPage();
+    personalityPage pp = new personalityPage();
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
+        // Pull View Menu
+        vp.self = GetNode<Control>("ViewMenu");
+        vp.name = GetNode<Label>("ViewMenu/DataBox/Container/Name");
+        vp.aspects = GetNode<Label>("ViewMenu/DataBox/Container/Members");
+        vp.container = GetNode<VBoxContainer>("ViewMenu/ScrollContainer/VBoxContainer");
+        vp.selectedButtonId = -1;
+
+        // Pull Personality Menu
+        pp.self = GetNode<Control>("PersonalityMenu");
+        pp.name = GetNode<LineEdit>("PersonalityMenu/ButtonContainer/Name");
+        pp.scales.Add(this.GetNode<ScaleSelection>("PersonalityMenu/Selection1"));
+        pp.scales.Add(this.GetNode<ScaleSelection>("PersonalityMenu/Selection2"));
+        pp.scales.Add(this.GetNode<ScaleSelection>("PersonalityMenu/Selection3"));
+        pp.scales.Add(this.GetNode<ScaleSelection>("PersonalityMenu/Selection4"));
+
         // Initialize Persona
         newPersona = new Global.persona();
 
@@ -224,9 +335,6 @@ public partial class PersonaScript : Node
         scales.Add(this.GetNode<ScaleSelection>("PersonalityMenu/Selection2"));
         scales.Add(this.GetNode<ScaleSelection>("PersonalityMenu/Selection3"));
         scales.Add(this.GetNode<ScaleSelection>("PersonalityMenu/Selection4"));
-
-        //
-        var container = GetNode<VBoxContainer>("ViewMenu/ScrollContainer/VBoxContainer");
 
         // Set initial screen
         updateFullScreen();
@@ -247,14 +355,15 @@ public partial class PersonaScript : Node
                 temp.Text = member.name;
 
             // Add signal to button 
-            temp.Pressed += () => PersonaSelect(ID);
+            temp.Pressed += () => vp.ContainerButtonPressed(ID);
 
             // Add button to the container
-            container.AddChild(temp);
+            vp.container.AddChild(temp);
         }
 
         // Set Visibile Menu to View
-        //ViewMenu.Visible = true;
+        vp.Visible(true);
+        pp.Visible(false);
         //MemberMenu.Visible = false;
         //AspectMenu.Visible = false;
     }

@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.Metrics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -9,13 +10,6 @@ using System.Linq;
 public partial class PersonaScript : Node
 {
     
-    
-    // Declare variables
-    private int selectNum = 0;
-    public Global.persona newPersona;
-
-    // Declare Selection Scales
-    List<ScaleSelection> scales = new List<ScaleSelection>();
 
     // Declare Select Containers
     private HBoxContainer fullCont;
@@ -40,6 +34,7 @@ public partial class PersonaScript : Node
                 List<string> personalityMatrix = new() { "EI", "SN", "TF", "JP" };
                 for (int i = 0; i < personalityMatrix.Count; i++)
                 {
+                    /*
                     // Cancel if a button hasn't been selected
                     if (scales[i].ButtonSelected == 0)
                     {
@@ -49,6 +44,7 @@ public partial class PersonaScript : Node
 
                     // Log trait
                     newPersona.Add(personalityMatrix[i], scales[i].ButtonSelected.ToString());
+                    */
                 }
 
                 // Add to Entity Data List
@@ -214,7 +210,7 @@ public partial class PersonaScript : Node
             self.Visible = isVisible;
         }
     }
-
+    
     // ViewMenu Node
     class viewPage : page
     {
@@ -224,6 +220,7 @@ public partial class PersonaScript : Node
         public VBoxContainer container;
 
         public int selectedButtonId;
+        int idCount = 0;
 
         // Update the labels when a container button is pressed
         public void ContainerButtonPressed(int buttonID)
@@ -242,6 +239,25 @@ public partial class PersonaScript : Node
             }
             aspects.Text = aspectText;
         }
+
+        // Add a container button
+        public void AddContainerButton(Global.persona member)
+        {
+            var temp = new Button();
+            int ID = idCount++;
+
+            // If group is unnamed, set the button text to "unnamed"
+            if (string.IsNullOrEmpty(member.name))
+                temp.Text = "Unnamed";
+            else
+                temp.Text = member.name;
+
+            // Add signal to button 
+            temp.Pressed += () => ContainerButtonPressed(ID);
+
+            // Add button to the container
+            container.AddChild(temp);
+        }
     }
 
     // View Menu Node Buttons
@@ -251,10 +267,10 @@ public partial class PersonaScript : Node
         {
             case 0: // Add
                 vp.Visible(false);
-                pp.Visible(true);
+                sp.Visible(true);
                 GD.Print("Add");
                 break;
-            case 1: // Edit
+            case 1: // TBD: Edit
                 GD.Print("Edit");
                 break;
             case 2: // Exit
@@ -273,12 +289,14 @@ public partial class PersonaScript : Node
 
         public override void Visible(bool isVisible) 
         {
-            self.Visible = isVisible;
+            base.Visible(isVisible);
 
             if (!isVisible)
             {
                 foreach (ScaleSelection sca in scales)
                     sca.ButtonPressed(0);
+
+                name.Text = "";
             }
         }
     }
@@ -291,8 +309,35 @@ public partial class PersonaScript : Node
             case 0: // Add
                 vp.Visible(false);
                 pp.Visible(true);
+
+                newPersona.name = pp.name.Text;
+                // Add Personality Traits
+                List<string> personalityMatrix = new() { "EI", "SN", "TF", "JP" };
+                for (int i = 0; i < personalityMatrix.Count; i++)
+                {
+                    // Cancel if a button hasn't been selected
+                    if (pp.scales[i].ButtonSelected == 0)
+                    {
+                        GD.Print("Verify Failed: Button Unselected");
+                        return;
+                    }
+
+                    // Log trait
+                    newPersona.Add(personalityMatrix[i], pp.scales[i].ButtonSelected.ToString());
+                }
+
+                // Add to Entity Data List
+                Global.Data.roster.Add(newPersona);
+                vp.AddContainerButton(newPersona);
+
+                // Return to View Menu
+                vp.Visible(true);
+                pp.Visible(false);
                 break;
             case 1: // Exit
+                // Wipe Persona
+                newPersona.traits.Clear();
+
                 // Return to View Menu
                 vp.Visible(true);
                 pp.Visible(false);
@@ -300,9 +345,146 @@ public partial class PersonaScript : Node
         }
     }
 
+    class selectPage : page
+    {
+        public string name;
+
+        // Declare Select Containers
+        public HBoxContainer fullCont;
+        public HBoxContainer pngCont;
+        public HBoxContainer txtCont;
+
+        // File Indices
+        public int fileInd;
+        public int directoryInd;
+
+        // Declare Select Display
+        public TextureRect fullSprite;
+        public Label fullText;
+        public TextureRect onlySprite;
+        public Label onlyText;
+
+
+        public override void Visible(bool isVisible)
+        {
+            
+            base.Visible(isVisible);
+
+            if (!isVisible)
+            {
+                fileInd = 0;
+                directoryInd = 0;
+            }
+        }
+
+        private void updateScreen()
+        {
+            var currDir = Global.Data.database[directoryInd].name;
+            var currFile = Global.Data.database[directoryInd].opts[fileInd].name;
+            GD.Print(currFile);
+            fullCont.Visible = true;
+
+            // Reset Containers
+            fullCont.Visible = false;
+            pngCont.Visible = false;
+            txtCont.Visible = false;
+
+            // Determine Screen Style
+            int screenStyle = 0;
+
+            screenStyle += Global.Data.database[directoryInd].opts[fileInd].png ? 2 : 0;
+            screenStyle += Global.Data.database[directoryInd].opts[fileInd].txt ? 1 : 0;
+
+
+            switch (screenStyle)
+            {
+                // PNG + TXT
+                case 3:
+                    fullCont.Visible = true;
+                    fullSprite.SetTexture((Texture2D)GD.Load("res://Input/" + currDir + "/" + currFile + ".png"));
+                    fullText.SetText(currFile + "\n\n" + File.ReadAllText("Input/" + currDir + "/" + currFile + ".txt"));
+                    break;
+                // PNG
+                case 2:
+                    pngCont.Visible = true;
+                    onlySprite.SetTexture((Texture2D)GD.Load("res://Input/" + currDir + "/" + currFile + ".png"));
+                    break;
+                // TXT
+                case 1:
+                    txtCont.Visible = true;
+                    onlyText.SetText(currFile + "\n\n" + File.ReadAllText("Input/" + currDir + "/" + currFile + ".txt"));
+                    break;
+            }
+        }
+
+        public void ChangeFile(bool isForward)
+        {
+            if (isForward && ((fileInd+1) < Global.Data.database[directoryInd].opts.Count)) { 
+                fileInd++;
+                updateScreen();
+            }
+            else if (!isForward && (fileInd > 0)) { 
+                fileInd--;
+                updateScreen();
+            }
+        }
+        public void ChangeDirectory()
+        {
+            directoryInd++;
+            fileInd = 0;
+
+            updateScreen();
+        }
+    }
+
+    // Select Menu Node Buttons
+    public void SelectPageButtonPressed(int buttonID)
+    {
+        switch (buttonID)
+        {
+            case 0: // TBD: Previous
+                GD.Print("Previous");
+                sp.ChangeFile(false);
+                break;
+            case 1: // TBD: Next
+                GD.Print("Next");
+                sp.ChangeFile(true);
+                break;
+            case 2: // TBD: Add To Data
+                GD.Print("Add To Data");
+                // Log trait
+                newPersona.Add(Global.Data.database[sp.directoryInd].opts[sp.fileInd].name, Global.Data.database[sp.directoryInd].name);
+
+                if ((sp.directoryInd + 1) < Global.Data.database.Count)
+                {
+                    sp.ChangeDirectory();
+                }
+                else
+                {
+                    // Move to Personality Menu
+                    pp.Visible(true);
+                    sp.Visible(false);
+                }
+                break;
+            case 3: // Exit
+                // Wipe Persona
+                newPersona.traits.Clear();
+
+                // Return to View Menu
+                vp.Visible(true);
+                sp.Visible(false);
+                break;
+        }
+    }
+
     // Declare Pages
     viewPage vp = new viewPage();
     personalityPage pp = new personalityPage();
+    selectPage sp = new selectPage();
+
+    // Declare variables
+    private int selectNum = 0;
+    public Global.persona newPersona;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -322,6 +504,17 @@ public partial class PersonaScript : Node
         pp.scales.Add(this.GetNode<ScaleSelection>("PersonalityMenu/Selection3"));
         pp.scales.Add(this.GetNode<ScaleSelection>("PersonalityMenu/Selection4"));
 
+        // Pull Select Menu
+        sp.self = GetNode<Control>("SelectMenu");
+        sp.fullCont = GetNode<HBoxContainer>("SelectMenu/FullContainer");
+        sp.pngCont = GetNode<HBoxContainer>("SelectMenu/PngContainer");
+        sp.txtCont = GetNode<HBoxContainer>("SelectMenu/TxtContainer");
+        sp.fullSprite = GetNode<TextureRect>("SelectMenu/FullContainer/TextureRect");
+        sp.fullText = GetNode<Label>("SelectMenu/FullContainer/Label");
+        sp.onlySprite = GetNode<TextureRect>("SelectMenu/PngContainer/TextureRect");
+        sp.onlyText = GetNode<Label>("SelectMenu/TxtContainer/Label");
+
+
         // Initialize Persona
         newPersona = new Global.persona();
 
@@ -330,41 +523,18 @@ public partial class PersonaScript : Node
         pngCont = GetNode<HBoxContainer>("SelectMenu/PngContainer");
         txtCont = GetNode<HBoxContainer>("SelectMenu/TxtContainer");
 
-        // Log each selection scale
-        scales.Add(this.GetNode<ScaleSelection>("PersonalityMenu/Selection1"));
-        scales.Add(this.GetNode<ScaleSelection>("PersonalityMenu/Selection2"));
-        scales.Add(this.GetNode<ScaleSelection>("PersonalityMenu/Selection3"));
-        scales.Add(this.GetNode<ScaleSelection>("PersonalityMenu/Selection4"));
-
         // Set initial screen
         updateFullScreen();
 
-        // Begin group count (for ButtonPress int)
-        int totalCount = 0;
-
-        // Create a button for each group
+        // Create a button for each persona
         foreach (var member in Global.Data.roster)
         {
-            var temp = new Button();
-            int ID = totalCount++;
-
-            // If group is unnamed, set the button text to "unnamed"
-            if (string.IsNullOrEmpty(member.name))
-                temp.Text = "Unnamed";
-            else
-                temp.Text = member.name;
-
-            // Add signal to button 
-            temp.Pressed += () => vp.ContainerButtonPressed(ID);
-
-            // Add button to the container
-            vp.container.AddChild(temp);
+            vp.AddContainerButton(member);
         }
 
         // Set Visibile Menu to View
         vp.Visible(true);
         pp.Visible(false);
-        //MemberMenu.Visible = false;
-        //AspectMenu.Visible = false;
+        sp.Visible(false);
     }
 }

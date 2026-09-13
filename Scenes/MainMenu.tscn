@@ -49,6 +49,7 @@ layout_mode = 2
 text = "Persona Menu"
 
 [node name="RButton" parent="Buttons/TContainer" instance=ExtResource("2_t3klc")]
+visible = false
 custom_minimum_size = Vector2(445, 0)
 layout_mode = 2
 text = "Stable Menu"
@@ -64,6 +65,7 @@ layout_mode = 2
 text = "Show Entities"
 
 [node name="RButton" parent="Buttons/MContainer" instance=ExtResource("2_t3klc")]
+visible = false
 custom_minimum_size = Vector2(445, 95)
 layout_mode = 2
 text = "Output Entities"

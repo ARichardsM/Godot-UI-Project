@@ -107,15 +107,65 @@ layout_mode = 2
 text = "Exit"
 metadata/_edit_use_anchors_ = true
 
-[node name="SelectMenu" type="Control" parent="."]
+[node name="PersonalityMenu" type="Control" parent="."]
 visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="ButtonContainer" type="HBoxContainer" parent="PersonalityMenu"]
+layout_mode = 0
+offset_left = -475.0
+offset_top = 200.0
+offset_right = 475.0
+offset_bottom = 295.0
+theme_override_constants/separation = 25
+
+[node name="Name" type="LineEdit" parent="PersonalityMenu/ButtonContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+placeholder_text = "Name..."
+
+[node name="Button" parent="PersonalityMenu/ButtonContainer" instance=ExtResource("2_wuyk0")]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+text = "Add To Data"
+metadata/_edit_use_anchors_ = true
+
+[node name="Button2" parent="PersonalityMenu/ButtonContainer" instance=ExtResource("2_wuyk0")]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+text = "Exit"
+metadata/_edit_use_anchors_ = true
+
+[node name="Selection1" parent="PersonalityMenu" instance=ExtResource("3_3w4o0")]
+position = Vector2(0, -150)
+LeftLabelText = "Extraverted"
+RightLabelText = "Introverted"
+
+[node name="Selection2" parent="PersonalityMenu" instance=ExtResource("3_3w4o0")]
+position = Vector2(0, -50)
+LeftLabelText = "Sense Dominant"
+RightLabelText = "Intuition Dominant"
+
+[node name="Selection3" parent="PersonalityMenu" instance=ExtResource("3_3w4o0")]
+position = Vector2(0, 50)
+LeftLabelText = "Thinking"
+RightLabelText = "Feeling"
+
+[node name="Selection4" parent="PersonalityMenu" instance=ExtResource("3_3w4o0")]
+position = Vector2(0, 150)
+LeftLabelText = "Judging"
+RightLabelText = "Perceiving"
+
+[node name="SelectMenu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [node name="GridContainer" type="GridContainer" parent="SelectMenu"]
-visible = false
 layout_mode = 0
 offset_left = -400.0
 offset_top = 130.0
@@ -197,63 +247,12 @@ layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="PersonalityMenu" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="ButtonContainer" type="HBoxContainer" parent="PersonalityMenu"]
-layout_mode = 0
-offset_left = -475.0
-offset_top = 200.0
-offset_right = 475.0
-offset_bottom = 295.0
-theme_override_constants/separation = 25
-
-[node name="Name" type="LineEdit" parent="PersonalityMenu/ButtonContainer"]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-placeholder_text = "Name..."
-
-[node name="Button" parent="PersonalityMenu/ButtonContainer" instance=ExtResource("2_wuyk0")]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-text = "Add To Data"
-metadata/_edit_use_anchors_ = true
-
-[node name="Button2" parent="PersonalityMenu/ButtonContainer" instance=ExtResource("2_wuyk0")]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-text = "Exit"
-metadata/_edit_use_anchors_ = true
-
-[node name="Selection1" parent="PersonalityMenu" instance=ExtResource("3_3w4o0")]
-position = Vector2(0, -150)
-LeftLabelText = "Extraverted"
-RightLabelText = "Introverted"
-
-[node name="Selection2" parent="PersonalityMenu" instance=ExtResource("3_3w4o0")]
-position = Vector2(0, -50)
-LeftLabelText = "Sense Dominant"
-RightLabelText = "Intuition Dominant"
-
-[node name="Selection3" parent="PersonalityMenu" instance=ExtResource("3_3w4o0")]
-position = Vector2(0, 50)
-LeftLabelText = "Thinking"
-RightLabelText = "Feeling"
-
-[node name="Selection4" parent="PersonalityMenu" instance=ExtResource("3_3w4o0")]
-position = Vector2(0, 150)
-LeftLabelText = "Judging"
-RightLabelText = "Perceiving"
-
 [connection signal="pressed" from="ViewMenu/ButtonContainer/Add" to="." method="ViewPageButtonPressed" binds= [0]]
 [connection signal="pressed" from="ViewMenu/ButtonContainer/Edit" to="." method="ViewPageButtonPressed" binds= [1]]
 [connection signal="pressed" from="ViewMenu/ButtonContainer/Exit" to="." method="ViewPageButtonPressed" binds= [2]]
-[connection signal="pressed" from="SelectMenu/GridContainer/Button" to="." method="SelectShift"]
-[connection signal="pressed" from="SelectMenu/GridContainer/Button2" to="." method="SelectShift"]
-[connection signal="pressed" from="SelectMenu/GridContainer/Button3" to="." method="PersonaShift"]
-[connection signal="pressed" from="SelectMenu/GridContainer/Button4" to="." method="PersonaShift"]
 [connection signal="pressed" from="PersonalityMenu/ButtonContainer/Button" to="." method="PersonalityPageButtonPressed" binds= [0]]
 [connection signal="pressed" from="PersonalityMenu/ButtonContainer/Button2" to="." method="PersonalityPageButtonPressed" binds= [1]]
+[connection signal="pressed" from="SelectMenu/GridContainer/Button" to="." method="SelectPageButtonPressed" binds= [0]]
+[connection signal="pressed" from="SelectMenu/GridContainer/Button2" to="." method="SelectPageButtonPressed" binds= [1]]
+[connection signal="pressed" from="SelectMenu/GridContainer/Button3" to="." method="SelectPageButtonPressed" binds= [2]]
+[connection signal="pressed" from="SelectMenu/GridContainer/Button4" to="." method="SelectPageButtonPressed" binds= [3]]

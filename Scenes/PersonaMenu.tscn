@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dyq343n5vba5c"]
+[gd_scene load_steps=7 format=3 uid="uid://dyq343n5vba5c"]
 
 [ext_resource type="Script" path="res://Scripts/PersonaScript.cs" id="1_2f3b6"]
 [ext_resource type="PackedScene" uid="uid://betbov7d2j85m" path="res://Asset/Button.tscn" id="2_wuyk0"]
@@ -9,6 +9,10 @@ font_size = 40
 
 [sub_resource type="LabelSettings" id="LabelSettings_w4ssr"]
 font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_f2vv5"]
+font_size = 20
+font_color = Color(0.625597, 0.625597, 0.625597, 1)
 
 [node name="Node2D" type="Control"]
 layout_mode = 3
@@ -160,6 +164,7 @@ LeftLabelText = "Judging"
 RightLabelText = "Perceiving"
 
 [node name="SelectMenu" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -246,6 +251,127 @@ custom_minimum_size = Vector2(400, 250)
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
+
+[node name="EditMenu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Options" type="VBoxContainer" parent="EditMenu"]
+layout_mode = 0
+offset_left = -500.0
+offset_top = -200.0
+offset_right = 500.0
+offset_bottom = 200.0
+
+[node name="List" type="Label" parent="EditMenu/Options"]
+layout_mode = 2
+text = "Aspects"
+label_settings = SubResource("LabelSettings_f2vv5")
+
+[node name="Members" type="ScrollContainer" parent="EditMenu/Options"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="EditMenu/Options/Members"]
+layout_mode = 2
+text = "Ipsum"
+
+[node name="Header1" type="Label" parent="EditMenu/Options"]
+layout_mode = 2
+text = "Add Aspect"
+label_settings = SubResource("LabelSettings_f2vv5")
+
+[node name="AddMenu" type="HBoxContainer" parent="EditMenu/Options"]
+layout_mode = 2
+
+[node name="Random" parent="EditMenu/Options/AddMenu" instance=ExtResource("2_wuyk0")]
+layout_mode = 2
+text = "Random"
+metadata/_edit_use_anchors_ = true
+
+[node name="Options" type="OptionButton" parent="EditMenu/Options/AddMenu"]
+layout_mode = 2
+
+[node name="Description" type="ScrollContainer" parent="EditMenu/Options/AddMenu"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="EditMenu/Options/AddMenu/Description"]
+layout_mode = 2
+text = "Ipsum"
+
+[node name="Button" parent="EditMenu/Options/AddMenu" instance=ExtResource("2_wuyk0")]
+layout_mode = 2
+text = "Add"
+metadata/_edit_use_anchors_ = true
+
+[node name="Header2" type="Label" parent="EditMenu/Options"]
+layout_mode = 2
+text = "Remove Aspect"
+label_settings = SubResource("LabelSettings_f2vv5")
+
+[node name="RemoveMenu" type="HBoxContainer" parent="EditMenu/Options"]
+layout_mode = 2
+
+[node name="Options" type="OptionButton" parent="EditMenu/Options/RemoveMenu"]
+layout_mode = 2
+
+[node name="Description" type="ScrollContainer" parent="EditMenu/Options/RemoveMenu"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="EditMenu/Options/RemoveMenu/Description"]
+layout_mode = 2
+text = "Ipsum"
+
+[node name="Button" parent="EditMenu/Options/RemoveMenu" instance=ExtResource("2_wuyk0")]
+layout_mode = 2
+text = "Remove"
+metadata/_edit_use_anchors_ = true
+
+[node name="Header3" type="Label" parent="EditMenu/Options"]
+layout_mode = 2
+text = "Delete"
+label_settings = SubResource("LabelSettings_f2vv5")
+
+[node name="RemoveMenu2" type="HBoxContainer" parent="EditMenu/Options"]
+layout_mode = 2
+
+[node name="Options" type="OptionButton" parent="EditMenu/Options/RemoveMenu2"]
+layout_mode = 2
+
+[node name="Description" type="ScrollContainer" parent="EditMenu/Options/RemoveMenu2"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="EditMenu/Options/RemoveMenu2/Description"]
+layout_mode = 2
+text = "Ipsum"
+
+[node name="Button" parent="EditMenu/Options/RemoveMenu2" instance=ExtResource("2_wuyk0")]
+layout_mode = 2
+text = "Remove"
+metadata/_edit_use_anchors_ = true
+
+[node name="ButtonContainer" type="HBoxContainer" parent="EditMenu"]
+layout_mode = 0
+offset_left = -475.0
+offset_top = 200.0
+offset_right = 475.0
+offset_bottom = 295.0
+theme_override_constants/separation = 50
+
+[node name="Wipe" parent="EditMenu/ButtonContainer" instance=ExtResource("2_wuyk0")]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+text = "Wipe"
+metadata/_edit_use_anchors_ = true
+
+[node name="Exit" parent="EditMenu/ButtonContainer" instance=ExtResource("2_wuyk0")]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+text = "Exit"
+metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="ViewMenu/ButtonContainer/Add" to="." method="ViewPageButtonPressed" binds= [0]]
 [connection signal="pressed" from="ViewMenu/ButtonContainer/Edit" to="." method="ViewPageButtonPressed" binds= [1]]

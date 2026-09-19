@@ -266,7 +266,6 @@ public partial class Global : Node
         // Verify if group members are within valid names
         foreach (stable group in groups)
         {
-            GD.Print(group.name);
             for (int i = 0; i < group.member.Count; i++)
                 group.isValid.Add(validNames.Contains(group.name));
         }

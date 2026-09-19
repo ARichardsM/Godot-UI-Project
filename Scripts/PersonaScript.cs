@@ -9,198 +9,6 @@ using System.Linq;
 
 public partial class PersonaScript : Node
 {
-    
-
-    // Declare Select Containers
-    private HBoxContainer fullCont;
-    private HBoxContainer pngCont;
-    private HBoxContainer txtCont;
-
-    // Declare Subtitle
-    private Label subtitle;
-
-    // Declare Select Display
-    private TextureRect sprite;
-    private Label text;
-
-
-    // Function for button presses
-    public void BehaviourSelect(int val)
-    {
-        switch (val)
-        {
-            case 0:
-                // Add Personality Traits
-                List<string> personalityMatrix = new() { "EI", "SN", "TF", "JP" };
-                for (int i = 0; i < personalityMatrix.Count; i++)
-                {
-                    /*
-                    // Cancel if a button hasn't been selected
-                    if (scales[i].ButtonSelected == 0)
-                    {
-                        GD.Print("Verify Failed: Button Unselected");
-                        return;
-                    }
-
-                    // Log trait
-                    newPersona.Add(personalityMatrix[i], scales[i].ButtonSelected.ToString());
-                    */
-                }
-
-                // Add to Entity Data List
-                Global.Data.roster.Add(newPersona);
-
-                // Return to the main menu
-                GetTree().ChangeSceneToFile("Scenes/MainMenu.tscn");
-                break;
-
-            case 1:
-                // Return to the main menu
-                GetTree().ChangeSceneToFile("Scenes/MainMenu.tscn");
-                break;
-
-        }
-    }
-
-    // Function for button presses
-    public void PersonaShift(int val)
-    {
-        switch (val)
-        {
-            // Add Data
-            case 0:
-                // Add to the new data point
-                string newKey = Global.Data.database[newPersona.traits.Count].name;
-                string newVal = Global.Data.database[newPersona.traits.Count].opts[selectNum].name;
-                newPersona.traits.Add(new Global.trait(newKey, newVal));
-
-                // If the new category exists, update the screen to load the new directory
-                if (newPersona.traits.Count < Global.Data.database.Count)
-                {
-                    updateFullScreen();
-                }
-                // Else, go to the character menu
-                else
-                {
-                    // Alter visiblity
-                    GetNode<Control>("SelectMenu").Visible = false;
-                    GetNode<Control>("PersonalityMenu").Visible = true;
-
-                    // Edit Sub-Title
-                    subtitle = GetNode<Label>("Sub-Title");
-                    subtitle.Text = "Personality Menu";
-                    break;
-                }
-
-                break;
-            // Exit
-            case 1:
-                // Return to the main menu
-                GetTree().ChangeSceneToFile("Scenes/MainMenu.tscn");
-                break;
-
-        }
-    }
-
-    // Function for button presses
-    public void SelectShift(bool shiftUp)
-    {
-        // Determine current values
-        int currTrait = newPersona.traits.Count;
-
-        // Shift
-        if (shiftUp)
-        {
-            --selectNum;
-        }
-        else
-        {
-            ++selectNum;
-        }
-
-        // Lower Bound Shift
-        if (selectNum < 0)
-            selectNum = Global.Data.database[currTrait].opts.Count - 1;
-
-        // Upper Bound Shift
-        if (selectNum >= Global.Data.database[currTrait].opts.Count)
-            selectNum = 0;
-
-        // Update the Sub Screen
-        updateSubScreen();
-    }
-
-    // Update the entire screen
-    private void updateFullScreen()
-    {
-        // Determine current values
-        int currTrait = newPersona.traits.Count;
-
-        // Bound by Directory
-        if (currTrait >= Global.Data.database.Count)
-            return;
-
-        // Edit Sub-Title
-        subtitle = GetNode<Label>("Sub-Title");
-        subtitle.Text = Global.Data.database[currTrait].name + " Category Menu";
-
-        // Reset the select
-        selectNum = 0;
-
-        // Update the Sub Screen
-        updateSubScreen();
-    }
-
-    // Update the file section of the screen
-    private void updateSubScreen()
-    {
-        // Determine current values
-        int currTrait = newPersona.traits.Count;
-
-        // Bound by File
-        if (selectNum >= Global.Data.database[currTrait].opts.Count)
-            return;
-
-        // Determine directory and file
-        string currDir = Global.Data.database[currTrait].name;
-        string currFile = Global.Data.database[currTrait].opts[selectNum].name;
-
-        // Reset Containers
-        fullCont.Visible = false;
-        pngCont.Visible = false;
-        txtCont.Visible = false;
-
-        // Determine Screen Style
-        int screenStyle = 0;
-
-        screenStyle += Global.Data.database[currTrait].opts[selectNum].png ? 2 : 0;
-        screenStyle += Global.Data.database[currTrait].opts[selectNum].txt ? 1 : 0;
-
-        switch (screenStyle)
-        {
-            // PNG + TXT
-            case 3:
-                fullCont.Visible = true;
-                sprite = GetNode<TextureRect>("SelectMenu/FullContainer/TextureRect");
-                sprite.SetTexture((Texture2D)GD.Load("res://Input/" + currDir + "/" + currFile + ".png"));
-                text = GetNode<Label>("SelectMenu/FullContainer/Label");
-                text.SetText(currFile + "\n\n" + File.ReadAllText("Input/" + currDir + "/" + currFile + ".txt"));
-                break;
-            // PNG
-            case 2:
-                pngCont.Visible = true;
-                sprite = GetNode<TextureRect>("SelectMenu/PngContainer/TextureRect");
-                sprite.SetTexture((Texture2D)GD.Load("res://Input/" + currDir + "/" + currFile + ".png"));
-                break;
-            // TXT
-            case 1:
-                txtCont.Visible = true;
-                text = GetNode<Label>("SelectMenu/TxtContainer/Label");
-                text.SetText(currFile + "\n\n" + File.ReadAllText("Input/" + currDir + "/" + currFile + ".txt"));
-                break;
-        }
-    }
-
     // Control Child Nodes
     class page
     {
@@ -268,7 +76,6 @@ public partial class PersonaScript : Node
             case 0: // Add
                 vp.Visible(false);
                 sp.Visible(true);
-                GD.Print("Add");
                 break;
             case 1: // TBD: Edit
                 GD.Print("Edit");
@@ -280,7 +87,7 @@ public partial class PersonaScript : Node
         }
     }
 
-    // Node
+    // PersonalityMenu Node
     class personalityPage : page
     {
         public LineEdit name;
@@ -345,6 +152,7 @@ public partial class PersonaScript : Node
         }
     }
 
+    // SelectMenu Node
     class selectPage : page
     {
         public string name;
@@ -375,14 +183,16 @@ public partial class PersonaScript : Node
                 fileInd = 0;
                 directoryInd = 0;
             }
+            else
+            {
+                this.updateScreen();
+            }
         }
 
         private void updateScreen()
         {
             var currDir = Global.Data.database[directoryInd].name;
             var currFile = Global.Data.database[directoryInd].opts[fileInd].name;
-            GD.Print(currFile);
-            fullCont.Visible = true;
 
             // Reset Containers
             fullCont.Visible = false;
@@ -442,18 +252,15 @@ public partial class PersonaScript : Node
     {
         switch (buttonID)
         {
-            case 0: // TBD: Previous
-                GD.Print("Previous");
+            case 0: // Previous
                 sp.ChangeFile(false);
                 break;
-            case 1: // TBD: Next
-                GD.Print("Next");
+            case 1: // Next
                 sp.ChangeFile(true);
                 break;
-            case 2: // TBD: Add To Data
-                GD.Print("Add To Data");
+            case 2: // Add To Data
                 // Log trait
-                newPersona.Add(Global.Data.database[sp.directoryInd].opts[sp.fileInd].name, Global.Data.database[sp.directoryInd].name);
+                newPersona.Add(Global.Data.database[sp.directoryInd].name, Global.Data.database[sp.directoryInd].opts[sp.fileInd].name);
 
                 if ((sp.directoryInd + 1) < Global.Data.database.Count)
                 {
@@ -477,10 +284,16 @@ public partial class PersonaScript : Node
         }
     }
 
+    // EditMenu Node
+    class editPage : page
+    {
+
+    }
     // Declare Pages
     viewPage vp = new viewPage();
     personalityPage pp = new personalityPage();
     selectPage sp = new selectPage();
+    editPage ep = new editPage();
 
     // Declare variables
     private int selectNum = 0;
@@ -514,17 +327,11 @@ public partial class PersonaScript : Node
         sp.onlySprite = GetNode<TextureRect>("SelectMenu/PngContainer/TextureRect");
         sp.onlyText = GetNode<Label>("SelectMenu/TxtContainer/Label");
 
+        // Pull Edit Menu
+        ep.self = GetNode<Control>("EditMenu");
 
         // Initialize Persona
         newPersona = new Global.persona();
-
-        // Declare Containers
-        fullCont = GetNode<HBoxContainer>("SelectMenu/FullContainer");
-        pngCont = GetNode<HBoxContainer>("SelectMenu/PngContainer");
-        txtCont = GetNode<HBoxContainer>("SelectMenu/TxtContainer");
-
-        // Set initial screen
-        updateFullScreen();
 
         // Create a button for each persona
         foreach (var member in Global.Data.roster)
@@ -536,5 +343,6 @@ public partial class PersonaScript : Node
         vp.Visible(true);
         pp.Visible(false);
         sp.Visible(false);
+        ep.Visible(false);
     }
 }

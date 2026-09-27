@@ -263,20 +263,20 @@ offset_top = -200.0
 offset_right = 500.0
 offset_bottom = 200.0
 
-[node name="List" type="Label" parent="EditMenu/Options"]
+[node name="Header A" type="Label" parent="EditMenu/Options"]
 layout_mode = 2
 text = "Aspects"
 label_settings = SubResource("LabelSettings_f2vv5")
 
-[node name="Members" type="ScrollContainer" parent="EditMenu/Options"]
-custom_minimum_size = Vector2(200, 50)
+[node name="Aspects" type="ScrollContainer" parent="EditMenu/Options"]
+custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="EditMenu/Options/Members"]
+[node name="Label" type="Label" parent="EditMenu/Options/Aspects"]
 layout_mode = 2
 text = "Ipsum"
 
-[node name="Header1" type="Label" parent="EditMenu/Options"]
+[node name="Header B" type="Label" parent="EditMenu/Options"]
 layout_mode = 2
 text = "Add Aspect"
 label_settings = SubResource("LabelSettings_f2vv5")
@@ -305,7 +305,7 @@ layout_mode = 2
 text = "Add"
 metadata/_edit_use_anchors_ = true
 
-[node name="Header2" type="Label" parent="EditMenu/Options"]
+[node name="Header C" type="Label" parent="EditMenu/Options"]
 layout_mode = 2
 text = "Remove Aspect"
 label_settings = SubResource("LabelSettings_f2vv5")
@@ -325,30 +325,6 @@ layout_mode = 2
 text = "Ipsum"
 
 [node name="Button" parent="EditMenu/Options/RemoveMenu" instance=ExtResource("2_wuyk0")]
-layout_mode = 2
-text = "Remove"
-metadata/_edit_use_anchors_ = true
-
-[node name="Header3" type="Label" parent="EditMenu/Options"]
-layout_mode = 2
-text = "Delete"
-label_settings = SubResource("LabelSettings_f2vv5")
-
-[node name="RemoveMenu2" type="HBoxContainer" parent="EditMenu/Options"]
-layout_mode = 2
-
-[node name="Options" type="OptionButton" parent="EditMenu/Options/RemoveMenu2"]
-layout_mode = 2
-
-[node name="Description" type="ScrollContainer" parent="EditMenu/Options/RemoveMenu2"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-
-[node name="Label" type="Label" parent="EditMenu/Options/RemoveMenu2/Description"]
-layout_mode = 2
-text = "Ipsum"
-
-[node name="Button" parent="EditMenu/Options/RemoveMenu2" instance=ExtResource("2_wuyk0")]
 layout_mode = 2
 text = "Remove"
 metadata/_edit_use_anchors_ = true
@@ -382,3 +358,5 @@ metadata/_edit_use_anchors_ = true
 [connection signal="pressed" from="SelectMenu/GridContainer/Button2" to="." method="SelectPageButtonPressed" binds= [1]]
 [connection signal="pressed" from="SelectMenu/GridContainer/Button3" to="." method="SelectPageButtonPressed" binds= [2]]
 [connection signal="pressed" from="SelectMenu/GridContainer/Button4" to="." method="SelectPageButtonPressed" binds= [3]]
+[connection signal="pressed" from="EditMenu/ButtonContainer/Wipe" to="." method="EditPageButtonPressed" binds= [0]]
+[connection signal="pressed" from="EditMenu/ButtonContainer/Exit" to="." method="EditPageButtonPressed" binds= [1]]

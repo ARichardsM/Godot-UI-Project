@@ -27,7 +27,7 @@ public partial class PersonaScript : Node
 
         public VBoxContainer container;
 
-        public int selectedButtonId;
+        public int selectedButtonId = -1;
         int idCount = 0;
 
         // Update the labels when a container button is pressed
@@ -78,6 +78,12 @@ public partial class PersonaScript : Node
                 sp.Visible(true);
                 break;
             case 1: // TBD: Edit
+                if (vp.selectedButtonId != -1) {
+                    vp.Visible(false);
+                    ep.loadAspects(vp.selectedButtonId);
+                    ep.Visible(true);
+                }
+
                 GD.Print("Edit");
                 break;
             case 2: // Exit
@@ -287,8 +293,39 @@ public partial class PersonaScript : Node
     // EditMenu Node
     class editPage : page
     {
+        // Declare Edit Display
+        public Label aspects;
 
+        public void loadAspects(int persona)
+        {
+            // Set Aspect Label
+            string aspectText = "";
+            foreach (var asp in Global.Data.roster[persona].traits)
+            {
+                aspectText = aspectText + asp.key + " (" + asp.val + ")\n";
+            }
+            aspects.Text = aspectText;
+        }
     }
+
+    // Edit Menu Node Buttons
+    public void EditPageButtonPressed(int buttonID)
+    {
+        switch (buttonID)
+        {
+            case 0:
+                GD.Print("0");
+                break;
+            case 1:
+
+                vp.Visible(true);
+                ep.Visible(false);
+                GD.Print("1");
+                break;
+        }
+    }
+
+
     // Declare Pages
     viewPage vp = new viewPage();
     personalityPage pp = new personalityPage();
@@ -329,6 +366,7 @@ public partial class PersonaScript : Node
 
         // Pull Edit Menu
         ep.self = GetNode<Control>("EditMenu");
+        ep.aspects = GetNode<Label>("EditMenu/Options/Aspects/Label");
 
         // Initialize Persona
         newPersona = new Global.persona();

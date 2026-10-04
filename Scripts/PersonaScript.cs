@@ -6,6 +6,7 @@ using System.Diagnostics.Metrics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using static Global;
 
 public partial class PersonaScript : Node
 {
@@ -293,18 +294,45 @@ public partial class PersonaScript : Node
     // EditMenu Node
     class editPage : page
     {
-        // Declare Edit Display
+        public int selectedPersona;
+
+        // Declare Edit Show Sub-Display
         public Label aspects;
+
+        // Declare Edit Add Sub-Display
+
+        // Declare Edit Remove Sub-Display
+        public OptionButton removeOptionButton;
 
         public void loadAspects(int persona)
         {
+            removeOptionButton.Clear();
+            selectedPersona = persona;
             // Set Aspect Label
             string aspectText = "";
             foreach (var asp in Global.Data.roster[persona].traits)
             {
                 aspectText = aspectText + asp.key + " (" + asp.val + ")\n";
+                removeOptionButton.AddItem(asp.key);
             }
             aspects.Text = aspectText;
+        }
+
+        public void removeAspect()
+        {
+            int selected = removeOptionButton.Selected;
+
+            // If no trait is selected, return
+            if (selected == -1)
+            {
+                return;
+            }
+
+            // Remove the trait from the persona in the roster
+            Global.Data.roster[selectedPersona].traits.RemoveAt(selected);
+
+            // Reload aspects
+            loadAspects(selectedPersona);
         }
     }
 
@@ -313,14 +341,18 @@ public partial class PersonaScript : Node
     {
         switch (buttonID)
         {
-            case 0:
+            case 0: // Wipe
                 GD.Print("0");
                 break;
-            case 1:
-
+            case 1: // Exit
                 vp.Visible(true);
                 ep.Visible(false);
                 GD.Print("1");
+                break;
+            case 2: // Add
+                break;
+            case 3: // Remove
+                ep.removeAspect();
                 break;
         }
     }
@@ -367,6 +399,7 @@ public partial class PersonaScript : Node
         // Pull Edit Menu
         ep.self = GetNode<Control>("EditMenu");
         ep.aspects = GetNode<Label>("EditMenu/Options/Aspects/Label");
+        ep.removeOptionButton = GetNode<OptionButton>("EditMenu/Options/RemoveMenu/Options");
 
         // Initialize Persona
         newPersona = new Global.persona();

@@ -358,5 +358,6 @@ metadata/_edit_use_anchors_ = true
 [connection signal="pressed" from="SelectMenu/GridContainer/Button2" to="." method="SelectPageButtonPressed" binds= [1]]
 [connection signal="pressed" from="SelectMenu/GridContainer/Button3" to="." method="SelectPageButtonPressed" binds= [2]]
 [connection signal="pressed" from="SelectMenu/GridContainer/Button4" to="." method="SelectPageButtonPressed" binds= [3]]
+[connection signal="pressed" from="EditMenu/Options/RemoveMenu/Button" to="." method="EditPageButtonPressed" binds= [3]]
 [connection signal="pressed" from="EditMenu/ButtonContainer/Wipe" to="." method="EditPageButtonPressed" binds= [0]]
 [connection signal="pressed" from="EditMenu/ButtonContainer/Exit" to="." method="EditPageButtonPressed" binds= [1]]

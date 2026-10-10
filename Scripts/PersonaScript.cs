@@ -294,12 +294,21 @@ public partial class PersonaScript : Node
     // EditMenu Node
     class editPage : page
     {
+        public struct Aspect
+        {
+            public string type;
+            public string name;
+            public string desc;
+        }
+
         public int selectedPersona;
+        public List<Aspect> aspectList = new List<Aspect>();
 
         // Declare Edit Show Sub-Display
         public Label aspects;
 
         // Declare Edit Add Sub-Display
+        public OptionButton addOptionButton;
 
         // Declare Edit Remove Sub-Display
         public OptionButton removeOptionButton;
@@ -333,6 +342,52 @@ public partial class PersonaScript : Node
 
             // Reload aspects
             loadAspects(selectedPersona);
+        }
+
+        public void loadAspectDoc(string fileName)
+        {
+            // Read the data file
+            string fileText = File.ReadAllText(fileName);
+            
+
+            // Split the string
+            string[] fileCon = fileText.Split("\n");
+            string[] fileHead = fileCon[0].Split(",");
+
+            // Add each aspect to the aspect list
+            for (int i = 1; i < fileCon.Length-1; i++)
+            {
+                // Split the line
+                string[] fileLine = fileCon[i].Split(",", 3);
+                Aspect currAspect = new Aspect();
+
+                // Assign the aspects according to header
+                for (int j = 0; j < fileHead.Length; j++) {
+                    char[] traillingChars = { ' ', '"', '\r' };
+
+                    string currentLine = fileLine[j].Trim(traillingChars);
+
+                    switch (fileHead[j].Trim(traillingChars))
+                    {
+                        case "Type":
+                            currAspect.type = currentLine;
+                            break;
+                        case "Name":
+                            currAspect.name = currentLine;
+                            break;
+                        case "Description":
+                            currAspect.desc = currentLine;
+                            break;
+                    }
+                }
+
+                aspectList.Add(currAspect);
+            }
+
+            foreach (Aspect asp in aspectList)
+            {
+                addOptionButton.AddItem(asp.name);
+            }
         }
     }
 
@@ -400,7 +455,9 @@ public partial class PersonaScript : Node
         ep.self = GetNode<Control>("EditMenu");
         ep.aspects = GetNode<Label>("EditMenu/Options/Aspects/Label");
         ep.removeOptionButton = GetNode<OptionButton>("EditMenu/Options/RemoveMenu/Options");
-
+        ep.addOptionButton = GetNode<OptionButton>("EditMenu/Options/AddMenu/Options");
+        Global.Data.SafeLoad("Input/PersonaAspectData.csv", ep.loadAspectDoc);
+        
         // Initialize Persona
         newPersona = new Global.persona();
 

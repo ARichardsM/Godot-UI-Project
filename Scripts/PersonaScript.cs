@@ -309,9 +309,11 @@ public partial class PersonaScript : Node
 
         // Declare Edit Add Sub-Display
         public OptionButton addOptionButton;
+        public Label addDescription;
 
         // Declare Edit Remove Sub-Display
         public OptionButton removeOptionButton;
+        public Label removeDescription;
 
         public void loadAspects(int persona)
         {
@@ -339,6 +341,26 @@ public partial class PersonaScript : Node
 
             // Remove the trait from the persona in the roster
             Global.Data.roster[selectedPersona].traits.RemoveAt(selected);
+
+            // Reload aspects
+            loadAspects(selectedPersona);
+        }
+
+        public void addAspect()
+        {
+            int selected = addOptionButton.Selected;
+
+            // If no trait is selected, return
+            if (selected == -1)
+            {
+                return;
+            }
+
+            // Create the new trait
+            Global.trait newTrait = new Global.trait(aspectList[addOptionButton.Selected].name, aspectList[addOptionButton.Selected].type);
+
+            // Add the trait to the persona in the roster
+            Global.Data.roster[selectedPersona].traits.Add(newTrait);
 
             // Reload aspects
             loadAspects(selectedPersona);
@@ -389,6 +411,41 @@ public partial class PersonaScript : Node
                 addOptionButton.AddItem(asp.name);
             }
         }
+
+        public void loadRemoveDescription()
+        {
+            int selected = removeOptionButton.Selected;
+
+            List<string> aspectNames = new List<string>();
+
+            foreach (var asp in aspectList)
+            {
+                aspectNames.Add(asp.name);
+            }
+
+            int aspectIndex = aspectNames.IndexOf(Global.Data.roster[selectedPersona].traits[selected].key);
+
+            // If no trait is selected, return
+            if (selected == -1)
+            {
+                return;
+            }
+            // Else, If
+            else if (aspectIndex != -1)
+            {
+                removeDescription.Text = aspectList[aspectIndex].desc;
+            }
+            else
+            {
+                removeDescription.Text = "Ipsum";
+            }
+
+            GD.Print(addOptionButton.Selected);
+        }
+        public void loadAddDescription()
+        {
+            addDescription.Text = aspectList[addOptionButton.Selected].desc;
+        }
     }
 
     // Edit Menu Node Buttons
@@ -397,19 +454,41 @@ public partial class PersonaScript : Node
         switch (buttonID)
         {
             case 0: // Wipe
-                GD.Print("0");
+                GD.Print("Wipe");
                 break;
             case 1: // Exit
                 vp.Visible(true);
                 ep.Visible(false);
-                GD.Print("1");
                 break;
-            case 2: // Add
+            case 2: // Add Random
+                var addRand = new Random();
+                ep.addOptionButton.Selected = addRand.Next(ep.aspectList.Count);
+                ep.loadAddDescription();
                 break;
-            case 3: // Remove
+            case 3: // Add
+                ep.addAspect();
+                break;
+            case 4: // Remove Random
+                var removeRand = new Random();
+                ep.removeOptionButton.Selected = removeRand.Next(Global.Data.roster[ep.selectedPersona].traits.Count);
+                ep.loadRemoveDescription();
+                break;
+            case 5: // Remove
                 ep.removeAspect();
                 break;
         }
+    }
+
+    // Edit Menu Node Buttons
+    public void EditPageOptionChanged(int _)
+    {
+        ep.loadAddDescription();
+    }
+
+    // Edit Menu Node Buttons
+    public void EditPageOptionChanged(int _, bool isAdd)
+    {
+        ep.loadAddDescription();
     }
 
 
@@ -456,6 +535,8 @@ public partial class PersonaScript : Node
         ep.aspects = GetNode<Label>("EditMenu/Options/Aspects/Label");
         ep.removeOptionButton = GetNode<OptionButton>("EditMenu/Options/RemoveMenu/Options");
         ep.addOptionButton = GetNode<OptionButton>("EditMenu/Options/AddMenu/Options");
+        ep.addDescription = GetNode<Label>("EditMenu/Options/AddMenu/Description/Label");
+        ep.removeDescription = GetNode<Label>("EditMenu/Options/RemoveMenu/Description/Label");
         Global.Data.SafeLoad("Input/PersonaAspectData.csv", ep.loadAspectDoc);
         
         // Initialize Persona

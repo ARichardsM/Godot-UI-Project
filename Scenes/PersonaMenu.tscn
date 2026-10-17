@@ -1,6 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://dyq343n5vba5c"]
+[gd_scene format=3 uid="uid://dyq343n5vba5c"]
 
-[ext_resource type="Script" path="res://Scripts/PersonaScript.cs" id="1_2f3b6"]
+[ext_resource type="Script" uid="uid://krdeerl23umm" path="res://Scripts/PersonaScript.cs" id="1_2f3b6"]
 [ext_resource type="PackedScene" uid="uid://betbov7d2j85m" path="res://Asset/Button.tscn" id="2_wuyk0"]
 [ext_resource type="PackedScene" uid="uid://6fncjs2rjmd4" path="res://Asset/ScaleSelection.tscn" id="3_3w4o0"]
 
@@ -14,12 +14,12 @@ font_size = 20
 font_size = 20
 font_color = Color(0.625597, 0.625597, 0.625597, 1)
 
-[node name="Node2D" type="Control"]
+[node name="Node2D" type="Control" unique_id=1079759498]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_2f3b6")
 
-[node name="Title" type="Label" parent="."]
+[node name="Title" type="Label" parent="." unique_id=660096333]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -33,7 +33,7 @@ text = "Godot UI Project"
 label_settings = SubResource("LabelSettings_tpoil")
 horizontal_alignment = 1
 
-[node name="Sub-Title" type="Label" parent="."]
+[node name="Sub-Title" type="Label" parent="." unique_id=928335817]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -47,45 +47,44 @@ text = "Persona Menu"
 label_settings = SubResource("LabelSettings_w4ssr")
 horizontal_alignment = 1
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1768618949]
 
-[node name="ViewMenu" type="Control" parent="."]
+[node name="ViewMenu" type="Control" parent="." unique_id=252215882]
 visible = false
-layout_mode = 3
 anchors_preset = 0
 
-[node name="DataBox" type="ScrollContainer" parent="ViewMenu"]
+[node name="DataBox" type="ScrollContainer" parent="ViewMenu" unique_id=616688251]
 layout_mode = 0
 offset_left = -475.0
 offset_top = -200.0
 offset_right = 475.0
 offset_bottom = -10.0
 
-[node name="Container" type="VBoxContainer" parent="ViewMenu/DataBox"]
+[node name="Container" type="VBoxContainer" parent="ViewMenu/DataBox" unique_id=1003818926]
 custom_minimum_size = Vector2(950, 0)
 layout_mode = 2
 
-[node name="Name" type="Label" parent="ViewMenu/DataBox/Container"]
+[node name="Name" type="Label" parent="ViewMenu/DataBox/Container" unique_id=1094411337]
 layout_mode = 2
 text = "Lorem"
 horizontal_alignment = 1
 
-[node name="Members" type="Label" parent="ViewMenu/DataBox/Container"]
+[node name="Members" type="Label" parent="ViewMenu/DataBox/Container" unique_id=823238122]
 layout_mode = 2
 text = "Ipsum"
 horizontal_alignment = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="ViewMenu"]
+[node name="ScrollContainer" type="ScrollContainer" parent="ViewMenu" unique_id=2051848399]
 layout_mode = 0
 offset_left = -475.0
 offset_right = 475.0
 offset_bottom = 190.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ViewMenu/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ViewMenu/ScrollContainer" unique_id=2108403289]
 custom_minimum_size = Vector2(950, 0)
 layout_mode = 2
 
-[node name="ButtonContainer" type="HBoxContainer" parent="ViewMenu"]
+[node name="ButtonContainer" type="HBoxContainer" parent="ViewMenu" unique_id=540182272]
 layout_mode = 0
 offset_left = -475.0
 offset_top = 200.0
@@ -93,32 +92,31 @@ offset_right = 475.0
 offset_bottom = 295.0
 theme_override_constants/separation = 25
 
-[node name="Add" parent="ViewMenu/ButtonContainer" instance=ExtResource("2_wuyk0")]
+[node name="Add" parent="ViewMenu/ButtonContainer" unique_id=762155123 instance=ExtResource("2_wuyk0")]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 text = "Add"
 metadata/_edit_use_anchors_ = true
 
-[node name="Edit" parent="ViewMenu/ButtonContainer" instance=ExtResource("2_wuyk0")]
+[node name="Edit" parent="ViewMenu/ButtonContainer" unique_id=88782261 instance=ExtResource("2_wuyk0")]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 text = "Edit"
 metadata/_edit_use_anchors_ = true
 
-[node name="Exit" parent="ViewMenu/ButtonContainer" instance=ExtResource("2_wuyk0")]
+[node name="Exit" parent="ViewMenu/ButtonContainer" unique_id=689126058 instance=ExtResource("2_wuyk0")]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 text = "Exit"
 metadata/_edit_use_anchors_ = true
 
-[node name="PersonalityMenu" type="Control" parent="."]
+[node name="PersonalityMenu" type="Control" parent="." unique_id=838322518]
 visible = false
-layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="ButtonContainer" type="HBoxContainer" parent="PersonalityMenu"]
+[node name="ButtonContainer" type="HBoxContainer" parent="PersonalityMenu" unique_id=2122943822]
 layout_mode = 0
 offset_left = -475.0
 offset_top = 200.0
@@ -126,51 +124,50 @@ offset_right = 475.0
 offset_bottom = 295.0
 theme_override_constants/separation = 25
 
-[node name="Name" type="LineEdit" parent="PersonalityMenu/ButtonContainer"]
+[node name="Name" type="LineEdit" parent="PersonalityMenu/ButtonContainer" unique_id=1322153074]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 placeholder_text = "Name..."
 
-[node name="Button" parent="PersonalityMenu/ButtonContainer" instance=ExtResource("2_wuyk0")]
+[node name="Button" parent="PersonalityMenu/ButtonContainer" unique_id=174424319 instance=ExtResource("2_wuyk0")]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 text = "Add To Data"
 metadata/_edit_use_anchors_ = true
 
-[node name="Button2" parent="PersonalityMenu/ButtonContainer" instance=ExtResource("2_wuyk0")]
+[node name="Button2" parent="PersonalityMenu/ButtonContainer" unique_id=1369526901 instance=ExtResource("2_wuyk0")]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 text = "Exit"
 metadata/_edit_use_anchors_ = true
 
-[node name="Selection1" parent="PersonalityMenu" instance=ExtResource("3_3w4o0")]
+[node name="Selection1" parent="PersonalityMenu" unique_id=879817605 instance=ExtResource("3_3w4o0")]
 position = Vector2(0, -150)
 LeftLabelText = "Extraverted"
 RightLabelText = "Introverted"
 
-[node name="Selection2" parent="PersonalityMenu" instance=ExtResource("3_3w4o0")]
+[node name="Selection2" parent="PersonalityMenu" unique_id=875780141 instance=ExtResource("3_3w4o0")]
 position = Vector2(0, -50)
 LeftLabelText = "Sense Dominant"
 RightLabelText = "Intuition Dominant"
 
-[node name="Selection3" parent="PersonalityMenu" instance=ExtResource("3_3w4o0")]
+[node name="Selection3" parent="PersonalityMenu" unique_id=310374378 instance=ExtResource("3_3w4o0")]
 position = Vector2(0, 50)
 LeftLabelText = "Thinking"
 RightLabelText = "Feeling"
 
-[node name="Selection4" parent="PersonalityMenu" instance=ExtResource("3_3w4o0")]
+[node name="Selection4" parent="PersonalityMenu" unique_id=305497763 instance=ExtResource("3_3w4o0")]
 position = Vector2(0, 150)
 LeftLabelText = "Judging"
 RightLabelText = "Perceiving"
 
-[node name="SelectMenu" type="Control" parent="."]
+[node name="SelectMenu" type="Control" parent="." unique_id=970128275]
 visible = false
-layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="GridContainer" type="GridContainer" parent="SelectMenu"]
+[node name="GridContainer" type="GridContainer" parent="SelectMenu" unique_id=1973880495]
 layout_mode = 0
 offset_left = -400.0
 offset_top = 130.0
@@ -180,31 +177,31 @@ theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 20
 columns = 2
 
-[node name="Button" parent="SelectMenu/GridContainer" instance=ExtResource("2_wuyk0")]
+[node name="Button" parent="SelectMenu/GridContainer" unique_id=1576718490 instance=ExtResource("2_wuyk0")]
 custom_minimum_size = Vector2(390, 70)
 layout_mode = 2
 text = "Previous"
 metadata/_edit_use_anchors_ = true
 
-[node name="Button2" parent="SelectMenu/GridContainer" instance=ExtResource("2_wuyk0")]
+[node name="Button2" parent="SelectMenu/GridContainer" unique_id=1958629893 instance=ExtResource("2_wuyk0")]
 custom_minimum_size = Vector2(390, 70)
 layout_mode = 2
 text = "Next"
 metadata/_edit_use_anchors_ = true
 
-[node name="Button3" parent="SelectMenu/GridContainer" instance=ExtResource("2_wuyk0")]
+[node name="Button3" parent="SelectMenu/GridContainer" unique_id=1791175988 instance=ExtResource("2_wuyk0")]
 custom_minimum_size = Vector2(375, 70)
 layout_mode = 2
 text = "Add To Data"
 metadata/_edit_use_anchors_ = true
 
-[node name="Button4" parent="SelectMenu/GridContainer" instance=ExtResource("2_wuyk0")]
+[node name="Button4" parent="SelectMenu/GridContainer" unique_id=1112045953 instance=ExtResource("2_wuyk0")]
 custom_minimum_size = Vector2(375, 70)
 layout_mode = 2
 text = "Exit"
 metadata/_edit_use_anchors_ = true
 
-[node name="FullContainer" type="HBoxContainer" parent="SelectMenu"]
+[node name="FullContainer" type="HBoxContainer" parent="SelectMenu" unique_id=1887355480]
 visible = false
 layout_mode = 0
 offset_left = -400.0
@@ -212,19 +209,19 @@ offset_top = -200.0
 offset_right = 404.0
 offset_bottom = 109.0
 
-[node name="Label" type="Label" parent="SelectMenu/FullContainer"]
+[node name="Label" type="Label" parent="SelectMenu/FullContainer" unique_id=1830203218]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. "
 autowrap_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="SelectMenu/FullContainer"]
+[node name="TextureRect" type="TextureRect" parent="SelectMenu/FullContainer" unique_id=187645449]
 custom_minimum_size = Vector2(400, 250)
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="TxtContainer" type="HBoxContainer" parent="SelectMenu"]
+[node name="TxtContainer" type="HBoxContainer" parent="SelectMenu" unique_id=550109016]
 visible = false
 layout_mode = 0
 offset_left = -200.0
@@ -232,13 +229,13 @@ offset_top = -200.0
 offset_right = 200.0
 offset_bottom = 109.0
 
-[node name="Label" type="Label" parent="SelectMenu/TxtContainer"]
+[node name="Label" type="Label" parent="SelectMenu/TxtContainer" unique_id=2012203950]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. "
 autowrap_mode = 2
 
-[node name="PngContainer" type="HBoxContainer" parent="SelectMenu"]
+[node name="PngContainer" type="HBoxContainer" parent="SelectMenu" unique_id=271187351]
 visible = false
 layout_mode = 0
 offset_left = -200.0
@@ -246,90 +243,116 @@ offset_top = -200.0
 offset_right = 200.0
 offset_bottom = 109.0
 
-[node name="TextureRect" type="TextureRect" parent="SelectMenu/PngContainer"]
+[node name="TextureRect" type="TextureRect" parent="SelectMenu/PngContainer" unique_id=1364586680]
 custom_minimum_size = Vector2(400, 250)
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="EditMenu" type="Control" parent="."]
-layout_mode = 3
+[node name="EditMenu" type="Control" parent="." unique_id=1721994777]
 anchors_preset = 0
 
-[node name="Options" type="VBoxContainer" parent="EditMenu"]
+[node name="Options" type="VBoxContainer" parent="EditMenu" unique_id=202792904]
 layout_mode = 0
 offset_left = -500.0
 offset_top = -200.0
 offset_right = 500.0
 offset_bottom = 200.0
 
-[node name="Header A" type="Label" parent="EditMenu/Options"]
+[node name="Header A" type="Label" parent="EditMenu/Options" unique_id=401616100]
 layout_mode = 2
 text = "Aspects"
 label_settings = SubResource("LabelSettings_f2vv5")
 
-[node name="Aspects" type="ScrollContainer" parent="EditMenu/Options"]
+[node name="Aspects" type="ScrollContainer" parent="EditMenu/Options" unique_id=797624724]
 custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="EditMenu/Options/Aspects"]
+[node name="Label" type="Label" parent="EditMenu/Options/Aspects" unique_id=1166089530]
 layout_mode = 2
 text = "Ipsum"
 
-[node name="Header B" type="Label" parent="EditMenu/Options"]
+[node name="Header B" type="Label" parent="EditMenu/Options" unique_id=514397471]
 layout_mode = 2
 text = "Add Aspect"
 label_settings = SubResource("LabelSettings_f2vv5")
 
-[node name="AddMenu" type="HBoxContainer" parent="EditMenu/Options"]
+[node name="AddMenu" type="HBoxContainer" parent="EditMenu/Options" unique_id=1170235584]
 layout_mode = 2
+theme_override_constants/separation = 5
 
-[node name="Random" parent="EditMenu/Options/AddMenu" instance=ExtResource("2_wuyk0")]
+[node name="Random" parent="EditMenu/Options/AddMenu" unique_id=1651151643 instance=ExtResource("2_wuyk0")]
+custom_minimum_size = Vector2(75, 30)
 layout_mode = 2
+size_flags_vertical = 4
 text = "Random"
 metadata/_edit_use_anchors_ = true
 
-[node name="Options" type="OptionButton" parent="EditMenu/Options/AddMenu"]
+[node name="Options" type="OptionButton" parent="EditMenu/Options/AddMenu" unique_id=1827964637]
+custom_minimum_size = Vector2(210, 30)
+layout_mode = 2
+size_flags_vertical = 4
+text_overrun_behavior = 3
+fit_to_longest_item = false
+
+[node name="Description" type="ScrollContainer" parent="EditMenu/Options/AddMenu" unique_id=1415529365]
+custom_minimum_size = Vector2(625, 50)
 layout_mode = 2
 
-[node name="Description" type="ScrollContainer" parent="EditMenu/Options/AddMenu"]
-custom_minimum_size = Vector2(200, 0)
+[node name="Label" type="Label" parent="EditMenu/Options/AddMenu/Description" unique_id=1784098292]
+custom_minimum_size = Vector2(625, 50)
 layout_mode = 2
-
-[node name="Label" type="Label" parent="EditMenu/Options/AddMenu/Description"]
-layout_mode = 2
+size_flags_vertical = 1
 text = "Ipsum"
+vertical_alignment = 1
+autowrap_mode = 2
 
-[node name="Button" parent="EditMenu/Options/AddMenu" instance=ExtResource("2_wuyk0")]
+[node name="Button" parent="EditMenu/Options/AddMenu" unique_id=1086017747 instance=ExtResource("2_wuyk0")]
+custom_minimum_size = Vector2(75, 30)
 layout_mode = 2
+size_flags_vertical = 4
 text = "Add"
 metadata/_edit_use_anchors_ = true
 
-[node name="Header C" type="Label" parent="EditMenu/Options"]
+[node name="Header C" type="Label" parent="EditMenu/Options" unique_id=138651920]
 layout_mode = 2
 text = "Remove Aspect"
 label_settings = SubResource("LabelSettings_f2vv5")
 
-[node name="RemoveMenu" type="HBoxContainer" parent="EditMenu/Options"]
+[node name="RemoveMenu" type="HBoxContainer" parent="EditMenu/Options" unique_id=1432945126]
 layout_mode = 2
 
-[node name="Options" type="OptionButton" parent="EditMenu/Options/RemoveMenu"]
+[node name="Random" parent="EditMenu/Options/RemoveMenu" unique_id=1687448717 instance=ExtResource("2_wuyk0")]
+custom_minimum_size = Vector2(75, 30)
+layout_mode = 2
+size_flags_vertical = 4
+text = "Random"
+metadata/_edit_use_anchors_ = true
+
+[node name="Options" type="OptionButton" parent="EditMenu/Options/RemoveMenu" unique_id=763284130]
+custom_minimum_size = Vector2(210, 30)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Description" type="ScrollContainer" parent="EditMenu/Options/RemoveMenu" unique_id=2058042918]
+custom_minimum_size = Vector2(625, 50)
 layout_mode = 2
 
-[node name="Description" type="ScrollContainer" parent="EditMenu/Options/RemoveMenu"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-
-[node name="Label" type="Label" parent="EditMenu/Options/RemoveMenu/Description"]
+[node name="Label" type="Label" parent="EditMenu/Options/RemoveMenu/Description" unique_id=777311736]
+custom_minimum_size = Vector2(625, 50)
 layout_mode = 2
 text = "Ipsum"
+vertical_alignment = 1
+autowrap_mode = 2
 
-[node name="Button" parent="EditMenu/Options/RemoveMenu" instance=ExtResource("2_wuyk0")]
+[node name="Button" parent="EditMenu/Options/RemoveMenu" unique_id=2010099471 instance=ExtResource("2_wuyk0")]
+custom_minimum_size = Vector2(75, 30)
 layout_mode = 2
+size_flags_vertical = 4
 text = "Remove"
 metadata/_edit_use_anchors_ = true
 
-[node name="ButtonContainer" type="HBoxContainer" parent="EditMenu"]
+[node name="ButtonContainer" type="HBoxContainer" parent="EditMenu" unique_id=797361814]
 layout_mode = 0
 offset_left = -475.0
 offset_top = 200.0
@@ -337,13 +360,13 @@ offset_right = 475.0
 offset_bottom = 295.0
 theme_override_constants/separation = 50
 
-[node name="Wipe" parent="EditMenu/ButtonContainer" instance=ExtResource("2_wuyk0")]
+[node name="Wipe" parent="EditMenu/ButtonContainer" unique_id=1197802683 instance=ExtResource("2_wuyk0")]
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 text = "Wipe"
 metadata/_edit_use_anchors_ = true
 
-[node name="Exit" parent="EditMenu/ButtonContainer" instance=ExtResource("2_wuyk0")]
+[node name="Exit" parent="EditMenu/ButtonContainer" unique_id=372152917 instance=ExtResource("2_wuyk0")]
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 text = "Exit"
@@ -358,6 +381,10 @@ metadata/_edit_use_anchors_ = true
 [connection signal="pressed" from="SelectMenu/GridContainer/Button2" to="." method="SelectPageButtonPressed" binds= [1]]
 [connection signal="pressed" from="SelectMenu/GridContainer/Button3" to="." method="SelectPageButtonPressed" binds= [2]]
 [connection signal="pressed" from="SelectMenu/GridContainer/Button4" to="." method="SelectPageButtonPressed" binds= [3]]
-[connection signal="pressed" from="EditMenu/Options/RemoveMenu/Button" to="." method="EditPageButtonPressed" binds= [3]]
+[connection signal="pressed" from="EditMenu/Options/AddMenu/Random" to="." method="EditPageButtonPressed" binds= [2]]
+[connection signal="item_selected" from="EditMenu/Options/AddMenu/Options" to="." method="EditPageOptionChanged"]
+[connection signal="pressed" from="EditMenu/Options/AddMenu/Button" to="." method="EditPageButtonPressed" binds= [3]]
+[connection signal="pressed" from="EditMenu/Options/RemoveMenu/Random" to="." method="EditPageButtonPressed" binds= [4]]
+[connection signal="pressed" from="EditMenu/Options/RemoveMenu/Button" to="." method="EditPageButtonPressed" binds= [4]]
 [connection signal="pressed" from="EditMenu/ButtonContainer/Wipe" to="." method="EditPageButtonPressed" binds= [0]]
 [connection signal="pressed" from="EditMenu/ButtonContainer/Exit" to="." method="EditPageButtonPressed" binds= [1]]

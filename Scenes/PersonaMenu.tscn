@@ -385,6 +385,6 @@ metadata/_edit_use_anchors_ = true
 [connection signal="item_selected" from="EditMenu/Options/AddMenu/Options" to="." method="EditPageOptionChanged"]
 [connection signal="pressed" from="EditMenu/Options/AddMenu/Button" to="." method="EditPageButtonPressed" binds= [3]]
 [connection signal="pressed" from="EditMenu/Options/RemoveMenu/Random" to="." method="EditPageButtonPressed" binds= [4]]
-[connection signal="pressed" from="EditMenu/Options/RemoveMenu/Button" to="." method="EditPageButtonPressed" binds= [4]]
+[connection signal="pressed" from="EditMenu/Options/RemoveMenu/Button" to="." method="EditPageButtonPressed" binds= [5]]
 [connection signal="pressed" from="EditMenu/ButtonContainer/Wipe" to="." method="EditPageButtonPressed" binds= [0]]
 [connection signal="pressed" from="EditMenu/ButtonContainer/Exit" to="." method="EditPageButtonPressed" binds= [1]]

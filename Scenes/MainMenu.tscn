@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://don2p8lhudc3l"]
+[gd_scene format=3 uid="uid://don2p8lhudc3l"]
 
-[ext_resource type="Script" path="res://Scripts/MainScript.cs" id="1_14dv5"]
+[ext_resource type="Script" uid="uid://ug2xy602jyf0" path="res://Scripts/MainScript.cs" id="1_14dv5"]
 [ext_resource type="PackedScene" uid="uid://betbov7d2j85m" path="res://Asset/Button.tscn" id="2_t3klc"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_crewf"]
@@ -9,68 +9,67 @@ font_size = 40
 [sub_resource type="LabelSettings" id="LabelSettings_u4uwj"]
 font_size = 20
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node2D" unique_id=1997386324]
 script = ExtResource("1_14dv5")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=987860166]
 
-[node name="Header" type="VBoxContainer" parent="."]
+[node name="Header" type="VBoxContainer" parent="." unique_id=1638676950]
 offset_left = -500.0
 offset_top = -300.0
 offset_right = 500.0
 offset_bottom = -200.0
 
-[node name="Title" type="Label" parent="Header"]
+[node name="Title" type="Label" parent="Header" unique_id=905719043]
 layout_mode = 2
 text = "Godot UI Project"
 label_settings = SubResource("LabelSettings_crewf")
 horizontal_alignment = 1
 
-[node name="Sub-Title" type="Label" parent="Header"]
+[node name="Sub-Title" type="Label" parent="Header" unique_id=485619199]
 layout_mode = 2
 text = "Backstage Booker v0.0"
 label_settings = SubResource("LabelSettings_u4uwj")
 horizontal_alignment = 1
 
-[node name="Buttons" type="VBoxContainer" parent="."]
+[node name="Buttons" type="VBoxContainer" parent="." unique_id=1684539046]
 offset_left = -450.0
 offset_right = 450.0
 offset_bottom = 300.0
 theme_override_constants/separation = 7
 
-[node name="TContainer" type="HBoxContainer" parent="Buttons"]
+[node name="TContainer" type="HBoxContainer" parent="Buttons" unique_id=6310630]
 custom_minimum_size = Vector2(0, 95)
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="LButton" parent="Buttons/TContainer" instance=ExtResource("2_t3klc")]
+[node name="LButton" parent="Buttons/TContainer" unique_id=299096023 instance=ExtResource("2_t3klc")]
 custom_minimum_size = Vector2(445, 0)
 layout_mode = 2
 text = "Persona Menu"
 
-[node name="RButton" parent="Buttons/TContainer" instance=ExtResource("2_t3klc")]
+[node name="RButton" parent="Buttons/TContainer" unique_id=527555168 instance=ExtResource("2_t3klc")]
 visible = false
 custom_minimum_size = Vector2(445, 0)
 layout_mode = 2
 text = "Stable Menu"
 
-[node name="MContainer" type="HBoxContainer" parent="Buttons"]
+[node name="MContainer" type="HBoxContainer" parent="Buttons" unique_id=617165465]
 custom_minimum_size = Vector2(0, 95)
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="LButton" parent="Buttons/MContainer" instance=ExtResource("2_t3klc")]
+[node name="LButton" parent="Buttons/MContainer" unique_id=110520260 instance=ExtResource("2_t3klc")]
 custom_minimum_size = Vector2(445, 95)
 layout_mode = 2
 text = "Show Entities"
 
-[node name="RButton" parent="Buttons/MContainer" instance=ExtResource("2_t3klc")]
-visible = false
+[node name="RButton" parent="Buttons/MContainer" unique_id=457885877 instance=ExtResource("2_t3klc")]
 custom_minimum_size = Vector2(445, 95)
 layout_mode = 2
-text = "Output Entities"
+text = "Write Entities"
 
-[node name="BButton" parent="Buttons" instance=ExtResource("2_t3klc")]
+[node name="BButton" parent="Buttons" unique_id=1121709239 instance=ExtResource("2_t3klc")]
 custom_minimum_size = Vector2(0, 95)
 layout_mode = 2
 text = "Exit"

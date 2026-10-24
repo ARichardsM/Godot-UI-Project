@@ -1,12 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics.Metrics;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using static Global;
 
 public partial class PersonaScript : Node
 {
@@ -30,6 +25,32 @@ public partial class PersonaScript : Node
 
         public int selectedButtonId = -1;
         int idCount = 0;
+
+        public override void Visible(bool isVisible)
+        {
+            base.Visible(isVisible);
+
+            if (isVisible)
+            {
+                // Remove previous buttons
+                foreach (var buttons in container.GetChildren())
+                {
+                    buttons.QueueFree();
+                }
+
+                // Reset variables
+                idCount = 0;
+                name.Text = "Lorem";
+                selectedButtonId = -1;
+                aspects.Text = "";
+
+                // Create a button for each persona
+                foreach (var member in Global.Data.roster)
+                {
+                    AddContainerButton(member);
+                }
+            }
+        }
 
         // Update the labels when a container button is pressed
         public void ContainerButtonPressed(int buttonID)
@@ -78,14 +99,12 @@ public partial class PersonaScript : Node
                 vp.Visible(false);
                 sp.Visible(true);
                 break;
-            case 1: // TBD: Edit
+            case 1: // Edit
                 if (vp.selectedButtonId != -1) {
                     vp.Visible(false);
                     ep.loadAspects(vp.selectedButtonId);
                     ep.Visible(true);
                 }
-
-                GD.Print("Edit");
                 break;
             case 2: // Exit
                 // Return to the main menu
@@ -439,8 +458,6 @@ public partial class PersonaScript : Node
             {
                 removeDescription.Text = "Ipsum";
             }
-
-            GD.Print(addOptionButton.Selected);
         }
         public void loadAddDescription()
         {
@@ -454,7 +471,9 @@ public partial class PersonaScript : Node
         switch (buttonID)
         {
             case 0: // Wipe
-                GD.Print("Wipe");
+                Global.Data.roster.RemoveAt(ep.selectedPersona);
+                vp.Visible(true);
+                ep.Visible(false);
                 break;
             case 1: // Exit
                 vp.Visible(true);

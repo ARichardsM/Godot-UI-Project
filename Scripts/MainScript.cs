@@ -1,11 +1,71 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 public partial class MainScript : Node
 {
-    // Write the roster
+    // Write the roster TBD: Replace Original
+    private void newwriteRoster()
+    {
+        // Declare Recording Variables
+        List<List<string>> data = new List<List<string>>();
+        string outText = "";
+        List<string> headerData = new List<string>();
+        List<string> templateData = new List<string>();
+
+        // Append Name Header
+        outText += "Name,";
+        headerData.Add("Name");
+        templateData.Add("N/A");
+
+        // Determine maximum number of aspects
+        int aspectMax = 0;
+        foreach (Global.persona entity in Global.Data.roster)
+            aspectMax = Math.Max(aspectMax, entity.traits.Count);
+
+        // Append Headers
+        for (int i = 0; i < aspectMax; i++)
+        {
+            outText += "Aspect " + (i+1) + ",";
+            headerData.Add("Aspect " + (i + 1) + ",");
+            templateData.Add("N/A");
+        }
+
+        // Convert each persona into a csv line
+        foreach (Global.persona entity in Global.Data.roster)
+        {
+            List<string> tempData = templateData;
+
+            // Record the observation's name
+            tempData[0] = entity.name;
+
+            /*
+            // Record the observation's traits
+            foreach (Global.trait aspect in entity.traits)
+            {
+                int index = headerData.IndexOf(aspect.key);
+
+                // Remove Unaccounted Traits
+                if (index == -1)
+                    continue;
+
+                tempData[index] = aspect.val;
+            }
+            */
+
+            // Add the observations data to the data list
+            data.Add(tempData);
+        }
+
+        GD.Print(aspectMax);
+
+        // Write to File
+        System.IO.File.WriteAllText("Output/Data.csv", outText);
+    }
+
+    // Write the roster TBD: Remove
     private void writeRoster()
     {
         // Declare Variables
@@ -108,7 +168,7 @@ public partial class MainScript : Node
             // Button-MR
             case 2:
                 // Print to File
-                writeRoster();
+                newwriteRoster();
 
                 // Report to GD Console
                 GD.Print("File written.");

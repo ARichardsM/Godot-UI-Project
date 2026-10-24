@@ -6,8 +6,8 @@ using System.Reflection;
 
 public partial class MainScript : Node
 {
-    // Write the roster TBD: Replace Original
-    private void newwriteRoster()
+    // Write the roster
+    private void writeRoster()
     {
         // Declare Recording Variables
         List<List<string>> data = new List<List<string>>();
@@ -36,37 +36,39 @@ public partial class MainScript : Node
         // Convert each persona into a csv line
         foreach (Global.persona entity in Global.Data.roster)
         {
-            List<string> tempData = templateData;
+            List<string> tempData = new(templateData);
 
             // Record the observation's name
             tempData[0] = entity.name;
 
-            /*
             // Record the observation's traits
-            foreach (Global.trait aspect in entity.traits)
+            for (int i = 0; i < aspectMax; i++ )
             {
-                int index = headerData.IndexOf(aspect.key);
-
-                // Remove Unaccounted Traits
-                if (index == -1)
-                    continue;
-
-                tempData[index] = aspect.val;
+                if (i < entity.traits.Count)
+                    tempData[i + 1] = entity.traits[i].key + " - " + entity.traits[i].val;
+                else
+                    tempData[i + 1] = "N/A";
             }
-            */
 
             // Add the observations data to the data list
             data.Add(tempData);
         }
 
-        GD.Print(aspectMax);
+        // Stringify each observation
+        foreach (List<string> savedObs in data)
+        {
+            outText += "\n" + savedObs[0];
+
+            for (int i = 1; i < savedObs.Count; i++)
+                outText += "," + savedObs[i];
+        }
 
         // Write to File
         System.IO.File.WriteAllText("Output/Data.csv", outText);
     }
 
-    // Write the roster TBD: Remove
-    private void writeRoster()
+    // Write the roster TBD: Depreciated Method
+    private void writeRosterOld()
     {
         // Declare Variables
         string outText = "";
@@ -168,7 +170,7 @@ public partial class MainScript : Node
             // Button-MR
             case 2:
                 // Print to File
-                newwriteRoster();
+                writeRoster();
 
                 // Report to GD Console
                 GD.Print("File written.");

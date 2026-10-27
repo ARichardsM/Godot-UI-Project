@@ -236,6 +236,53 @@ public partial class Global : Node
         }
     }
 
+    // Read and prepare the Entity Database (No Header)
+    private void LoadPersonaHeaderless(string fileAddress)
+    {
+        // Read the data file
+        string fileText = File.ReadAllText(fileAddress);
+
+        // Split the string
+        string[] fileCon = fileText.Split("\n");
+        string[] fileHead = fileCon[0].Split(",");
+        
+        // Add each observation to the global data
+        for (int i = 1; i < fileCon.Length; i++)
+        {
+            persona currData = new persona();
+            string[] line = fileCon[i].Split(",");
+
+            // Convert obs to trait format and save
+            for (int j = 0; j < line.Length; j++)
+            {
+                // Get current header
+                string currHeader = fileHead[j].Trim('\r');
+
+                // If the aspect is empty, continue
+                if (line[j].Trim('\r') == "N/A")
+                {
+                    continue;
+                }
+
+                // Add Name
+                if (currHeader == "Name")
+                {
+                    if (line[j].Trim('\r') != "")
+                        currData.name = line[j].Trim('\r');
+                }
+                // Add Trait
+                else
+                {
+                    string[] newTrait = line[j].Split(" - ");
+                    currData.traits.Add(new trait(newTrait[0], newTrait[1]));
+                }
+            }
+
+            // Save the data
+            roster.Add(currData);
+        }
+    }
+
     // Load within a try-catch
     public void SafeLoad(string arg, Action<string> loadFunction)
     {
@@ -280,6 +327,7 @@ public partial class Global : Node
 
         // Load Persona CSV
         SafeLoad("Input/RosterData.csv", LoadPersona);
+        SafeLoad("Output/Data.csv", LoadPersonaHeaderless);
 
         // Load Group CSV
         SafeLoad("Input/StableData.csv", LoadGroup);

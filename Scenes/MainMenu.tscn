@@ -44,13 +44,17 @@ layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="LButton" parent="Buttons/TContainer" unique_id=299096023 instance=ExtResource("2_t3klc")]
-custom_minimum_size = Vector2(445, 0)
+custom_minimum_size = Vector2(295, 0)
 layout_mode = 2
 text = "Persona Menu"
 
+[node name="MButton" parent="Buttons/TContainer" unique_id=293340686 instance=ExtResource("2_t3klc")]
+custom_minimum_size = Vector2(290, 0)
+layout_mode = 2
+text = "Relation Menu"
+
 [node name="RButton" parent="Buttons/TContainer" unique_id=527555168 instance=ExtResource("2_t3klc")]
-visible = false
-custom_minimum_size = Vector2(445, 0)
+custom_minimum_size = Vector2(295, 0)
 layout_mode = 2
 text = "Stable Menu"
 
@@ -74,8 +78,9 @@ custom_minimum_size = Vector2(0, 95)
 layout_mode = 2
 text = "Exit"
 
-[connection signal="pressed" from="Buttons/TContainer/LButton" to="." method="ButtonPressed" binds= [0]]
-[connection signal="pressed" from="Buttons/TContainer/RButton" to="." method="ButtonPressed" binds= [4]]
-[connection signal="pressed" from="Buttons/MContainer/LButton" to="." method="ButtonPressed" binds= [1]]
-[connection signal="pressed" from="Buttons/MContainer/RButton" to="." method="ButtonPressed" binds= [2]]
-[connection signal="pressed" from="Buttons/BButton" to="." method="ButtonPressed" binds= [3]]
+[connection signal="pressed" from="Buttons/TContainer/LButton" to="." method="ButtonPressed" binds= [0, 0]]
+[connection signal="pressed" from="Buttons/TContainer/MButton" to="." method="ButtonPressed" binds= [0, 1]]
+[connection signal="pressed" from="Buttons/TContainer/RButton" to="." method="ButtonPressed" binds= [0, 2]]
+[connection signal="pressed" from="Buttons/MContainer/LButton" to="." method="ButtonPressed" binds= [1, 0]]
+[connection signal="pressed" from="Buttons/MContainer/RButton" to="." method="ButtonPressed" binds= [1, 1]]
+[connection signal="pressed" from="Buttons/BButton" to="." method="ButtonPressed" binds= [2, 0]]

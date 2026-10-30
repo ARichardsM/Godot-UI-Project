@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 
 public partial class MainScript : Node
 {
@@ -145,42 +146,65 @@ public partial class MainScript : Node
     }
 
     // Function for button presses
-    public void ButtonPressed(int val)
+    public void ButtonPressed(int row,int col)
     {
-        switch (val)
+        void topLayer()
         {
-            // Button-TL
+            switch (col)
+            {
+                // Left Column: Persona Menu
+                case 0:
+                    GetTree().ChangeSceneToFile("Scenes/PersonaMenu.tscn");
+                    break;
+
+                // Middle Column: Relation Menu
+                case 1:
+                    GetTree().ChangeSceneToFile("Scenes/RelationMenu.tscn");
+                    break;
+
+                // Right Column: Stable Menu
+                case 2:
+                    GetTree().ChangeSceneToFile("Scenes/StableMenu.tscn");
+                    break;
+            }
+        }
+
+        void midLayer()
+        {
+            switch (col)
+            {
+                // Left Column: Print
+                case 0:
+                    printRoster();
+                    break;
+
+                // Right Column: Write
+                case 1:
+                    // Print to File
+                    writeRoster();
+
+                    // Report to GD Console
+                    GD.Print("File written.");
+                    break;
+            }
+        }
+
+        switch (row)
+        {
+            // Top Row
             case 0:
-                // Add a persona to the roster
-                GetTree().ChangeSceneToFile("Scenes/PersonaMenu.tscn");
+                topLayer();
                 break;
 
-            // Button-TR
-            case 4:
-                // Add a stable to the groups
-                GetTree().ChangeSceneToFile("Scenes/StableMenu.tscn");
-                break;
-
-            // Button-ML
+            // Middle Row
             case 1:
-                // Print to Screen
-                printRoster();
+                midLayer();
                 break;
 
-            // Button-MR
+            // Bottom Row
             case 2:
-                // Print to File
-                writeRoster();
-
-                // Report to GD Console
-                GD.Print("File written.");
-                break;
-
-            // Button-B
-            case 3:
-                // Exit
                 GetTree().Quit();
                 break;
-        } 
+        }
     }
 }

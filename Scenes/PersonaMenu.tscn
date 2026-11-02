@@ -50,7 +50,6 @@ horizontal_alignment = 1
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1768618949]
 
 [node name="ViewMenu" type="Control" parent="." unique_id=252215882]
-visible = false
 anchors_preset = 0
 
 [node name="DataBox" type="ScrollContainer" parent="ViewMenu" unique_id=616688251]
@@ -250,6 +249,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="EditMenu" type="Control" parent="." unique_id=1721994777]
+visible = false
 anchors_preset = 0
 
 [node name="Options" type="VBoxContainer" parent="EditMenu" unique_id=202792904]

@@ -1,9 +1,94 @@
 [gd_scene format=3 uid="uid://dcvkfh28lo8b3"]
 
+[ext_resource type="Script" uid="uid://0k0cxe2mebfe" path="res://Scripts/RelationScript.cs" id="1_fgk5q"]
+[ext_resource type="PackedScene" uid="uid://betbov7d2j85m" path="res://Asset/Button.tscn" id="2_58670"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8gxaw"]
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_fgk5q"]
+font_size = 20
+
 [node name="Control" type="Control" unique_id=228469236]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -1152.0
+offset_bottom = -648.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_fgk5q")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1159393095]
+
+[node name="Header" type="VBoxContainer" parent="." unique_id=1144313952]
+layout_mode = 0
+offset_left = -500.0
+offset_top = -300.0
+offset_right = 500.0
+offset_bottom = -200.0
+
+[node name="Title" type="Label" parent="Header" unique_id=2025270856]
+layout_mode = 2
+text = "Godot UI Project"
+label_settings = SubResource("LabelSettings_8gxaw")
+horizontal_alignment = 1
+
+[node name="Sub-Title" type="Label" parent="Header" unique_id=1367677262]
+layout_mode = 2
+text = "Relation Menu"
+label_settings = SubResource("LabelSettings_fgk5q")
+horizontal_alignment = 1
+
+[node name="ViewMenu" type="Control" parent="." unique_id=573689410]
+anchors_preset = 0
+
+[node name="ButtonContainer" type="HBoxContainer" parent="ViewMenu" unique_id=117328153]
+layout_mode = 0
+offset_left = -475.0
+offset_top = 200.0
+offset_right = 475.0
+offset_bottom = 295.0
+theme_override_constants/separation = 25
+
+[node name="Add" parent="ViewMenu/ButtonContainer" unique_id=311425869 instance=ExtResource("2_58670")]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+text = "Add"
+metadata/_edit_use_anchors_ = true
+
+[node name="Edit" parent="ViewMenu/ButtonContainer" unique_id=105077245 instance=ExtResource("2_58670")]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+text = "Edit"
+metadata/_edit_use_anchors_ = true
+
+[node name="Exit" parent="ViewMenu/ButtonContainer" unique_id=16236147 instance=ExtResource("2_58670")]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+text = "Exit"
+metadata/_edit_use_anchors_ = true
+
+[node name="DataBox" type="ScrollContainer" parent="ViewMenu" unique_id=537230961]
+layout_mode = 0
+offset_left = -475.0
+offset_top = -200.0
+offset_right = 475.0
+offset_bottom = 100.0
+
+[node name="GridContainer" type="GridContainer" parent="ViewMenu/DataBox" unique_id=1728887804]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="ViewMenu" unique_id=533616401]
+layout_mode = 0
+offset_left = -475.0
+offset_top = 100.0
+offset_right = 475.0
+offset_bottom = 150.0
+text = "Lorem"
+horizontal_alignment = 1
+
+[node name="EditMenu" type="Control" parent="." unique_id=371068290]
+visible = false
+anchors_preset = 0

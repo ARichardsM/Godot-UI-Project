@@ -518,7 +518,6 @@ public partial class PersonaScript : Node
     editPage ep = new editPage();
 
     // Declare variables
-    private int selectNum = 0;
     public Global.persona newPersona;
 
     // Called when the node enters the scene tree for the first time.

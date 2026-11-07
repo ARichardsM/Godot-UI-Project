@@ -44,6 +44,25 @@ horizontal_alignment = 1
 [node name="ViewMenu" type="Control" parent="." unique_id=573689410]
 anchors_preset = 0
 
+[node name="DataBox" type="ScrollContainer" parent="ViewMenu" unique_id=537230961]
+layout_mode = 0
+offset_left = -475.0
+offset_top = -200.0
+offset_right = 475.0
+offset_bottom = 100.0
+
+[node name="GridContainer" type="GridContainer" parent="ViewMenu/DataBox" unique_id=1728887804]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="ViewMenu" unique_id=533616401]
+layout_mode = 0
+offset_left = -475.0
+offset_top = 100.0
+offset_right = 475.0
+offset_bottom = 150.0
+text = "Lorem"
+horizontal_alignment = 1
+
 [node name="ButtonContainer" type="HBoxContainer" parent="ViewMenu" unique_id=117328153]
 layout_mode = 0
 offset_left = -475.0
@@ -69,25 +88,6 @@ custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 text = "Exit"
 metadata/_edit_use_anchors_ = true
-
-[node name="DataBox" type="ScrollContainer" parent="ViewMenu" unique_id=537230961]
-layout_mode = 0
-offset_left = -475.0
-offset_top = -200.0
-offset_right = 475.0
-offset_bottom = 100.0
-
-[node name="GridContainer" type="GridContainer" parent="ViewMenu/DataBox" unique_id=1728887804]
-layout_mode = 2
-
-[node name="Name" type="Label" parent="ViewMenu" unique_id=533616401]
-layout_mode = 0
-offset_left = -475.0
-offset_top = 100.0
-offset_right = 475.0
-offset_bottom = 150.0
-text = "Lorem"
-horizontal_alignment = 1
 
 [node name="EditMenu" type="Control" parent="." unique_id=371068290]
 visible = false

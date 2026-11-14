@@ -71,10 +71,10 @@ offset_right = 475.0
 offset_bottom = 295.0
 theme_override_constants/separation = 25
 
-[node name="Add" parent="ViewMenu/ButtonContainer" unique_id=311425869 instance=ExtResource("2_58670")]
+[node name="Wipe" parent="ViewMenu/ButtonContainer" unique_id=311425869 instance=ExtResource("2_58670")]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-text = "Add"
+text = "Wipe"
 metadata/_edit_use_anchors_ = true
 
 [node name="Edit" parent="ViewMenu/ButtonContainer" unique_id=105077245 instance=ExtResource("2_58670")]
@@ -92,3 +92,7 @@ metadata/_edit_use_anchors_ = true
 [node name="EditMenu" type="Control" parent="." unique_id=371068290]
 visible = false
 anchors_preset = 0
+
+[connection signal="pressed" from="ViewMenu/ButtonContainer/Wipe" to="." method="ViewPageButtons" binds= [0]]
+[connection signal="pressed" from="ViewMenu/ButtonContainer/Edit" to="." method="ViewPageButtons" binds= [1]]
+[connection signal="pressed" from="ViewMenu/ButtonContainer/Exit" to="." method="ViewPageButtons" binds= [2]]
